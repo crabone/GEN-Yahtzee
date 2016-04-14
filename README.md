@@ -29,3 +29,23 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 * Un joueur ne peut réjoindre une partie en cours (y compris dans le cas où il s'y est déconnecté involontairement);
 * Une partie ne peut être composé de plus de 6 joueurs;
 * Le protocole client-serveur n'est pas chiffré.
+
+## Cas d'utilisation
+### S'inscrire sur un serveur
+#### Scénario principal (succès)
+1. Le joueur se rend sur le menu principal
+2. Le joueur se rend sur le menu "S'inscrire..."
+3. Le joueur enregistre l'adresse IP du serveur, un nom d'utilisateur et un mot-de-passe
+4. Le joueur confirme l'inscription
+
+#### Autres scénarios (échecs, variantes)
+##### Opération 3: Le serveur est introuvable
+1. Le joueur est notifié
+2. Le joueur corrige l'adresse IP
+
+##### Opération 3: Le nom d'utilisateur existe déjà
+1. Le joueur est notifié
+2. Le joueur enregistre un nom d'utilisateur différent
+
+##### Opération 4: Le joueur annule la procédure
+1. Le joueur abandonne l'enregistrement
