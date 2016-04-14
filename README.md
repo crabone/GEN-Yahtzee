@@ -49,3 +49,9 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 
 ##### Opération 4: Le joueur annule la procédure
 1. Le joueur abandonne l'enregistrement
+
+### S'authentifié sur un serveur
+#### Scénario principal (succès)
+1. Le joueur se rend sur le menu principal
+2. Le joueur spécifie le serveur aucquel il veut se connecter
+3. Le joueur spécifie son nom d'utilisateur et le mot-de-passe associé
