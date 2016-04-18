@@ -30,6 +30,20 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 * Une partie ne peut être composé de plus de 6 joueurs;
 * Le protocole client-serveur n'est pas chiffré.
 
+## Responsabilités client et serveur
+### Serveur
+* Gestion de la base de données
+* Instancier les parties
+* Dresser les classements
+* Mise en relation des joueurs
+* Logique du jeu
+* Configuration du serveur
+* Valider authentifications utilisateurs
+
+### Client
+* Authentification auprès du serveur
+* Mise-à-jours des vues
+
 ## Cas d'utilisation
 ### S'inscrire sur un serveur
 #### Scénario principal (succès)
