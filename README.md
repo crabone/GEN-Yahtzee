@@ -111,4 +111,8 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 1. Le joueur quitte le serveur avec le dispositif prévu à cet effet
 2. Le joueur est redirigé sur l'écran d'accueil
 
+## Protocole client-serveur
 
+## Base de données
+
+## Plan d'itération
