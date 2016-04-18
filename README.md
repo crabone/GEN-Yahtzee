@@ -70,16 +70,31 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 1. Le joueur est notifié
 2. Le joueur corrige son mot-de-passe
 
-### Modifier son profile
-
 ### Créer une partie
+#### Scénario Principal (succès)
+1. Le joueur se rend dans l'espace prévu à cet effet
+2. Le joueur spécifie le nombre de joueurs admisible
+3. La partie est mise en attente tant qu'il n'y a pas assez de joueur
 
 ### Rejoindre une partie
+#### Scénario Principal (succès)
+1. Le joueur se rend sur la liste des parties en attente
+2. Le joueur notifie au serveur quelle partie il veut rejoindre
 
 ### Observer une partie
-
-### Modifier la configuration du serveur
+#### Scénario Principal (succès)
+1. Le joueur se rend sur la liste de toute les parties
+2. Le joueur notifie au serveut quelle partie il veut observer
 
 ### Administrer les utilisateurs du serveur
+#### Scénario Principal (succès)
+1. L'administrateur se rend sur la fenêtre de configuration du serveur
+2. L'administrateur sélectionne un utilisateur du serveur
+3. L'administrateur accompli l'action souhaitée (Suppression, ban, ...)
+
+### Quitter le serveur
+#### Scénario Principal (succès)
+1. Le joueur quitte le serveur avec le dispositif prévu à cet effet
+2. Le joueur est redirigé sur l'écran d'accueil
 
 
