@@ -69,3 +69,17 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 #### Opération 3: Le mot-de-passe est incorrect
 1. Le joueur est notifié
 2. Le joueur corrige son mot-de-passe
+
+### Modifier son profile
+
+### Créer une partie
+
+### Rejoindre une partie
+
+### Observer une partie
+
+### Modifier la configuration du serveur
+
+### Administrer les utilisateurs du serveur
+
+
