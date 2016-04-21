@@ -114,5 +114,6 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 ## Protocole client-serveur
 
 ## Base de données
+![Base de données](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/BDD.bmp)
 
 ## Plan d'itération
