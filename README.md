@@ -115,10 +115,10 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 
 ## Ebauche UI
 ### Fenêtre d'authentification
-![Fenêtre d'authentification](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/Authentification.bmp)
+![Fenêtre d'authentification](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/ui/Authentification.bmp)
 
 ### Fenêtre principale
-![Fenêtre principale](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/accueil.bmp)
+![Fenêtre principale](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/ui/accueil.bmp)
 
 ## Base de données
 ![Base de données](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/BDD.bmp)
@@ -128,59 +128,70 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 #### But
 Développer une architecture (minimale) d'une application client-serveur, permettant l'échange de messages entre plusieurs clients et un serveur.
 #### Dates
-Du 21 avril 2016 jusqu'au 28 avril 2016
+Du 21 avril 2016 jusqu'au 28 avril 2016.
 #### Phase
-Implémentation et conception
+Implémentation et conception.
 #### Fonctionnalités
-* Serveur pouvant gérer plusieurs clients simultanément
-* Connexion d'un ou plusieurs clients sur le serveur
-* Communication textuelle entre le client et le serveur
-* Gestion propre des états client (Connexion, déconnexion)
-* Monitoring de la part du serveur, des clients associés
+* Serveur pouvant gérer plusieurs clients simultanément;
+* Connexion d'un ou plusieurs clients sur le serveur;
+* Communication textuelle entre le client et le serveur;
+* Gestion propre des états client (Connexion, déconnexion);
+* Monitoring de la part du serveur, des clients associés.
 
 #### Démonstration
-* Des clients doivent pouvoir se connecter au serveur
-* Visualisation des échanges échanges entre les clients et le serveur (Par Wireshark)
+* Des clients doivent pouvoir se connecter au serveur;
+* Visualisation des échanges échanges entre les clients et le serveur (Par Wireshark).
 
 ### Itération n°2
 #### But
+Implémenter le protocole client-serveur.
 #### Dates
+Du 28 avril 2016 au 5 mai 2016.
 #### Phase
+Implémentation et conception.
 #### Fonctionnalités
+* Le client et le serveur communique selon le protocole mis en place;
+* Le protocole contient toutes les intéractions entre le client et le serveur t.q. la création d'une partie et le déroulement d'une partie;
+* Ce protocole sert de base pour implémenter la mécanique du jeu.
+
 #### Démonstration
+* Le client et le serveur s'échange des messages selon le protocole établi (Visualisation par Wireshark).
+
 ### Itération n°3
 #### But
+Implémentation du moteur et de la mécanique du jeu.
 #### Dates
+Du 5 mai 2016 au 12 mai 2016 (avec une réserve d'une semaine).
 #### Phase
+Implémentation et conception.
 #### Fonctionnalités
+* Plusieurs clients pourront jouer des parties;
+* Le serveur peut accepter plusieurs parties simultanées.
+
 #### Démonstration
+* Une partie (en ligne de commande) entre 3 joueurs.
+
 ### Itération n°4
 #### But
+Implémentation de la gestion des parties et du classement.
 #### Dates
+Du 12 mai 2016 au 19 mai 2016.
 #### Phase
+Implémentation et conception.
 #### Fonctionnalités
+* Le client peut créer une partie;
+* Le client peut rejoindre une partie;
+* Le client peut observer une partie.
+
 #### Démonstration
+* Démonstrations des 3 fonctionnalités.
+
 ### Itération n°5
 #### But
+Implémentation de l'interface graphique
 #### Dates
+Du 19 mai 2016 au 2 juin 2016.
 #### Phase
-#### Fonctionnalités
-#### Démonstration
-### Itération n°6
-#### But
-#### Dates
-#### Phase
-#### Fonctionnalités
-#### Démonstration
-### Itération n°7
-#### But
-#### Dates
-#### Phase
-#### Fonctionnalités
-#### Démonstration
-### Itération n°8
-#### But
-#### Dates
-#### Phase
+Implémenation et conception
 #### Fonctionnalités
 #### Démonstration
