@@ -113,6 +113,13 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 
 ## Protocole client-serveur
 
+## Ebauche UI
+### Fenêtre d'authentification
+![Fenêtre d'authentification](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/Authentification.bmp)
+
+### Fenêtre principale
+![Fenêtre principale](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/accueil.bmp)
+
 ## Base de données
 ![Base de données](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/BDD.bmp)
 
