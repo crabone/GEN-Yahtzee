@@ -188,25 +188,10 @@ Implémentation et conception.
 
 ### Itération n°5
 #### But
+Implémentation de l'interface graphique
 #### Dates
+Du 19 mai 2016 au 2 juin 2016.
 #### Phase
-#### Fonctionnalités
-#### Démonstration
-### Itération n°6
-#### But
-#### Dates
-#### Phase
-#### Fonctionnalités
-#### Démonstration
-### Itération n°7
-#### But
-#### Dates
-#### Phase
-#### Fonctionnalités
-#### Démonstration
-### Itération n°8
-#### But
-#### Dates
-#### Phase
+Implémenation et conception
 #### Fonctionnalités
 #### Démonstration
