@@ -128,26 +128,35 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 #### But
 Développer une architecture (minimale) d'une application client-serveur, permettant l'échange de messages entre plusieurs clients et un serveur.
 #### Dates
-Du 21 avril 2016 jusqu'au 28 avril 2016
+Du 21 avril 2016 jusqu'au 28 avril 2016.
 #### Phase
-Implémentation et conception
+Implémentation et conception.
 #### Fonctionnalités
-* Serveur pouvant gérer plusieurs clients simultanément
-* Connexion d'un ou plusieurs clients sur le serveur
-* Communication textuelle entre le client et le serveur
-* Gestion propre des états client (Connexion, déconnexion)
-* Monitoring de la part du serveur, des clients associés
+* Serveur pouvant gérer plusieurs clients simultanément;
+* Connexion d'un ou plusieurs clients sur le serveur;
+* Communication textuelle entre le client et le serveur;
+* Gestion propre des états client (Connexion, déconnexion);
+* Monitoring de la part du serveur, des clients associés.
 
 #### Démonstration
-* Des clients doivent pouvoir se connecter au serveur
-* Visualisation des échanges échanges entre les clients et le serveur (Par Wireshark)
+* Des clients doivent pouvoir se connecter au serveur;
+* Visualisation des échanges échanges entre les clients et le serveur (Par Wireshark).
 
 ### Itération n°2
 #### But
+Implémenter le protocole client-serveur.
 #### Dates
+Du 28 avril 2016 au 5 mai 2016.
 #### Phase
+Implémentation et conception.
 #### Fonctionnalités
+* Le client et le serveur communique selon le protocole mis en place;
+* Le protocole contient toutes les intéractions entre le client et le serveur t.q. la création d'une partie et le déroulement d'une partie;
+* Ce protocole sert de base pour implémenter la mécanique du jeu.
+
 #### Démonstration
+* Le client et le serveur s'échange des messages selon le protocole établi (Visualisation par Wireshark).
+
 ### Itération n°3
 #### But
 #### Dates
