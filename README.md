@@ -113,6 +113,74 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 
 ## Protocole client-serveur
 
+## Ebauche UI
+### Fenêtre d'authentification
+![Fenêtre d'authentification](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/Authentification.bmp)
+
+### Fenêtre principale
+![Fenêtre principale](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/accueil.bmp)
+
 ## Base de données
+![Base de données](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/BDD.bmp)
 
 ## Plan d'itération
+### Itération n°1
+#### But
+Développer une architecture (minimale) d'une application client-serveur, permettant l'échange de messages entre plusieurs clients et un serveur.
+#### Dates
+Du 21 avril 2016 jusqu'au 28 avril 2016
+#### Phase
+Implémentation et conception
+#### Fonctionnalités
+* Serveur pouvant gérer plusieurs clients simultanément
+* Connexion d'un ou plusieurs clients sur le serveur
+* Communication textuelle entre le client et le serveur
+* Gestion propre des états client (Connexion, déconnexion)
+* Monitoring de la part du serveur, des clients associés
+
+#### Démonstration
+* Des clients doivent pouvoir se connecter au serveur
+* Visualisation des échanges échanges entre les clients et le serveur (Par Wireshark)
+
+### Itération n°2
+#### But
+#### Dates
+#### Phase
+#### Fonctionnalités
+#### Démonstration
+### Itération n°3
+#### But
+#### Dates
+#### Phase
+#### Fonctionnalités
+#### Démonstration
+### Itération n°4
+#### But
+#### Dates
+#### Phase
+#### Fonctionnalités
+#### Démonstration
+### Itération n°5
+#### But
+#### Dates
+#### Phase
+#### Fonctionnalités
+#### Démonstration
+### Itération n°6
+#### But
+#### Dates
+#### Phase
+#### Fonctionnalités
+#### Démonstration
+### Itération n°7
+#### But
+#### Dates
+#### Phase
+#### Fonctionnalités
+#### Démonstration
+### Itération n°8
+#### But
+#### Dates
+#### Phase
+#### Fonctionnalités
+#### Démonstration
