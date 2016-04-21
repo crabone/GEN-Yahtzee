@@ -157,11 +157,11 @@ Implémentation et conception.
 * Visualisation des échanges échanges entre les clients et le serveur (Par Wireshark).
 
 #### Rôles
-Fabien: Pharaon, Monarque
-Kevin: Esclave
-Ibrahim: Maitre chanteur
-Madolyne: Scrib
-Rosanne: Major de l'armée
+Fabien: Responsable normes et procédures
+Kevin: Programmeur
+Ibrahim: Analyste
+Madolyne: Responsable documentation 
+Rosanne: Responsable des tests
 
 ### Itération n°2
 #### But
