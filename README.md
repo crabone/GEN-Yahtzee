@@ -156,6 +156,13 @@ Implémentation et conception.
 * Des clients doivent pouvoir se connecter au serveur;
 * Visualisation des échanges échanges entre les clients et le serveur (Par Wireshark).
 
+#### Rôles
+Fabien: Pharaon, Monarque
+Kevin: Esclave
+Ibrahim: Maitre chanteur
+Madolyne: Scrib
+Rosanne: Major de l'armée
+
 ### Itération n°2
 #### But
 Implémenter le protocole client-serveur.
