@@ -124,3 +124,43 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 ![Base de données](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/BDD.bmp)
 
 ## Plan d'itération
+### Itération n°1
+#### But
+#### Dates
+#### Phase
+#### Démonstration
+### Itération n°2
+#### But
+#### Dates
+#### Phase
+#### Démonstration
+### Itération n°3
+#### But
+#### Dates
+#### Phase
+#### Démonstration
+### Itération n°4
+#### But
+#### Dates
+#### Phase
+#### Démonstration
+### Itération n°5
+#### But
+#### Dates
+#### Phase
+#### Démonstration
+### Itération n°6
+#### But
+#### Dates
+#### Phase
+#### Démonstration
+### Itération n°7
+#### But
+#### Dates
+#### Phase
+#### Démonstration
+### Itération n°8
+#### But
+#### Dates
+#### Phase
+#### Démonstration
