@@ -137,9 +137,11 @@ Implémentation et conception
 * Communication textuelle entre le client et le serveur
 * Gestion propre des états client (Connexion, déconnexion)
 * Monitoring de la part du serveur, des clients associés
+
 #### Démonstration
 * Des clients doivent pouvoir se connecter au serveur
 * Visualisation des échanges échanges entre les clients et le serveur (Par Wireshark)
+
 ### Itération n°2
 #### But
 #### Dates
