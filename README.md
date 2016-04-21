@@ -112,6 +112,20 @@ Lorsque le total intermédiaire est égal ou supérieur à 63 points, un bonus d
 2. Le joueur est redirigé sur l'écran d'accueil
 
 ## Protocole client-serveur
+### Authentification
+![Authentification](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/diagrams/authentificationClient.png)
+
+### Rejoindre/Observer une partie
+![Rejoindre, Observer](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/diagrams/DemanderObserverJoindre.png)
+
+### Modification du profil
+![Modification du profil](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/diagrams/ComptePersonnel.png)
+
+### Classement des joueurs
+![Classement](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/diagrams/listeClassementPartie.png)
+
+### Jouer une partie
+![Jouer](https://github.com/crabone/GEN-Yahtzee/blob/master/figures/diagrams/LanceDes.png)
 
 ## Ebauche UI
 ### Fenêtre d'authentification
