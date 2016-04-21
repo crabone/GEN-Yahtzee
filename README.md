@@ -159,16 +159,33 @@ Implémentation et conception.
 
 ### Itération n°3
 #### But
+Implémentation du moteur et de la mécanique du jeu.
 #### Dates
+Du 5 mai 2016 au 12 mai 2016 (avec une réserve d'une semaine).
 #### Phase
+Implémentation et conception.
 #### Fonctionnalités
+* Plusieurs clients pourront jouer des parties;
+* Le serveur peut accepter plusieurs parties simultanées.
+
 #### Démonstration
+* Une partie (en ligne de commande) entre 3 joueurs.
+
 ### Itération n°4
 #### But
+Implémentation de la gestion des parties et du classement.
 #### Dates
+Du 12 mai 2016 au 19 mai 2016.
 #### Phase
+Implémentation et conception.
 #### Fonctionnalités
+* Le client peut créer une partie;
+* Le client peut rejoindre une partie;
+* Le client peut observer une partie.
+
 #### Démonstration
+* Démonstrations des 3 fonctionnalités.
+
 ### Itération n°5
 #### But
 #### Dates
