@@ -5,7 +5,7 @@ USE Yahtzee;
 CREATE TABLE Joueur(
 	ID int(10) AUTO_INCREMENT,
     Username varchar(20),
-    MDP varchar(40),
+    MDP varchar(64),
     ScoreTotal int(15),
     PRIMARY KEY (ID)
 );
