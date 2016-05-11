@@ -5,9 +5,7 @@
  */
 package com.mycompany.jyahtzee.manager;
 
-import com.mycompany.jyahtzee.server.transport.MultiThreadedServer;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

@@ -9,6 +9,25 @@ package com.mycompany.jyahtzee.manager;
  *
  * @author Kevin
  */
-public class Joueur {
+public class Joueur 
+{
+    private int id;
+    private String userName;
+    private int score;
+    
+    public int getID()
+    {
+        return id;
+    }
+    
+    public String getUserName()
+    {
+        return userName;
+    }
+    
+    public int getScore()
+    {
+        return score;
+    }
     
 }
