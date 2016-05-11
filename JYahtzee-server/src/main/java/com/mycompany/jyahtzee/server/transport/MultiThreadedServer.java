@@ -73,17 +73,120 @@ public class MultiThreadedServer {
         public void run() {
             String line;
             boolean shouldRun = true;
+            boolean ok;
             
-            writer.println("Welcome to our Yahtzee server.");
-            writer.flush();
+            //writer.println("Welcome to our Yahtzee server.");
+            //writer.flush();
             
             try {
                 while ((shouldRun == true) && (line = reader.readLine()) != null) {
-                    if (line.equalsIgnoreCase("bye")) {
+                    /*if (line.equalsIgnoreCase("bye")) {
                         shouldRun = false;
                     }
                     writer.println("> " + line);
-                    writer.flush();
+                    writer.flush();*/
+                    switch(line)
+                    {
+                        case (Protocole.CMD_HI):
+                            writer.println(Protocole.CMD_HI);
+                            writer.flush();
+                            break;
+                        case (Protocole.CMD_AUTH):
+                            auth();
+                            break;
+                        case (Protocole.CMD_INSCRIPTION):
+                            inscription();
+                            break;
+                        case (Protocole.CMD_CREATION):
+                            ok = Fonction_de_création_d_une_partie;
+                            if(ok)
+                            {
+                                    writer.println(Protocole.CMD_OK);
+                            }
+                            else
+                            {
+                                    writer.println(Protocole.CMD_KO);
+                            }                		
+                            writer.flush();
+                            break;
+                        case (Protocole.CMD_JOIN):
+                            String id;
+                            writer.println(Protocole.CMD_ACK);
+                            writer.flush();
+                            id = reader.readLine();
+                            if(id == null)
+                            {
+                                    writer.println(Protocole.CMD_KO);
+                                    writer.flush();
+                                    break;
+                            }
+                            ok = fonction_rejoindre_partie(id);
+                            if(ok)
+                            {
+                                    writer.println(Protocole.CMD_OK);
+                            }
+                            else
+                            {
+                                    writer.println(Protocole.CMD_KO);
+                            }
+                            writer.flush();
+                            break;
+                        case (Protocole.CMD_OBSERVE):
+                            String idGame;
+                            writer.println(Protocole.CMD_ACK);
+                            writer.flush();
+                            idGame = reader.readLine();
+                            if(id == null)
+                            {
+                                    writer.println(Protocole.CMD_KO);
+                                    writer.flush();
+                                    break;
+                            }
+                            ok = fonction_observer_partie(idGame);
+                            if(ok)
+                            {
+                                    writer.println(Protocole.CMD_OK);
+                            }
+                            else
+                            {
+                                    writer.println(Protocole.CMD_KO);
+                            }
+                            writer.flush();
+                            break;
+                        case (Protocole.CMD_ROLL_THE_DICES):
+                            // Fonction pour lancer les dés
+                            break;
+                        case (Protocole.CMD_DECISION):
+                            String idScore;
+                            writer.println(Protocole.CMD_ACK);
+                            writer.flush();
+                            idScore = reader.readLine();
+                            if(idScore == null)
+                            {
+                                    writer.println(Protocole.CMD_KO);
+                                    writer.flush();
+                                    break;
+                            }
+                            ok = fonction_enregistrer_score(idScore);
+                            if(ok)
+                            {
+                                    writer.println(Protocole.CMD_OK);
+                            }
+                            else
+                            {
+                                    writer.println(Protocole.CMD_KO);
+                            }
+                            writer.flush();
+                            break;
+                        case (Protocole.CMD_BYE):
+                            writer.println(Protocole.CMD_BYE);
+                            writer.flush();
+                            shouldRun = false;
+                            break;
+                        default:
+                            writer.println("Command not known");
+                            break;
+                    }
                 }
                 
                 clientSocket.close();
@@ -112,6 +215,90 @@ public class MultiThreadedServer {
                 }
                 Logger.getLogger(MultiThreadedServer.class.getName()).log(Level.SEVERE, null, ex);
             }            
+        }
+        private void auth() throws IOException
+        {
+            String mdp;
+            String username;
+            String line;
+
+            writer.println(Protocole.CMD_ACK);
+            writer.flush();
+            while((line = reader.readLine()) == Protocole.CMD_USERNAME)
+            {
+        	writer.println("Not a correct command");
+            	writer.flush();
+            }
+            writer.println(Protocole.CMD_ACK);
+            writer.flush();
+            username = reader.readLine();
+            if(username == null)
+            {
+            	writer.println(Protocole.CMD_KO);
+            	writer.flush();
+            	return;
+            }
+            writer.println(Protocole.CMD_OK);
+            writer.flush();
+            while((line = reader.readLine()) == Protocole.CMD_MDP)
+            {
+                writer.println("Not a correct command");
+            	writer.flush();
+            }
+            writer.println(Protocole.CMD_ACK);
+            writer.flush();
+            mdp = reader.readLine();
+            if(mdp == null)
+            {
+                writer.println(Protocole.CMD_KO);
+        	writer.flush();
+        	return;
+            }
+            writer.println(Protocole.CMD_OK);
+            writer.flush();
+            fonction_verification_BDD(username, mdp);        	        	
+        }
+        private void inscription() throws IOException
+        {
+            String mdp;
+            String username;
+            String line;
+
+            writer.println(Protocole.CMD_ACK);
+            writer.flush();
+            while((line = reader.readLine()) == Protocole.CMD_USERNAME)
+            {
+        	writer.println("Not a correct command");
+            	writer.flush();
+            }
+            writer.println(Protocole.CMD_ACK);
+            writer.flush();
+            username = reader.readLine();
+            if(username == null)
+            {
+                writer.println(Protocole.CMD_KO);
+        	writer.flush();
+                return;
+            }
+            writer.println(Protocole.CMD_OK);
+            writer.flush();
+            while((line = reader.readLine()) == Protocole.CMD_MDP)
+            {
+            	writer.println("Not a correct command");
+            	writer.flush();
+            }
+            writer.println(Protocole.CMD_ACK);
+            writer.flush();
+            mdp = reader.readLine();
+            if(mdp == null)
+            {
+                writer.println(Protocole.CMD_KO);
+        	writer.flush();
+        	return;
+            }
+            writer.println(Protocole.CMD_OK);
+            writer.flush();
+            fonction_inscription_BDD(username, mdp);   
         }
         
     }
