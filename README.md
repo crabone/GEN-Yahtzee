@@ -74,12 +74,14 @@ Le client peut jouer une partie
 #### Démonstration
 Démonstrations lors de l’itération 5
 #### Partage du travail
-* Fabien : 
-* Kevin : 
-* Ibrahim : 
-* Madolyne : 
-* Rosanne :
+* Fabien : Gestion des parties : implémentation de la mécanique du jeu.
+* Kevin : Gestion des parties : implémentation de la mécanique du jeu.
+* Ibrahim : Gestion des parties : communication avec la base de données.
+* Madolyne : Interface graphique : plateau de jeu.
+* Rosanne : Rédaction du bilan d’itération 3. Implémentation de la mécanique du jeu. 
 ####Efforts
+* Gestion partie: 15h
+* Interface graphique: 6h
 
 ### Itération n°5
 #### But
@@ -117,7 +119,7 @@ Implémenation et conception
 * Ibrahim : 
 * Madolyne : 
 * Rosanne :
-####Efforts
+#### Efforts
 
 ### Itération n°7
 #### But
