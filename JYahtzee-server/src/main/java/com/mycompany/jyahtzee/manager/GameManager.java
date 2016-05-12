@@ -5,7 +5,7 @@
  */
 package com.mycompany.jyahtzee.manager;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -13,18 +13,33 @@ import java.util.ArrayList;
  */
 public class GameManager 
 {
-    ArrayList<Game> games = new ArrayList();
+    HashMap<Integer,Game> games = new HashMap<>();
     
-    public boolean creationPartie()
+
+    public GameManager()
     {
-        Game newGame = new Game(joueur);
-        games.add(newGame);
+    }
+    
+    
+    
+    public boolean createGame()
+    {
+        Game newGame = new Game(player);
+        games.put(newGame.getID(),newGame);
         return false;
     }
     
-    public void joindrePartie()
+    public boolean joinGame(int id)
     {
+        Game game = games.get(id);
+        game.addPlayer(player);
         
+        return false;
+    }
+    
+    public boolean observeGame(int id)
+    {
+        return false;
     }
     
 }

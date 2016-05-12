@@ -1,5 +1,6 @@
 package com.mycompany.jyahtzee.server.transport;
 
+import com.mycompany.jyahtzee.manager.GameManager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -74,6 +75,7 @@ public class MultiThreadedServer {
             String line;
             boolean shouldRun = true;
             boolean ok;
+            GameManager gameManager = new GameManager();
             
             //writer.println("Welcome to our Yahtzee server.");
             //writer.flush();
@@ -98,7 +100,7 @@ public class MultiThreadedServer {
                             inscription();
                             break;
                         case (Protocole.CMD_CREATION):
-                            ok = Fonction_de_création_d_une_partie;
+                            ok = gameManager.createGame();
                             if(ok)
                             {
                                     writer.println(Protocole.CMD_OK);
@@ -110,17 +112,17 @@ public class MultiThreadedServer {
                             writer.flush();
                             break;
                         case (Protocole.CMD_JOIN):
-                            String id;
+                            int id;
                             writer.println(Protocole.CMD_ACK);
                             writer.flush();
-                            id = reader.readLine();
-                            if(id == null)
+                            id = Integer.parseInt(reader.readLine());
+                            if(id == 0)
                             {
                                     writer.println(Protocole.CMD_KO);
                                     writer.flush();
                                     break;
                             }
-                            ok = fonction_rejoindre_partie(id);
+                            ok = gameManager.joinGame(id,player);
                             if(ok)
                             {
                                     writer.println(Protocole.CMD_OK);
@@ -132,17 +134,17 @@ public class MultiThreadedServer {
                             writer.flush();
                             break;
                         case (Protocole.CMD_OBSERVE):
-                            String idGame;
+                            int idGame;
                             writer.println(Protocole.CMD_ACK);
                             writer.flush();
-                            idGame = reader.readLine();
-                            if(id == null)
+                            idGame = Integer.parseInt(reader.readLine());
+                            if(id == 0)
                             {
                                     writer.println(Protocole.CMD_KO);
                                     writer.flush();
-                                    break;
+                                    break;      
                             }
-                            ok = fonction_observer_partie(idGame);
+                            ok = gameManager.observeGame(idGame);
                             if(ok)
                             {
                                     writer.println(Protocole.CMD_OK);
