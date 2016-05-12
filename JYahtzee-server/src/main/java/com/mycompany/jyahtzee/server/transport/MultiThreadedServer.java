@@ -224,7 +224,7 @@ public class MultiThreadedServer {
 
             writer.println(Protocole.CMD_ACK);
             writer.flush();
-            while((line = reader.readLine()) == Protocole.CMD_USERNAME)
+            while((line = reader.readLine()).equals(Protocole.CMD_USERNAME))
             {
         	writer.println("Not a correct command");
             	writer.flush();
@@ -240,7 +240,7 @@ public class MultiThreadedServer {
             }
             writer.println(Protocole.CMD_OK);
             writer.flush();
-            while((line = reader.readLine()) == Protocole.CMD_MDP)
+            while((line = reader.readLine()).equals(Protocole.CMD_MDP))
             {
                 writer.println("Not a correct command");
             	writer.flush();
@@ -266,7 +266,7 @@ public class MultiThreadedServer {
 
             writer.println(Protocole.CMD_ACK);
             writer.flush();
-            while((line = reader.readLine()) == Protocole.CMD_USERNAME)
+            while((line = reader.readLine()).equals(Protocole.CMD_USERNAME))
             {
         	writer.println("Not a correct command");
             	writer.flush();
@@ -282,7 +282,7 @@ public class MultiThreadedServer {
             }
             writer.println(Protocole.CMD_OK);
             writer.flush();
-            while((line = reader.readLine()) == Protocole.CMD_MDP)
+            while((line = reader.readLine()).equals(Protocole.CMD_MDP))
             {
             	writer.println("Not a correct command");
             	writer.flush();
