@@ -19,15 +19,30 @@ public class MultiThreadedServer {
     private static final Logger LOG = Logger.getLogger(MultiThreadedServer.class.getName());
     
     final int port;
+    boolean connected;
 
+    /**
+     * Construit un serveur multithreadé, en spécifiant le port d'écoute.
+     * 
+     * @param port
+     */
     public MultiThreadedServer(int port) {
         this.port = port;
+        connected = false;
     }
     
+    /**
+     * Cette méthode est appelé après construction de l'objet, servant à 
+     * recevoir les clients.
+     */
     public void serveClients() {        
         new Thread(new ReceptionistWorker()).start();
     }
     
+    /**
+     * Cette classe est chargé de réceptionner les clients qui arrivent sur
+     * le serveur.
+     */
     private class ReceptionistWorker implements Runnable {
 
         @Override
@@ -54,6 +69,10 @@ public class MultiThreadedServer {
         
     }
     
+    /**
+     * Cette classe est chargée de servir les clients après qu'ils aient été
+     * reçu.
+     */
     private class ServantWorker implements Runnable {
         
         Socket clientSocket;
@@ -68,6 +87,8 @@ public class MultiThreadedServer {
             } catch (IOException ex) {
                 Logger.getLogger(MultiThreadedServer.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            connected = true;
         }
 
         @Override
@@ -82,11 +103,7 @@ public class MultiThreadedServer {
             
             try {
                 while ((shouldRun == true) && (line = reader.readLine()) != null) {
-                    /*if (line.equalsIgnoreCase("bye")) {
-                        shouldRun = false;
-                    }
-                    writer.println("> " + line);
-                    writer.flush();*/
+                    
                     switch(line)
                     {
                         case (Protocole.CMD_HI):
@@ -138,12 +155,14 @@ public class MultiThreadedServer {
                             writer.println(Protocole.CMD_ACK);
                             writer.flush();
                             idGame = Integer.parseInt(reader.readLine());
+                            /*
                             if(id == 0)
                             {
                                     writer.println(Protocole.CMD_KO);
                                     writer.flush();
                                     break;      
                             }
+                            */
                             ok = gameManager.observeGame(idGame);
                             if(ok)
                             {
@@ -169,7 +188,8 @@ public class MultiThreadedServer {
                                     writer.flush();
                                     break;
                             }
-                            ok = fonction_enregistrer_score(idScore);
+                            /*
+                            //ok = fonction_enregistrer_score(idScore);
                             if(ok)
                             {
                                     writer.println(Protocole.CMD_OK);
@@ -178,6 +198,7 @@ public class MultiThreadedServer {
                             {
                                     writer.println(Protocole.CMD_KO);
                             }
+                            */
                             writer.flush();
                             break;
                         case (Protocole.CMD_BYE):
@@ -191,33 +212,42 @@ public class MultiThreadedServer {
                     }
                 }
                 
-                clientSocket.close();
-                reader.close();
-                writer.close();
+                disconnect();
             } catch (IOException ex) {
-                /*
-                Penser à faire des fonction cleanup / disconnect.
-                */
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException ex1) {
-                        Logger.getLogger(MultiThreadedServer.class.getName()).log(Level.SEVERE, null, ex1);
-                    }
+                try {
+                    cleanup();
+                } catch (IOException ex1) {
+                    Logger.getLogger(MultiThreadedServer.class.getName()).log(Level.SEVERE, null, ex1);
                 }
-                if (writer != null) {
-                    writer.close();
-                }
-                if (clientSocket != null) {
-                    try {
-                        clientSocket.close();
-                    } catch (IOException ex1) {
-                        Logger.getLogger(MultiThreadedServer.class.getName()).log(Level.SEVERE, null, ex1);
-                    }
-                }
-                Logger.getLogger(MultiThreadedServer.class.getName()).log(Level.SEVERE, null, ex);
             }            
         }
+        
+        /**
+         * Méthode permettant de fermer tout les flux ouverts. Elle est généralement
+         * appelée en cas de fermeture de la connexion.
+         */
+        private void cleanup() throws IOException
+        {
+            if (reader != null) {
+                reader.close();
+            }
+            if (writer != null) {
+                writer.close();
+            }
+            if (clientSocket != null) {
+                clientSocket.close();
+            }
+        }
+        
+        /**
+         * Cette méthode est appelé lorsque qu'un client ce déconnecte du serveur.
+         */
+        private void disconnect() throws IOException
+        {
+            connected = false;
+            cleanup();
+        }
+        
         private void auth() throws IOException
         {
             String mdp;
@@ -258,8 +288,8 @@ public class MultiThreadedServer {
             }
             writer.println(Protocole.CMD_OK);
             writer.flush();
-            fonction_verification_BDD(username, mdp);        	        	
         }
+        
         private void inscription() throws IOException
         {
             String mdp;
@@ -300,7 +330,7 @@ public class MultiThreadedServer {
             }
             writer.println(Protocole.CMD_OK);
             writer.flush();
-            fonction_inscription_BDD(username, mdp);   
+            //fonction_inscription_BDD(username, mdp); 
         }
         
     }
