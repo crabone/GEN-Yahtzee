@@ -76,6 +76,7 @@ Démonstrations lors de l’itération 5
 * Ibrahim : Gestion des parties : communication avec la base de données.
 * Madolyne : Interface graphique : plateau de jeu.
 * Rosanne : Rédaction du bilan d’itération 3. Implémentation de la mécanique du jeu. 
+
 #### Efforts
 * Gestion partie: 15h
 * Interface graphique: 6h
@@ -91,12 +92,14 @@ Implémenation et conception
 * Le client peut jouer et quitter une partie en cours.
 #### Démonstration
 Démonstrations du déroulement d’une partie
+
 #### Partage du travail
 * Fabien : 
 * Kevin : 
 * Ibrahim : 
 * Madolyne : 
 * Rosanne :
+
 #### Efforts
 
 ### Itération n°6
@@ -109,6 +112,7 @@ Implémenation et conception
 #### Fonctionnalités
 * Suppression d’un compte
 * Ban d’un joueur
+
 #### Démonstration
 #### Partage du travail
 * Fabien : 
@@ -116,6 +120,7 @@ Implémenation et conception
 * Ibrahim : 
 * Madolyne : 
 * Rosanne :
+
 #### Efforts
 
 ### Itération n°7
@@ -133,6 +138,7 @@ Implémenation et conception
 * Ibrahim : 
 * Madolyne : 
 * Rosanne :
+
 #### Efforts
 
 
