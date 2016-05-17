@@ -13,16 +13,19 @@ Implémentation et conception.
 * Le client et le serveur communiquent selon le protocole mis en place;
 * Le protocole contient toutes les intéractions entre le client et le serveur t.q. la création d'une partie et le déroulement d'une partie;
 * Ce protocole sert de base pour implémenter la mécanique du jeu.
+
 #### Démonstration
 * Le client et le serveur s'échange des messages selon le protocole établi (Visualisation par Wireshark).
 * Le client peut créer un compte
 * Le client peut s'authentifier avec son compte
+
 #### Partage du travail
 * Fabien : Bilan d’itération 1, monitoring, interaction avec la base de données 
 * Kevin : Mise à jour du rapport, base de données
 * Ibrahim : Canevas, hash mot de passe
 * Madolyne : Mise à jour des itérations, interface graphique
 * Rosanne : Base de données, mise à jour des itérations, implémentation du protocole
+
 #### Efforts
 * Interface graphique : 3h30
 * Création de la base de données : 1h00
@@ -41,9 +44,11 @@ Implémentation et conception.
 * Le client pourra créer une partie
 * Le serveur crée la partie
 * Le client peut rejoindre une partie créée
+
 #### Démonstration
 * Création d’une partie
 * Rejoindre une partie créée
+
 #### Partage du travail
 * Fabien : Gestion des parties : programmation
 * Kevin : Gestion des parties : programmation
@@ -92,7 +97,6 @@ Implémenation et conception
 * Le client peut jouer et quitter une partie en cours.
 #### Démonstration
 Démonstrations du déroulement d’une partie
-
 #### Partage du travail
 * Fabien : 
 * Kevin : 
