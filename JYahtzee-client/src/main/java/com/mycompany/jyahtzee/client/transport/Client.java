@@ -69,15 +69,26 @@ public class Client {
         }
     }
     
-    public void sendMessage() {
-        for (int i = 0; i < 10; ++i) {
-            writer.write("Message n°" + i + "\n");
-            writer.flush();
-        }
-        
-        writer.write("BYE" + "\n");
+    public void sendMessage(String msg) {                
+        writer.write(msg);
         writer.flush();
-        disconnect();
+        if(msg.equals(Protocole.CMD_BYE))
+        {
+            disconnect();
+        }
+    }
+    public String receiveMessage()
+    {
+        String msg;
+        try
+        {
+            msg = reader.readLine();
+            return msg;
+        }
+        catch (IOException e)
+        {
+            return e.toString();
+        }
     }
 
 }
