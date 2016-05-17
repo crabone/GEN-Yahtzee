@@ -16,7 +16,7 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="292.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.jyahtzee.client.gui.loginWindow.LoginWindowController">
    <children>
-      <VBox alignment="CENTER" layoutX="130.0" layoutY="46.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="130.0" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label prefHeight="75.0" prefWidth="150.0" text="Authentification">
                <font>
@@ -41,9 +41,9 @@
                   <Label text="IP du serveur:" />
                   <Label text="Login:" GridPane.rowIndex="1" />
                   <Label text="Mot de passe:" GridPane.rowIndex="2" />
-                  <TextField fx:id="ipDuServeur" GridPane.columnIndex="1" />
+                  <TextField fx:id="ipServer" GridPane.columnIndex="1" />
                   <TextField fx:id="login" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <PasswordField fx:id="motDePasse" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
                         <Button mnemonicParsing="false" text="Entrer" />
@@ -57,7 +57,7 @@
             </GridPane>
             <Pane prefHeight="50.0" prefWidth="329.0">
                <children>
-                  <Button contentDisplay="CENTER" layoutX="140.0" layoutY="12.0" mnemonicParsing="false" onAction="#newAccount" text="S'inscrire" />
+                  <Button contentDisplay="CENTER" layoutX="149.0" layoutY="13.0" mnemonicParsing="false" onAction="#newAccount" text="S'inscrire" />
                </children>
             </Pane>
          </children>
