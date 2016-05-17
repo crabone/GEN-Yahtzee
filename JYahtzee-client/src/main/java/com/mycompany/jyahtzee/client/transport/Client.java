@@ -8,10 +8,6 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author crab_one
- */
 public class Client {
 
     private static final Logger LOG = Logger.getLogger(Client.class.getName());
