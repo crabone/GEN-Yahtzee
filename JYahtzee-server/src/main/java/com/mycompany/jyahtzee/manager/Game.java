@@ -5,8 +5,8 @@
  */
 package com.mycompany.jyahtzee.manager;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -14,25 +14,36 @@ import java.util.ArrayList;
  */
 public class Game
 {
-    private int id;
-    private ArrayList<Joueur> joueurs = new ArrayList<>();
+    private int idGame;
+    private HashMap<Integer,Player> players = new HashMap<>();
+    private HashMap<Integer,Player> observers = new HashMap<>();
 
-    public Game(Joueur joueur)
+    public Game(Player player)
     {
-        joueurs.add(joueur);
-       //id = getID;
+        players.put(player.getID(),player);
     }
     
-    public boolean ajouterPlayer(Joueur joueur)
+    public boolean addPlayer(Player player)
     {
-        joueurs.add(joueur);
+        players.put(player.getID(),player);
         return false;
         
     }
     
-    public ArrayList<Joueur> getJoueurs()
+    public HashMap<Integer,Player> getPlayers()
     {
-        return joueurs;
+        return players;
+    }
+    public boolean removePlayer(Player player)
+    {
+        players.remove(player.getID());
+        
+        return false;
+    }
+    
+    public int getID()
+    {
+        return idGame;
     }
     
 }

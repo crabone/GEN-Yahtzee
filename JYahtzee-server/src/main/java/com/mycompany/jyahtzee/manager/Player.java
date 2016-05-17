@@ -9,7 +9,7 @@ package com.mycompany.jyahtzee.manager;
  *
  * @author Kevin
  */
-public class Joueur 
+public class Player 
 {
     private int id;
     private String userName;
