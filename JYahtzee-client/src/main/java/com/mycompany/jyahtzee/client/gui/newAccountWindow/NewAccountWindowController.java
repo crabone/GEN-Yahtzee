@@ -1,5 +1,7 @@
 package com.mycompany.jyahtzee.client.gui.newAccountWindow;
 
+import com.mycompany.jyahtzee.client.transport.Client;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -27,8 +29,9 @@ public class NewAccountWindowController {
 
     // bien entendu nom a changer...exemple pour Fafa
     @FXML
-    private void blabla() {
-        login.getText();
-        password.getText();
+    private void blabla() throws IOException {
+        Client client = new Client("localhost", 4321);
+        client.register(login.getText());
+        
     }
 }

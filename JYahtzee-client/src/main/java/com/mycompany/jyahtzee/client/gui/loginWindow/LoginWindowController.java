@@ -1,6 +1,7 @@
 package com.mycompany.jyahtzee.client.gui.loginWindow;
 
 import com.mycompany.jyahtzee.client.gui.newAccountWindow.NewAccountWindowController;
+import com.mycompany.jyahtzee.client.transport.Client;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +33,7 @@ public class LoginWindowController {
     @FXML
     private void newAccount() throws Exception{
         Stage stage = new Stage();
+        Client client = new Client("localhost", 4321); // A changer pour les bonnes valeures
 
         FXMLLoader loader = new FXMLLoader(NewAccountWindowController.class.getResource("NewAccountWindow.fxml"));
         Pane pane = loader.load();
@@ -41,6 +43,8 @@ public class LoginWindowController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(new Scene(pane));
         stage.showAndWait();
+        
+        client.register(login.getText());
 
     }
 
