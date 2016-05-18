@@ -30,6 +30,7 @@ public class MainWindowController {
 //        });
         stage.setTitle("Yahtzee-Login");
         stage.setScene(new Scene(pane));
+        stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
 

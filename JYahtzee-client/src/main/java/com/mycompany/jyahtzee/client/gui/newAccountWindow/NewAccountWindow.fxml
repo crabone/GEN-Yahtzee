@@ -35,7 +35,7 @@
                   <Label text="Login:" />
                   <Label text="Mot de passe:" GridPane.rowIndex="1" />
                   <TextField fx:id="login" GridPane.columnIndex="1" />
-                  <PasswordField fx:id="motDePasse" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <buttons>
                       <Button mnemonicParsing="false" text="Valider" />

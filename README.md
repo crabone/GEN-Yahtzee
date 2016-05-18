@@ -3,12 +3,16 @@
 ## Itérations
 
 ### Itération n°2
+
 #### But
 Implémenter le protocole client-serveur. Cas d'utilisation: s'inscrire et s'authentifier sur un serveur
+
 #### Dates
 Du 28 avril 2016 au 5 mai 2016.
+
 #### Phase
 Implémentation et conception.
+
 #### Fonctionnalités
 * Le client et le serveur communiquent selon le protocole mis en place;
 * Le protocole contient toutes les intéractions entre le client et le serveur t.q. la création d'une partie et le déroulement d'une partie;
@@ -34,12 +38,16 @@ Implémentation et conception.
 * Implémentation du protocole : 6h00
 
 ### Itération n°3
+
 #### But
 Implémentation de la création d’une partie. Cas d’utilisation : créer une partie et rejoindre une partie
+
 #### Dates
 Du 5 mai 2016 au 12 mai 2016 (avec une réserve d'une semaine).
+
 #### Phase
 Implémentation et conception.
+
 #### Fonctionnalités
 * Le client pourra créer une partie
 * Le serveur crée la partie
@@ -64,17 +72,23 @@ Implémentation et conception.
 * Rapport : 1h
 
 ### Itération n°4
+
 #### But
 Implémentation du jeu et de ses règles. Cas d’utilisation : observer une partie et jouer(Variantes 1 à 3)
+
 #### Dates
 Du 12 mai 2016 au 19 mai 2016.
+
 #### Phase
 Implémentation et conception.
+
 #### Fonctionnalités
 Le client peut observer une partie
 Le client peut jouer une partie
+
 #### Démonstration
 Démonstrations lors de l’itération 5
+
 #### Partage du travail
 * Fabien : Gestion des parties : implémentation de la mécanique du jeu.
 * Kevin : Gestion des parties : implémentation de la mécanique du jeu.
@@ -88,15 +102,21 @@ Démonstrations lors de l’itération 5
 
 ### Itération n°5
 #### But
+
 Implémentation du jeu et de ses règles. Cas d’utilisation :  Jouer (Echecs 1 et 2)
+
 #### Dates
 Du 19 mai 2016 au 26 mai 2016.
+
 #### Phase
 Implémenation et conception
+
 #### Fonctionnalités
 * Le client peut jouer et quitter une partie en cours.
+
 #### Démonstration
 Démonstrations du déroulement d’une partie
+
 #### Partage du travail
 * Fabien : 
 * Kevin : 
@@ -107,17 +127,22 @@ Démonstrations du déroulement d’une partie
 #### Efforts
 
 ### Itération n°6
+
 #### But
 Implémentation des droits spécifiques à l’administrateur. Cas d’utilisation : Administrer les joueurs
+
 #### Dates
 Du 26 mai 2016 au 2 juin 2016.
+
 #### Phase
 Implémenation et conception
+
 #### Fonctionnalités
 * Suppression d’un compte
 * Ban d’un joueur
 
 #### Démonstration
+
 #### Partage du travail
 * Fabien : 
 * Kevin : 
@@ -128,14 +153,19 @@ Implémenation et conception
 #### Efforts
 
 ### Itération n°7
+
 #### But
 Dernières retouches et modification, derniers tests
+
 #### Dates
 Du 2 juin 2016 au 9 juin 2016.
 #### Phase
 Implémenation et conception
+
 #### Fonctionnalités
+
 #### Démonstration
+
 #### Partage du travail
 * Fabien : 
 * Kevin : 
