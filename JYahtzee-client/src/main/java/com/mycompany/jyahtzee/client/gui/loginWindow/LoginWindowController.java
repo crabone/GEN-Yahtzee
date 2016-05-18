@@ -25,15 +25,18 @@ public class LoginWindowController {
     @FXML
     private TextField ipServer;
 
+    // Fonction dont je pensais avoir besoin, mais pour le moment ne sert a rien :)
     @FXML
     private void initialize() {
 
     }
 
+    // Ca c'est la création de ma fenêtre,
+    // Ne rien mettre dedans! c'est mon business!
     @FXML
     private void newAccount() throws Exception{
         Stage stage = new Stage();
-        Client client = new Client("localhost", 4321); // A changer pour les bonnes valeures
+
 
         FXMLLoader loader = new FXMLLoader(NewAccountWindowController.class.getResource("NewAccountWindow.fxml"));
         Pane pane = loader.load();
@@ -43,12 +46,18 @@ public class LoginWindowController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(new Scene(pane));
         stage.showAndWait();
-        
-        client.register(login.getText());
-
     }
 
+    // Fonction liées au bouton "Entrer" de la fenêtre LoginWindows aussi nommée: "Authentification"
+    // Ici tu met les méthodes qu'il faut pour qu'un client puisse se connecter avec un compte déjà créé
+    @FXML
+    private void authentificationClient () throws Exception {
+        Client client = new Client("localhost", 4321); // A changer pour les bonnes valeures
+        client.register(login.getText());
+    }
 
+    // Ceci est liée au bouton "Quitter" de la fenetre LoginWindows aussi nomnée "Authentification"
+    // le fenetre se ferme rien besoin de faire ici...
     @FXML
     private void closeApp(){
         Platform.exit();
