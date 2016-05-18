@@ -54,9 +54,20 @@ public class Database {
 		}
 	}
 	
+	public int scoreMax(){
+		Statement state = connexion.createStatement();
+		ResultSet result = state.executeQuery("select MAX(scoreTotal)as scoreMax from Joueur");
+		return result.getInt("scoreMax");
+	}
+	
+	public String gagnant(){
+		Statement state = connexion.createStatement();
+		ResultSet result = state.executeQuery("select Username from Joueur where scoreTotal = " + scoreMax());
+		return result.getString("Username");
+	}
 	public static void main(String... args) throws SQLException{
 		Database db = new Database();
-		db.connecter("jdbc:mysql://localhost:3306/yahtzee", "root", "");
+		db.connecter("jdbc:mysql://localhost:3306/yahtzee", "root", "versus1204@");
 		db.insererJoueur("ibrahim");
 	}
 }
