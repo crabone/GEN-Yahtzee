@@ -74,6 +74,7 @@ public class MultiThreadedServer {
         Socket clientSocket;
         BufferedReader reader = null;
         PrintWriter writer = null;
+        int idPlayer = 0;
 
         public ServantWorker(Socket clientSocket) {
             try {
@@ -103,7 +104,12 @@ public class MultiThreadedServer {
                             writer.flush();
                             break;
                         case (Protocole.CMD_AUTH):
-                            authenticate();
+                            int authOk;
+                            authOk = authenticate();
+                            if(authOk != 0)
+                            {
+                                idPlayer = authOk;
+                            }
                             break;
                         case (Protocole.CMD_INSCRIPTION):
                             register();
@@ -228,7 +234,7 @@ public class MultiThreadedServer {
             cleanup();
         }
 
-        private void authenticate() throws IOException {
+        private int authenticate() throws IOException {
             String mdp;
             String username;
             String line;

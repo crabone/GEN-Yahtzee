@@ -13,22 +13,22 @@ import java.util.HashMap;
  */
 public class GameManager 
 {
-    HashMap<Integer,Game> games = new HashMap<>();
+    HashMap<Integer,Game> games;
     
 
     public GameManager()
     {
-    }
-    
-    
+        games = new HashMap<>();
+    }    
     
     public boolean createGame()
     {
         Game newGame = new Game(player);
-        games.put(newGame.getID(),newGame);
+        games.put(newGame.getIDGame(),newGame);
         return false;
     }
     
+    //id game
     public boolean joinGame(int id)
     {
         Game game = games.get(id);
@@ -37,6 +37,7 @@ public class GameManager
         return false;
     }
     
+    //id game
     public boolean observeGame(int id)
     {
         return false;
