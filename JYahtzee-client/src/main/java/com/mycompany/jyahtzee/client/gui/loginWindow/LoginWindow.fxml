@@ -46,7 +46,7 @@
                   <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <Button mnemonicParsing="false" text="Entrer" />
+                        <Button mnemonicParsing="false" onAction="#authentificationClient" text="Entrer" />
                       <Button mnemonicParsing="false" onAction="#closeApp" text="Quitter" />
                      </children>
                   </HBox>

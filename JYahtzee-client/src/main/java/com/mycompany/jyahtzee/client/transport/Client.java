@@ -107,5 +107,17 @@ public class Client {
             return e.toString();
         }
     }
+    
+    public void register(String username) throws IOException {
+        sendMessage(Protocole.CMD_INSCRIPTION);
+        sendMessage(Protocole.CMD_USERNAME);
+        sendMessage(username);   
+    }
+    
+    public void authenticate(String username) throws IOException {
+        sendMessage(Protocole.CMD_AUTH);
+        sendMessage(Protocole.CMD_USERNAME);
+        sendMessage(username);
+    }
 
 }

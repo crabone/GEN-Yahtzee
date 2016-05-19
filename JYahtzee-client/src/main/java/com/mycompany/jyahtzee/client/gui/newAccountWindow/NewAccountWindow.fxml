@@ -38,7 +38,7 @@
                   <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Valider" />
+                      <Button mnemonicParsing="false" onAction="#registerClient" text="Valider" />
                         <Button mnemonicParsing="false" onAction="#cancel" text="Annuler" />
                     </buttons>
                   </ButtonBar>
