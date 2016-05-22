@@ -23,9 +23,6 @@ public class NewAccountWindowController {
     @FXML
     private PasswordField password;
 
-    private Client client;
-    private Communication com = new Communication(client);
-
 
     // Ceci est liée au bouton "Annuler" de la fenetre NewAccount ou aussi nommée "Inscription"
     // la fenetre se ferme, bref rien de plus a faire ici.
@@ -39,6 +36,8 @@ public class NewAccountWindowController {
     // Ici tu met les méthodes qui faut pour que le client puisse se créer un compte!
     @FXML
     private void registerClient() throws Exception {
+        Client client = new Client("localhost", 4321);
+        Communication com = new Communication(client);
         com.inscription(login.getText(), password.getText());
     }
 

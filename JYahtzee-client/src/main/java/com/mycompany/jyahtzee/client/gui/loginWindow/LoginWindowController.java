@@ -27,8 +27,6 @@ public class LoginWindowController {
     @FXML
     private TextField ipServer;
 
-    private Client client;
-    private Communication com = new Communication(client);
 
     // Fonction dont je pensais avoir besoin, mais pour le moment ne sert a rien :)
     @FXML
@@ -57,6 +55,8 @@ public class LoginWindowController {
     // Ici tu met les méthodes qu'il faut pour qu'un client puisse se connecter avec un compte déjà créé
     @FXML
     private void authentificationClient () throws Exception {
+        Client client = new Client("localhost", 4321);
+        Communication com = new Communication(client);
         com.authentification(login.getText(), password.getText());
     }
 
