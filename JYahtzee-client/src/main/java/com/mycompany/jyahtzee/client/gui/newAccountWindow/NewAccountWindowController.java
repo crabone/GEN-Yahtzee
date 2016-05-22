@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import static com.mycompany.jyahtzee.client.transport.Communication.inscription;
+
 /**
  * Created by Mado on 11.05.2016.
  */
@@ -33,8 +35,7 @@ public class NewAccountWindowController {
     // Ici tu met les méthodes qui faut pour que le client puisse se créer un compte!
     @FXML
     private void registerClient() throws Exception {
-        Client client = new Client("localhost", 4321); // A changer pour les bonnes valeures
-        client.authenticate(login.getText());
+        inscription(login.getText(), password.getText());
     }
 
 }

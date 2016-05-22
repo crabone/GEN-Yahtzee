@@ -12,6 +12,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import static com.mycompany.jyahtzee.client.transport.Communication.authentification;
+
 /**
  * Created by Mado on 11.05.2016.
  */
@@ -52,8 +54,7 @@ public class LoginWindowController {
     // Ici tu met les méthodes qu'il faut pour qu'un client puisse se connecter avec un compte déjà créé
     @FXML
     private void authentificationClient () throws Exception {
-        Client client = new Client("localhost", 4321); // A changer pour les bonnes valeures
-        client.register(login.getText());
+        authentification(login.getText(), password.getText());
     }
 
     // Ceci est liée au bouton "Quitter" de la fenetre LoginWindows aussi nomnée "Authentification"
