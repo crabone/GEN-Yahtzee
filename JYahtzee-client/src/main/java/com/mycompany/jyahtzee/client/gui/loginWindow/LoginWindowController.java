@@ -53,6 +53,7 @@ public class LoginWindowController {
     @FXML
     private void authentificationClient () throws Exception {
         Client client = new Client("localhost", 4321); // A changer pour les bonnes valeures
+        
         client.register(login.getText());
     }
 
