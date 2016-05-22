@@ -26,12 +26,10 @@ public class Database {
 		preparedStatement.executeUpdate();
 
 	}
-        public void insererJoueur(String nom, String mdp) throws SQLException, NoSuchAlgorithmException{
-                Hash hasher = new Hash();
-		String hash = hasher.createHash(mdp);
+        public void insererJoueur(String nom, String mdp) throws SQLException{                
 		PreparedStatement preparedStatement = connexion.prepareStatement("insert into Joueur(Username, MDP) values (?, ?)");
 		preparedStatement.setString(1, nom);
-                preparedStatement.setString(2, hash);
+                preparedStatement.setString(2, mdp);
 		preparedStatement.executeUpdate();
 
 	}
@@ -50,16 +48,13 @@ public class Database {
 		return preparedStatement.toString();
 	}
 	
-	public void modifierMdp(String oldPassword, String newPassword)throws SQLException, NoSuchAlgorithmException{
-		Hash hasher = new Hash();
-		String oldhash = hasher.createHash(oldPassword);
+	public void modifierMdp(String oldPassword, String newPassword)throws SQLException{		
 		PreparedStatement preparedStatement = connexion.prepareStatement("select * from joueur where MDP = ?");
-		preparedStatement.setString(1, oldhash);
+		preparedStatement.setString(1, oldPassword);
 		ResultSet result = preparedStatement.executeQuery();
 		if (result.next()){
-			String newHash = hasher.createHash(newPassword);
 			preparedStatement = connexion.prepareStatement("update MDP from Joueur where MDP = ?"); 
-			preparedStatement.setString(1, newHash);
+			preparedStatement.setString(1, newPassword);
 			preparedStatement.execute();
 		}
 		else{
@@ -111,16 +106,10 @@ public class Database {
                        
             return 0;
         }
-        public int verify(String userName, String mdp) throws SQLException, NoSuchAlgorithmException
+        public int verify(String userName, String mdp) throws SQLException
         {
-            Hash hasher = new Hash();
-            String hashToCheck = hasher.createHash(mdp);
-            //PreparedStatement preparedStatement = connexion.prepareStatement("select * from joueur where MDP = ? and Username = ?");
-            //preparedStatement.setString(1, hashToCheck);
-            //preparedStatement.setString(2, userName);
-            //ResultSet result = preparedStatement.executeQuery();
             Statement state = connexion.createStatement();
-            ResultSet result = state.executeQuery("select ID from Joueur where MDP='" + hashToCheck +"' and Username='"+ userName + "'");
+            ResultSet result = state.executeQuery("select ID from Joueur where MDP='" + mdp +"' and Username='"+ userName + "'");
             if (result.next()){
                     return result.getInt("ID");
             }
@@ -144,15 +133,10 @@ public class Database {
                 }*/
                 int id = 0;
                 String test;
-                try
-                {
-                    db.insererJoueur("rosanne", "1234");
-                    id = db.verify("rosanne", "1234");
-                }
-                catch(NoSuchAlgorithmException e)
-                {
-                    System.out.println("error");
-                }
+                      
+                //db.insererJoueur("rosanne", "1234");
+                id = db.verify("rosanne", "1234");
+                
                 //test = db.score("kevin");
                 System.out.println("id=" + id);
 		/*db.insererJoueur("ibrahim");

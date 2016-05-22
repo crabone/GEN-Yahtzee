@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package com.mycompany.jyahtzee.client.transport;
+import com.mycompany.jyahtzee.client.hash.Hash;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  *
@@ -18,10 +20,12 @@ public class Communication {
     {
         this.client = client;
     }
-    // MDP déjà hashé??
+    
     public boolean authentification(String username, String mdp) throws IOException
     {
+        String hashedMdp;
         String serverMsg;
+        Hash hasher = new Hash();
         client.sendMessage(Protocole.CMD_AUTH);
         serverMsg = client.receiveMessage();
         if(!serverMsg.equals(Protocole.CMD_ACK))
@@ -46,7 +50,16 @@ public class Communication {
         {
             return false;
         }
-        client.sendMessage(mdp);
+        try
+        {
+            hashedMdp = hasher.createHash(mdp);
+        }
+        catch(NoSuchAlgorithmException e)
+        {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        client.sendMessage(hashedMdp);
         serverMsg = client.receiveMessage();
         if(!serverMsg.equals(Protocole.CMD_OK))
         {
@@ -57,6 +70,8 @@ public class Communication {
     public boolean inscription(String username, String mdp) throws IOException
     {
         String serverMsg;
+        String hashedMdp;
+        Hash hasher = new Hash();
         client.sendMessage(Protocole.CMD_INSCRIPTION);
         serverMsg = client.receiveMessage();
         if(!serverMsg.equals(Protocole.CMD_ACK))
@@ -81,7 +96,17 @@ public class Communication {
         {
             return false;
         }
-        client.sendMessage(mdp);
+        //Hash du mot de passe
+        try
+        {
+            hashedMdp = hasher.createHash(mdp);
+        }
+        catch(NoSuchAlgorithmException e)
+        {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        client.sendMessage(hashedMdp);
         serverMsg = client.receiveMessage();
         if(!serverMsg.equals(Protocole.CMD_OK))
         {

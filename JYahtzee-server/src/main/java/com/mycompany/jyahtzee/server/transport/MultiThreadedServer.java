@@ -241,7 +241,7 @@ public class MultiThreadedServer {
             cleanup();
         }
 
-        // return player id
+        // return player id, 0 if none found
         private int authenticate() throws IOException {
             String mdp;
             String username;
@@ -284,9 +284,8 @@ public class MultiThreadedServer {
                 Database db = new Database();
 		db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
                 id = db.verify(username, mdp);
-
             }
-            catch(SQLException | NoSuchAlgorithmException ex)
+            catch(SQLException ex)
             {
                 System.out.println(ex.getMessage());
             }
@@ -367,16 +366,15 @@ public class MultiThreadedServer {
                 }
                 else
                 {
-                    
+                    writer.println(Protocole.CMD_KO);
+                    writer.flush();
                 }
-
             }
-            catch(SQLException | NoSuchAlgorithmException ex)
+            catch(SQLException ex)
             {
                 System.out.println(ex.getMessage());
             }
         }
-
     }
     public static void main(String... args){}
 }
