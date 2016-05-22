@@ -55,6 +55,7 @@ public class LoginWindowController {
     // Ici tu met les méthodes qu'il faut pour qu'un client puisse se connecter avec un compte déjà créé
     @FXML
     private void authentificationClient () throws Exception {
+
         Client client = new Client("localhost", 4321);
         Communication com = new Communication(client);
         com.authentification(login.getText(), password.getText());

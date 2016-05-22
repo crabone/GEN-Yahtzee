@@ -132,7 +132,7 @@ public class MultiThreadedServer {
                             break;
                         /*
                         case (Protocole.CMD_JOIN):
-                            int id;
+                            /*int id;
                             writer.println(Protocole.CMD_ACK);
                             writer.flush();
                             id = Integer.parseInt(reader.readLine());
@@ -141,7 +141,7 @@ public class MultiThreadedServer {
                                 writer.flush();
                                 break;
                             }
-                            /*ok = gameManager.joinGame(id, player);
+                            ok = gameManager.joinGame(id, player);
                             if (ok) {
                                 writer.println(Protocole.CMD_OK);
                             } else {
