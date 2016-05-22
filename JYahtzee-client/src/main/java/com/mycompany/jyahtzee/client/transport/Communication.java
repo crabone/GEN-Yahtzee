@@ -12,14 +12,14 @@ import java.io.IOException;
  * @author rosanne
  */
 public class Communication {
-    private static Client client;
+    private Client client;
     
     public Communication(Client client)
     {
         this.client = client;
     }
     // MDP déjà hashé??
-    public static boolean authentification(String username, String mdp) throws IOException
+    public boolean authentification(String username, String mdp) throws IOException
     {
         String serverMsg;
         client.sendMessage(Protocole.CMD_AUTH);
@@ -54,7 +54,7 @@ public class Communication {
         }
         return true;
     }
-    public static boolean inscription(String username, String mdp) throws IOException
+    public boolean inscription(String username, String mdp) throws IOException
     {
         String serverMsg;
         client.sendMessage(Protocole.CMD_INSCRIPTION);
@@ -89,7 +89,7 @@ public class Communication {
         }
         return true;
     }
-    public static boolean create() throws IOException
+    public boolean create() throws IOException
     {
         String serverMsg;
         client.sendMessage(Protocole.CMD_CREATION);
@@ -100,7 +100,7 @@ public class Communication {
         }
         return true;
     }
-    public static boolean join(String id) throws IOException
+    public boolean join(String id) throws IOException
     {
         String serverMsg;
         client.sendMessage(Protocole.CMD_JOIN);
@@ -117,7 +117,7 @@ public class Communication {
         }
         return true;
     }
-    public static boolean observe(String id) throws IOException
+    public boolean observe(String id) throws IOException
     {
         String serverMsg;
         client.sendMessage(Protocole.CMD_OBSERVE);
@@ -134,11 +134,11 @@ public class Communication {
         }
         return true;
     }
-    public static boolean play() throws IOException
+    public boolean play() throws IOException
     {
         return true;
     }
-    public static void quit() throws IOException
+    public void quit() throws IOException
     {
         client.sendMessage(Protocole.CMD_BYE);
     }
