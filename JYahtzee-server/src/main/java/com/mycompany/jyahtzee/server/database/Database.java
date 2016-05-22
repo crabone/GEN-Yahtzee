@@ -1,4 +1,4 @@
-package com.mycompany.jyahtzee.db;
+package com.mycompany.jyahtzee.server.database;
 import java.security.NoSuchAlgorithmException;
 //import com.mycompany.jyahtzee.server.hash;
 import java.sql.Connection;
@@ -23,6 +23,15 @@ public class Database {
 	public void insererJoueur(String nom) throws SQLException{
 		PreparedStatement preparedStatement = connexion.prepareStatement("insert into Joueur(Username) values (?)");
 		preparedStatement.setString(1, nom);
+		preparedStatement.executeUpdate();
+
+	}
+        public void insererJoueur(String nom, String mdp) throws SQLException, NoSuchAlgorithmException{
+                Hash hasher = new Hash();
+		String hash = hasher.createHash(mdp);
+		PreparedStatement preparedStatement = connexion.prepareStatement("insert into Joueur(Username, MDP) values (?, ?)");
+		preparedStatement.setString(1, nom);
+                preparedStatement.setString(2, hash);
 		preparedStatement.executeUpdate();
 
 	}
@@ -79,13 +88,78 @@ public class Database {
 		}
 		return listPlayers;
 	}
+        // Check if a player named "username" exists: if true, return his ID otherwise return 0
+        public int playerExist(String username) throws SQLException
+        {
+            Statement state = connexion.createStatement();
+            ResultSet resultat = state.executeQuery("select ID from Joueur where Username='"+username +"'");
+            if(resultat.next())
+            {
+                return resultat.getInt("ID");
+            }                       
+            return 0;
+        }
+        
+        public int getIDJoueur(String userName, String mdp) throws SQLException
+        {
+            Statement state = connexion.createStatement();
+            ResultSet resultat = state.executeQuery("select ID from Joueur where Username='"+userName +"' AND MDP='"+mdp+"'");
+            if(resultat.next())
+            {
+                return resultat.getInt("ID");
+            }
+                       
+            return 0;
+        }
+        public int verify(String userName, String mdp) throws SQLException, NoSuchAlgorithmException
+        {
+            Hash hasher = new Hash();
+            String hashToCheck = hasher.createHash(mdp);
+            //PreparedStatement preparedStatement = connexion.prepareStatement("select * from joueur where MDP = ? and Username = ?");
+            //preparedStatement.setString(1, hashToCheck);
+            //preparedStatement.setString(2, userName);
+            //ResultSet result = preparedStatement.executeQuery();
+            Statement state = connexion.createStatement();
+            ResultSet result = state.executeQuery("select ID from Joueur where MDP='" + hashToCheck +"' and Username='"+ userName + "'");
+            if (result.next()){
+                    return result.getInt("ID");
+            }
+            else{
+                    return 0;
+            }
+        }
+        
 	public static void main(String... args) throws SQLException{
 		Database db = new Database();
-		db.connecter("jdbc:mysql://localhost:3306/yahtzee", "root", "versus1204@");
-		db.insererJoueur("ibrahim");
+		db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+               /* try
+                {
+                    Connection connexion;
+                    connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                    
+                }
+                catch(SQLException ex)
+                {
+                    System.out.println(ex.getMessage());
+                }*/
+                int id = 0;
+                String test;
+                try
+                {
+                    db.insererJoueur("rosanne", "1234");
+                    id = db.verify("rosanne", "1234");
+                }
+                catch(NoSuchAlgorithmException e)
+                {
+                    System.out.println("error");
+                }
+                //test = db.score("kevin");
+                System.out.println("id=" + id);
+		/*db.insererJoueur("ibrahim");
 		for (int i = 0; i < db.players().size(); i++){
 			System.out.println(db.players().get(i));
 		}
 		System.out.println(db.scoreMax());
+                        */
 	}
 }
