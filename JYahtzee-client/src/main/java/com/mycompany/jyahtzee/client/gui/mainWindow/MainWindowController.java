@@ -35,4 +35,11 @@ public class MainWindowController {
         stage.showAndWait();
 
     }
+
+    // fonction liée au bouton "créer une partie" de la fenetre MainWindow ou "Yahtzee"
+    // sous l'onglet "Accueil"
+    @FXML
+    private void createNewGame() throws Exception {
+
+    }
 }

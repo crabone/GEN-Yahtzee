@@ -2,6 +2,7 @@ package com.mycompany.jyahtzee.client.gui.loginWindow;
 
 import com.mycompany.jyahtzee.client.gui.newAccountWindow.NewAccountWindowController;
 import com.mycompany.jyahtzee.client.transport.Client;
+import com.mycompany.jyahtzee.client.transport.Communication;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 
 /**
  * Created by Mado on 11.05.2016.
@@ -24,6 +26,7 @@ public class LoginWindowController {
     private PasswordField password;
     @FXML
     private TextField ipServer;
+
 
     // Fonction dont je pensais avoir besoin, mais pour le moment ne sert a rien :)
     @FXML
@@ -52,9 +55,10 @@ public class LoginWindowController {
     // Ici tu met les méthodes qu'il faut pour qu'un client puisse se connecter avec un compte déjà créé
     @FXML
     private void authentificationClient () throws Exception {
-        Client client = new Client("localhost", 4321); // A changer pour les bonnes valeures
-        
-        client.register(login.getText());
+
+        Client client = new Client("localhost", 4321);
+        Communication com = new Communication(client);
+        com.authentification(login.getText(), password.getText());
     }
 
     // Ceci est liée au bouton "Quitter" de la fenetre LoginWindows aussi nomnée "Authentification"
