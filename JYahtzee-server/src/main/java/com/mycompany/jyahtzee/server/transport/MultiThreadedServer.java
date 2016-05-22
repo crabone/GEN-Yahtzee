@@ -130,6 +130,7 @@ public class MultiThreadedServer {
                             }
                             writer.flush();
                             break;
+                        /*
                         case (Protocole.CMD_JOIN):
                             int id;
                             writer.println(Protocole.CMD_ACK);
@@ -146,6 +147,7 @@ public class MultiThreadedServer {
                             } else {
                                 writer.println(Protocole.CMD_KO);
                             }*/
+                        /*
                             writer.flush();
                             break;
                         case (Protocole.CMD_OBSERVE):
@@ -161,6 +163,7 @@ public class MultiThreadedServer {
                                     break;      
                             }
                              */
+                            /*
                             ok = gameManager.observeGame(idGame);
                             if (ok) {
                                 writer.println(Protocole.CMD_OK);
@@ -193,8 +196,10 @@ public class MultiThreadedServer {
                                     writer.println(Protocole.CMD_KO);
                             }
                              */
+                            /*
                             writer.flush();
                             break;
+                        */
                         case (Protocole.CMD_BYE):
                             writer.println(Protocole.CMD_BYE);
                             writer.flush();
