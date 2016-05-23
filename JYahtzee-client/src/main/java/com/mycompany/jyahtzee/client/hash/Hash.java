@@ -19,12 +19,5 @@ public class Hash {
 	public boolean testHash(String messageHash, String message) throws NoSuchAlgorithmException{
 		return messageHash.equals(createHash(message));
 	}
-	
-	public static void main(String... args) throws NoSuchAlgorithmException{
-		Hash a = new Hash();
-		String msg = "V12zr!";
-		String hash = a.createHash(msg);
-		System.out.println(hash);
-		System.out.println(hash.length());
-	}
+
 }

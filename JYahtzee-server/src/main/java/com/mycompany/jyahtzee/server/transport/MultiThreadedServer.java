@@ -121,7 +121,7 @@ public class MultiThreadedServer {
                         case (Protocole.CMD_INSCRIPTION):
                             register();
                             break;
-                        case (Protocole.CMD_CREATION):
+                       /* case (Protocole.CMD_CREATION):
                             ok = gameManager.createGame();
                             if (ok) {
                                 writer.println(Protocole.CMD_OK);
@@ -130,7 +130,7 @@ public class MultiThreadedServer {
                             }
                             writer.flush();
                             break;
-                        /*
+                        
                         case (Protocole.CMD_JOIN):
                             /*int id;
                             writer.println(Protocole.CMD_ACK);
@@ -381,5 +381,4 @@ public class MultiThreadedServer {
             }
         }
     }
-    public static void main(String... args){}
 }

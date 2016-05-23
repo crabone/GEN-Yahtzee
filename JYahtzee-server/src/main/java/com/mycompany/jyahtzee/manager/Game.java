@@ -19,10 +19,9 @@ public class Game extends Observable
     private Status status;
     private Die[] dice;
     private enum Status{OPEN,PLAY,CLOSE};
-    private HashMap<Integer,Player> players;
-    private HashMap<Integer,Player> observers;
     private HashMap<Integer,ScoreManager> scoreManage;
-    private ArrayList<Integer> listPlayers;
+    private ArrayList<Integer> players;
+    private ArrayList<Integer> observers;
     
     public Game(int idPlayer)
     {
