@@ -14,6 +14,10 @@ public class Player
     private int id;
     private String userName;
     private int score;
+    public Player(int id,String userName, int score)
+    {
+    
+    }
     
     public int getID()
     {

@@ -1,6 +1,7 @@
 package com.mycompany.jyahtzee.server.transport;
 
 import com.mycompany.jyahtzee.manager.GameManager;
+import com.mycompany.jyahtzee.server.JYahtzeeServer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -251,7 +252,7 @@ public class MultiThreadedServer {
             if (username == null) {
                 writer.println(Protocole.CMD_KO);
                 writer.flush();
-                return;
+                return 0;
             }
             writer.println(Protocole.CMD_OK);
             writer.flush();
@@ -265,10 +266,13 @@ public class MultiThreadedServer {
             if (mdp == null) {
                 writer.println(Protocole.CMD_KO);
                 writer.flush();
-                return;
+                return 0;
             }
             writer.println(Protocole.CMD_OK);
             writer.flush();
+            //JYahtzeeServer.db.
+            return JYahtzeeServer.db.toto(String user,String mdp);
+            
         }
 
         private void register() throws IOException {

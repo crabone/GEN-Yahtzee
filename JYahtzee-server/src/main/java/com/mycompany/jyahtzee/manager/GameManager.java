@@ -16,9 +16,9 @@ public class GameManager
         games = new HashMap<>();
     }      
 
-    public boolean createGame() {
-        Game newGame = new Game(player);
-        games.put(newGame.getID(), newGame);
+    public boolean createGame(int idPlayer) {
+        Game newGame = new Game(idPlayer);
+        games.put(newGame.getIDGame(), newGame);
         
         return false;
     }

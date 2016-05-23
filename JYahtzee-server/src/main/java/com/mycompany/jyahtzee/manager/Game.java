@@ -5,12 +5,14 @@
  */
 package com.mycompany.jyahtzee.manager;
 
+import com.mycompany.jyahtzee.server.JYahtzeeServer;
+import com.mycompany.jyahtzee.server.database.Database;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 
 
-public class Game extends Observable implements Runnable
+public class Game extends Observable
 {
     private int idGame;
     private int playerXTurn;
@@ -22,15 +24,16 @@ public class Game extends Observable implements Runnable
     private HashMap<Integer,ScoreManager> scoreManage;
     private ArrayList<Integer> listPlayers;
     
-    public Game(Player player)
+    public Game(int idPlayer)
     {
-        
+        status = Status.OPEN;
+        idGame = JYahtzeeServer.db.newGame(status.name());
         players = new HashMap<>();
         observers = new HashMap<>();
         scoreManage  = new HashMap<>();
         listPlayers = new ArrayList<>();
         players.put(player.getID(),player);
-        status = Status.OPEN;
+        
         dice = new Die[5];
         playerXTurn = 0;
         listPlayers.add(player.getID());
@@ -40,11 +43,6 @@ public class Game extends Observable implements Runnable
             dice[i] = new Die();
         }
         
-    }
-    
-    public void run()
-    {
-
     }
     
     
@@ -69,6 +67,7 @@ public class Game extends Observable implements Runnable
     {
         players.remove(player.getID());
         scoreManage.remove(player.getID());
+        listPlayers.remove(player.getID());
         
         return false;
     }
