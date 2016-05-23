@@ -1,15 +1,21 @@
 package com.mycompany.jyahtzee.server.transport;
 
 import com.mycompany.jyahtzee.manager.GameManager;
-import com.mycompany.jyahtzee.server.JYahtzeeServer;
+import com.mycompany.jyahtzee.server.hash.Hash;
+import com.mycompany.jyahtzee.server.database.Database;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.security.NoSuchAlgorithmException;
 
 public class MultiThreadedServer {
 
@@ -124,8 +130,9 @@ public class MultiThreadedServer {
                             }
                             writer.flush();
                             break;
+                        /*
                         case (Protocole.CMD_JOIN):
-                            int id;
+                            /*int id;
                             writer.println(Protocole.CMD_ACK);
                             writer.flush();
                             id = Integer.parseInt(reader.readLine());
@@ -139,7 +146,8 @@ public class MultiThreadedServer {
                                 writer.println(Protocole.CMD_OK);
                             } else {
                                 writer.println(Protocole.CMD_KO);
-                            }
+                            }*/
+                        /*
                             writer.flush();
                             break;
                         case (Protocole.CMD_OBSERVE):
@@ -155,6 +163,7 @@ public class MultiThreadedServer {
                                     break;      
                             }
                              */
+                            /*
                             ok = gameManager.observeGame(idGame);
                             if (ok) {
                                 writer.println(Protocole.CMD_OK);
@@ -187,8 +196,10 @@ public class MultiThreadedServer {
                                     writer.println(Protocole.CMD_KO);
                             }
                              */
+                            /*
                             writer.flush();
                             break;
+                        */
                         case (Protocole.CMD_BYE):
                             writer.println(Protocole.CMD_BYE);
                             writer.flush();
@@ -235,10 +246,12 @@ public class MultiThreadedServer {
             cleanup();
         }
 
+        // return player id, 0 if none found
         private int authenticate() throws IOException {
             String mdp;
             String username;
             String line;
+            int id = 0;
 
             writer.println(Protocole.CMD_ACK);
             writer.flush();
@@ -270,9 +283,18 @@ public class MultiThreadedServer {
             }
             writer.println(Protocole.CMD_OK);
             writer.flush();
-            //JYahtzeeServer.db.
-            return JYahtzeeServer.db.toto(String user,String mdp);
             
+            try
+            {
+                Database db = new Database();
+		db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                id = db.verify(username, mdp);
+            }
+            catch(SQLException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+            return id;    
         }
 
         private void register() throws IOException {
@@ -303,13 +325,27 @@ public class MultiThreadedServer {
                 writer.flush();
                 return;
             }
-            // A faire, vérifier que le nom d'utilisateur n'existe pas sinon erreure.
-            else {
-                writer.println(Protocole.CMD_OK);
-                writer.flush();                
+            
+            try
+            {
+                Database db = new Database();
+                db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                if(db.playerExist(username) == 0)
+                {
+                    writer.println(Protocole.CMD_KO);
+                    writer.flush();
+                    return;
+                }
+            }
+            catch(SQLException ex)
+            {
+                System.out.println(ex.getMessage());
             }
             
-            /* On oublie pour le moment le mot de passe pour vérifier que les fonctions fonctionnent
+            writer.println(Protocole.CMD_OK);
+            writer.flush();                
+            
+            
             while ((line = reader.readLine()).equals(Protocole.CMD_MDP)) {
                 writer.println("Not a correct command");
                 writer.flush();
@@ -324,9 +360,26 @@ public class MultiThreadedServer {
             }
             writer.println(Protocole.CMD_OK);
             writer.flush();
-            */
-            //fonction_register_BDD(username, mdp); 
+            
+            try
+            {
+                Database db = new Database();
+		db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                if(db.playerExist(username) == 0)
+                {
+                    db.insererJoueur(username, mdp);
+                }
+                else
+                {
+                    writer.println(Protocole.CMD_KO);
+                    writer.flush();
+                }
+            }
+            catch(SQLException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
         }
-
     }
+    public static void main(String... args){}
 }

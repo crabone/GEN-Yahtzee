@@ -87,7 +87,7 @@ public class Game extends Observable
         
         playerXTurn = Random.randomValue(0, players.size());
         
-        this.run();
+        
     }
     
     public void reRolle(int[] dieToReRoll)
@@ -101,5 +101,6 @@ public class Game extends Observable
     public boolean playChoice(Player player, int[] dice, int choice)
     {
         int index;
+        return false;
     }
 }

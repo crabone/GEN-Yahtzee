@@ -2,11 +2,14 @@ package com.mycompany.jyahtzee.client.gui.newAccountWindow;
 
 import com.mycompany.jyahtzee.client.transport.Client;
 import java.io.IOException;
+
+import com.mycompany.jyahtzee.client.transport.Communication;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 
 /**
  * Created by Mado on 11.05.2016.
@@ -33,8 +36,11 @@ public class NewAccountWindowController {
     // Ici tu met les méthodes qui faut pour que le client puisse se créer un compte!
     @FXML
     private void registerClient() throws Exception {
-        Client client = new Client("localhost", 4321); // A changer pour les bonnes valeures
-        client.authenticate(login.getText());
+        Client client = new Client("localhost", 4321);
+        client.connect();
+        Communication com = new Communication(client);
+        com.inscription(login.getText(), password.getText());
+        //String tmp = "yolo";
     }
 
 }
