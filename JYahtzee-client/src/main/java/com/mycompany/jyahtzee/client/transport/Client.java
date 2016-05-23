@@ -46,7 +46,7 @@ public class Client {
         }
 
         connected = true;
-        LOG.info(reader.readLine());
+        //LOG.info(reader.readLine());
     }
     
     /**
