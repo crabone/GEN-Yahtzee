@@ -86,6 +86,7 @@ public class Client {
     public void sendMessage(String msg) throws IOException {
         if(msg != null) {
             writer.write(msg);
+            writer.write("\r\n");
             writer.flush();
         }
 
