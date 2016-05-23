@@ -65,11 +65,12 @@ public class ScoreManager
                 
             
         }
+        return false;
     }
     
     public boolean oneNumber(int[] dice)
     {
-        
+        return false;
     }
     
 }

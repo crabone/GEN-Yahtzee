@@ -102,5 +102,6 @@ public class Game extends Observable implements Runnable
     public boolean playChoice(Player player, int[] dice, int choice)
     {
         int index;
+        return false;
     }
 }

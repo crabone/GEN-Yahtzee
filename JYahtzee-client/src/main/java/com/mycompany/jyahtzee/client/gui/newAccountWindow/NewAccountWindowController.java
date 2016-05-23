@@ -37,8 +37,10 @@ public class NewAccountWindowController {
     @FXML
     private void registerClient() throws Exception {
         Client client = new Client("localhost", 4321);
+        client.connect();
         Communication com = new Communication(client);
         com.inscription(login.getText(), password.getText());
+        //String tmp = "yolo";
     }
 
 }

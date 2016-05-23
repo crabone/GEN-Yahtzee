@@ -84,8 +84,10 @@ public class Client {
      * @throws IOException 
      */
     public void sendMessage(String msg) throws IOException {
-        writer.write(msg);
-        writer.flush();
+        if(msg != null) {
+            writer.write(msg);
+            writer.flush();
+        }
 
         if (msg.equals(Protocole.CMD_BYE)) {
             disconnect();

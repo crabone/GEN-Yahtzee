@@ -17,15 +17,15 @@ public class GameManager
     }      
 
     public boolean createGame() {
-        Game newGame = new Game(player);
-        games.put(newGame.getID(), newGame);
+        //Game newGame = new Game(player);
+       // games.put(newGame.getID(), newGame);
         
         return false;
     }
 
     public boolean joinGame(int id) {
         Game game = games.get(id);
-        game.addPlayer(player);
+        //game.addPlayer(player);
 
         return false;
     }
