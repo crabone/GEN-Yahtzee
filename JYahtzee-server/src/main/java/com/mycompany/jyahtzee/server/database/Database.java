@@ -16,13 +16,13 @@ public class Database {
             connexion = DriverManager.getConnection(url,utilisateur,mdp);
     }
 
-    public void insererJoueur(String nom) throws SQLException{
+    public void insertPlayer(String nom) throws SQLException{
             PreparedStatement preparedStatement = connexion.prepareStatement("insert into Joueur(Username) values (?)");
             preparedStatement.setString(1, nom);
             preparedStatement.executeUpdate();
 
     }
-    public void insererJoueur(String nom, String mdp) throws SQLException{                
+    public void insertPlayer(String nom, String mdp) throws SQLException{                
             PreparedStatement preparedStatement = connexion.prepareStatement("insert into Joueur(Username, MDP) values (?, ?)");
             preparedStatement.setString(1, nom);
             preparedStatement.setString(2, mdp);
@@ -30,7 +30,7 @@ public class Database {
 
     }
 
-    public void modifierJoueur(String nom) throws SQLException{
+    public void modifyPlayer(String nom) throws SQLException{
             PreparedStatement preparedStatement = connexion.prepareStatement("update Username from Joueur where Username = ? ");
             preparedStatement.setString(1, nom);
             preparedStatement.executeUpdate();
@@ -44,7 +44,7 @@ public class Database {
             return preparedStatement.toString();
     }
 
-    public void modifierMdp(String oldPassword, String newPassword)throws SQLException{		
+    public void modifyPwd(String oldPassword, String newPassword)throws SQLException{		
             PreparedStatement preparedStatement = connexion.prepareStatement("select * from joueur where MDP = ?");
             preparedStatement.setString(1, oldPassword);
             ResultSet result = preparedStatement.executeQuery();
@@ -64,7 +64,7 @@ public class Database {
             return result.getInt("scoreMax");
     }
 
-    public String gagnant() throws SQLException{
+    public String winner() throws SQLException{
             Statement state = connexion.createStatement();
             ResultSet result = state.executeQuery("select Username from Joueur where scoreTotal = " + scoreMax());
             return result.getString("Username");

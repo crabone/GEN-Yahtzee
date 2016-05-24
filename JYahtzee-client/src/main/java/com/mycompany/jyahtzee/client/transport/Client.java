@@ -46,7 +46,7 @@ public class Client {
         }
 
         connected = true;
-        LOG.info(reader.readLine());
+        //LOG.info(reader.readLine());
     }
     
     /**
@@ -86,6 +86,7 @@ public class Client {
     public void sendMessage(String msg) throws IOException {
         if(msg != null) {
             writer.write(msg);
+            writer.write("\r\n");
             writer.flush();
         }
 

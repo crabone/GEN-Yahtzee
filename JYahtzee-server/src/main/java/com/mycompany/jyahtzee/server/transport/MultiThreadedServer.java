@@ -104,13 +104,14 @@ public class MultiThreadedServer {
             boolean ok;
             GameManager gameManager = new GameManager();
 
-            try {
+            try 
+            {
                 while ((shouldRun == true) && (line = reader.readLine()) != null) {
 
-                    switch (line) {
+                    switch (line)
+                    {
                         case (Protocole.CMD_HI):
-                            writer.println(Protocole.CMD_HI);
-                            writer.flush();
+                            sendMessage(Protocole.CMD_HI);
                             break;
                         case (Protocole.CMD_AUTH):
                             int authOk;
@@ -125,61 +126,46 @@ public class MultiThreadedServer {
                             break;
                         case (Protocole.CMD_CREATION):
                             ok = JYahtzeeServer.gameManager.createGame(idPlayer);
-                            if (ok) {
-                                writer.write(Protocole.CMD_OK);
-                                writer.write("\r\n");
-                            } else {
-                                writer.write(Protocole.CMD_KO);
-                                writer.write("\r\n");
+                            if (ok) 
+                            {
+                                sendMessage(Protocole.CMD_OK);
+                            } 
+                            else
+                            {
+                                sendMessage(Protocole.CMD_KO);
                             }
-                            writer.flush();
-                            break;
-                        
+                            break;                        
                         case (Protocole.CMD_JOIN):
                             int id;
-                            writer.write(Protocole.CMD_ACK);
-                            writer.write("\r\n");
-                            writer.flush();
+                            sendMessage(Protocole.CMD_ACK);
                             id = Integer.parseInt(reader.readLine());
                             if (id == 0) {
-                                writer.write(Protocole.CMD_KO);
-                                writer.write("\r\n");
-                                writer.flush();
+                                sendMessage(Protocole.CMD_KO);
                                 break;
                             }
                             ok = JYahtzeeServer.gameManager.joinGame(id, idPlayer);
                             if (ok) {
                                 idPartie = id;
-                                writer.write(Protocole.CMD_OK);
-                                writer.write("\r\n");
+                                sendMessage(Protocole.CMD_OK);
                             } else {
-                                writer.write(Protocole.CMD_KO);
-                                writer.write("\r\n");
+                                sendMessage(Protocole.CMD_KO);
                             }
-                        
-                            writer.flush();
                             break;
                         /*case (Protocole.CMD_OBSERVE):
                             int idGame;
-                            writer.println(Protocole.CMD_ACK);
-                            writer.flush();
+                            sendMessage(Protocole.CMD_ACK);
                             idGame = Integer.parseInt(reader.readLine());
-                            /*
                             if(id == 0)
                             {
-                                    writer.println(Protocole.CMD_KO);
-                                    writer.flush();
+                                    sendMessage(Protocole.CMD_KO);
                                     break;      
                             }
-                             */
-                            /*
                             ok = gameManager.observeGame(idGame);
                             if (ok) {
-                                writer.println(Protocole.CMD_OK);
+                                sendMessage(Protocole.CMD_OK);
                             } else {
-                                writer.println(Protocole.CMD_KO);
+                                sendMessage(Protocole.CMD_KO);
                             }
-                            writer.flush();
                             break;
                          */
                             
@@ -192,36 +178,29 @@ public class MultiThreadedServer {
                             break;
                         /*case (Protocole.CMD_DECISION):
                             String idScore;
-                            writer.println(Protocole.CMD_ACK);
-                            writer.flush();
+                            sendMessage(Protocole.CMD_ACK);
                             idScore = reader.readLine();
                             if (idScore == null) {
-                                writer.println(Protocole.CMD_KO);
-                                writer.flush();
+                                sendMessage(Protocole.CMD_KO);
                                 break;
                             }
-                            /*
                             //ok = fonction_enregistrer_score(idScore);
                             if(ok)
                             {
-                                    writer.println(Protocole.CMD_OK);
+                                    sendMessage(Protocole.CMD_OK);
                             }
                             else
                             {
-                                    writer.println(Protocole.CMD_KO);
-                            }
-                             */
-                            /*
-                            writer.flush();
+                                    sendMessage(Protocole.CMD_KO);
+                            }                             
                             break;
                         */
                         case (Protocole.CMD_BYE):
-                            writer.println(Protocole.CMD_BYE);
-                            writer.flush();
+                            sendMessage(Protocole.CMD_BYE);
                             shouldRun = false;
                             break;
                         default:
-                            writer.println("Command not known");
+                            sendMessage("Command not known");
                             break;
                     }
                 }
@@ -251,6 +230,12 @@ public class MultiThreadedServer {
                 clientSocket.close();
             }
         }
+        private void sendMessage(String msg)
+        {
+            writer.write(msg);
+            writer.write("\r\n");
+            writer.flush();
+        }
 
         /**
          * Cette méthode est appelé lorsque qu'un client ce déconnecte du
@@ -261,48 +246,46 @@ public class MultiThreadedServer {
             cleanup();
         }
 
-        // return player id, 0 if none found
+        /**
+         * return player id, 0 if none found
+         */
         private int authenticate() throws IOException {
             String mdp;
             String username;
             String line;
             int id = 0;
 
-            writer.println(Protocole.CMD_ACK);
-            writer.flush();
-            while ((line = reader.readLine()).equals(Protocole.CMD_USERNAME)) {
-                writer.println("Not a correct command");
-                writer.flush();
+            sendMessage(Protocole.CMD_ACK);
+            // wait for the username command
+            while (!(line = reader.readLine()).equals(Protocole.CMD_USERNAME)) {
+                sendMessage(Protocole.CMD_KO);
             }
-            writer.println(Protocole.CMD_ACK);
-            writer.flush();
+            sendMessage(Protocole.CMD_ACK);
+            // receive the username
             username = reader.readLine();
             if (username == null) {
-                writer.println(Protocole.CMD_KO);
-                writer.flush();
+                sendMessage(Protocole.CMD_KO);
                 return 0;
             }
-            writer.println(Protocole.CMD_OK);
-            writer.flush();
-            while ((line = reader.readLine()).equals(Protocole.CMD_MDP)) {
-                writer.println("Not a correct command");
-                writer.flush();
+            sendMessage(Protocole.CMD_OK);
+            // wait for MDP command
+            while (!(line = reader.readLine()).equals(Protocole.CMD_MDP)) {
+                sendMessage(Protocole.CMD_KO);
             }
-            writer.println(Protocole.CMD_ACK);
-            writer.flush();
+            sendMessage(Protocole.CMD_ACK);
+            // receive the hashed pwd
             mdp = reader.readLine();
             if (mdp == null) {
-                writer.println(Protocole.CMD_KO);
-                writer.flush();
+                sendMessage(Protocole.CMD_KO);
                 return 0;
             }
-            writer.println(Protocole.CMD_OK);
-            writer.flush();
-            
+            sendMessage(Protocole.CMD_OK);
+            // connection to the database
             try
             {
                 Database db = new Database();
 		db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                // verify that the user with this pwd is correct
                 id = db.verify(username, mdp);
             }
             catch(SQLException ex)
@@ -317,38 +300,28 @@ public class MultiThreadedServer {
             String username;
             String line;
 
-            writer.println(Protocole.CMD_ACK);
-            writer.flush();
+            sendMessage(Protocole.CMD_ACK);
             line = reader.readLine();
-            
+            // wait the username command
             if (!line.equals(Protocole.CMD_USERNAME)) {
-                // On balance une erreure et on quitte la fonction. Ca signifie
-                // que le client tente quelque chose de suspect. Afin de garantir
-                // l'intégrité des données on quitte tout de suite.
-                writer.println(Protocole.CMD_KO);
-                writer.flush();
+                sendMessage(Protocole.CMD_KO);
                 return;
             }
-            else {
-                writer.println(Protocole.CMD_ACK);
-                writer.flush();
-            }
-
+            sendMessage(Protocole.CMD_ACK);
+            // receive the username
             username = reader.readLine();
             if (username == null) {
-                writer.println(Protocole.CMD_KO);
-                writer.flush();
+                sendMessage(Protocole.CMD_KO);
                 return;
-            }
-            
+            }       
+            // check if the username is already registered
             try
             {
                 Database db = new Database();
                 db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
                 if(db.playerExist(username) == 0)
                 {
-                    writer.println(Protocole.CMD_KO);
-                    writer.flush();
+                    sendMessage(Protocole.CMD_KO);
                     return;
                 }
             }
@@ -356,38 +329,31 @@ public class MultiThreadedServer {
             {
                 System.out.println(ex.getMessage());
             }
-            
-            writer.println(Protocole.CMD_OK);
-            writer.flush();                
-            
-            
+            sendMessage(Protocole.CMD_OK);            
+            // wait for the MDP command         
             while ((line = reader.readLine()).equals(Protocole.CMD_MDP)) {
-                writer.println("Not a correct command");
-                writer.flush();
+                sendMessage(Protocole.CMD_KO);
             }
-            writer.println(Protocole.CMD_ACK);
-            writer.flush();
+            sendMessage(Protocole.CMD_ACK);
+            // receive the pwd
             mdp = reader.readLine();
             if (mdp == null) {
-                writer.println(Protocole.CMD_KO);
-                writer.flush();
+                sendMessage(Protocole.CMD_KO);
                 return;
             }
-            writer.println(Protocole.CMD_OK);
-            writer.flush();
-            
+            sendMessage(Protocole.CMD_OK);
+            // store the new player in the database
             try
             {
                 Database db = new Database();
 		db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
                 if(db.playerExist(username) == 0)
                 {
-                    db.insererJoueur(username, mdp);
+                    db.insertPlayer(username, mdp);
                 }
                 else
                 {
-                    writer.println(Protocole.CMD_KO);
-                    writer.flush();
+                    sendMessage(Protocole.CMD_KO);
                 }
             }
             catch(SQLException ex)
