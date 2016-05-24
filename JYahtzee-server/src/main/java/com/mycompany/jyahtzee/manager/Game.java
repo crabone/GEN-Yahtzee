@@ -27,7 +27,7 @@ public class Game extends Observable
     public Game(int idPlayer)
     {
         status = Status.OPEN;
-        idGame = JYahtzeeServer.db.newGame(status.name());
+        //idGame = JYahtzeeServer.db.newGame(status.name());
         players = new ArrayList<>();
         observers = new ArrayList<>();
         scoreManage  = new HashMap<>();
@@ -76,7 +76,7 @@ public class Game extends Observable
     public void startGame()
     {
         status = Status.PLAY;
-        JYahtzeeServer.db.addPlayerGame(idGame,players);
+        //JYahtzeeServer.db.addPlayerGame(idGame,players);
         
         int i;
         for(i = 0 ; i < 5 ; i++)

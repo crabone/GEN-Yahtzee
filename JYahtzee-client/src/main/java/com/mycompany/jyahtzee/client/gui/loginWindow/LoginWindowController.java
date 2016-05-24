@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -57,8 +58,23 @@ public class LoginWindowController {
     private void authentificationClient () throws Exception {
 
         Client client = new Client("localhost", 4321);
+        client.connect();
         Communication com = new Communication(client);
-        com.authentification(login.getText(), password.getText());
+        boolean ok = com.authentification(login.getText(), password.getText());
+
+        if (ok){
+            ((Stage)mainPane.getScene().getWindow()).close();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Votre avez été loggé avec succes");
+            alert.showAndWait();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Il y a eu une erreur lors de la connexion à votre compte");
+            alert.showAndWait();
+        }
     }
 
     // Ceci est liée au bouton "Quitter" de la fenetre LoginWindows aussi nomnée "Authentification"

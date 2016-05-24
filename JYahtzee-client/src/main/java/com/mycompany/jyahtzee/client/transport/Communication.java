@@ -26,6 +26,7 @@ public class Communication {
         String hashedMdp;
         String serverMsg;
         Hash hasher = new Hash();
+        String id;
         client.sendMessage(Protocole.CMD_AUTH);
         serverMsg = client.receiveMessage();
         if(!serverMsg.equals(Protocole.CMD_ACK))
@@ -62,6 +63,11 @@ public class Communication {
         client.sendMessage(hashedMdp);
         serverMsg = client.receiveMessage();
         if(!serverMsg.equals(Protocole.CMD_OK))
+        {
+            return false;
+        }
+        id = client.receiveMessage();
+        if(id.equals(Integer.toString(0)))
         {
             return false;
         }

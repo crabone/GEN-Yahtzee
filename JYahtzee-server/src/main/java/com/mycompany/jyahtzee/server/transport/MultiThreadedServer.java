@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.security.NoSuchAlgorithmException;
+import java.lang.Integer;
 
 public class MultiThreadedServer
 {
@@ -279,7 +280,7 @@ public class MultiThreadedServer
         }
 
         /**
-         * return player id, 0 if none found
+         * return player id if found, 0 if not
          */
         private int authenticate() throws IOException
         {
@@ -321,7 +322,7 @@ public class MultiThreadedServer
             Database db = new Database();
             try
             {
-		db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+		    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
                 // verify that the user with this pwd is correct
                 id = db.verify(username, mdp);
             }
@@ -333,7 +334,8 @@ public class MultiThreadedServer
             {
                 db.disconnect(); 
             }
-            return id;    
+            sendMessage(Integer.toString(id));
+            return id;
         }
 
         private void register() throws IOException
@@ -362,8 +364,8 @@ public class MultiThreadedServer
             Database db = new Database();
             try
             {
-                db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
-                if (db.playerExist(username) == 0)
+                db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
+                if (db.playerExist(username) != 0)
                 {
                     sendMessage(Protocole.CMD_KO);
                     return;
@@ -376,8 +378,8 @@ public class MultiThreadedServer
                 return;
             }
             sendMessage(Protocole.CMD_OK);
-            // wait for the MDP command         
-            while ((line = reader.readLine()).equals(Protocole.CMD_MDP))
+            // wait for the MDP command
+            while (!(line = reader.readLine()).equals(Protocole.CMD_MDP))
             {
                 sendMessage(Protocole.CMD_KO);
             }
@@ -393,27 +395,15 @@ public class MultiThreadedServer
             // store the new player in the database
             try
             {
-<<<<<<< HEAD
-                Database db = new Database();
-                db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
-                if (db.playerExist(username) == 0)
-=======
                 if(!db.connected())
                 {
-                    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
-                }                
-                if(db.playerExist(username) == 0)
->>>>>>> 93e2c79b1b3ae7359e516e0014a67ef22d4f7b07
-                {
-                    db.insertPlayer(username, mdp);
+                    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
                 }
-                else
-                {
-                    sendMessage(Protocole.CMD_KO);
-                }
+                db.insertPlayer(username, mdp);
             }
             catch (SQLException ex)
             {
+                sendMessage(Protocole.CMD_KO);
                 System.out.println(ex.getMessage());
             }
             finally

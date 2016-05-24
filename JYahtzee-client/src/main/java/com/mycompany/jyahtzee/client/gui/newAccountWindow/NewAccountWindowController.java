@@ -56,6 +56,7 @@ public class NewAccountWindowController {
             alert.setContentText("Il y a eu une erreur lors de la creation de votre compte");
             alert.showAndWait();
         }
+        client.disconnect();
 
     }
 
