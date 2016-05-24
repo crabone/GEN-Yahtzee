@@ -1,3 +1,6 @@
 /JYahtzee/target/
 /JYahtzee-server/target/
 /JYahtzee-client/target/
+JYahtzee-client/.idea/
+JYahtzee-server/.idea/
+*.iml
