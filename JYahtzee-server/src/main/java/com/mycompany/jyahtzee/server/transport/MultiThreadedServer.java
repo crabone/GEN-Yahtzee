@@ -268,9 +268,9 @@ public class MultiThreadedServer {
             }
             sendMessage(Protocole.CMD_OK);
             // connection to the database
+            Database db = new Database();
             try
             {
-                Database db = new Database();
 		db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
                 // verify that the user with this pwd is correct
                 id = db.verify(username, mdp);
@@ -278,6 +278,10 @@ public class MultiThreadedServer {
             catch(SQLException ex)
             {
                 System.out.println(ex.getMessage());
+            }
+            finally
+            {
+                db.disconnect(); 
             }
             return id;    
         }
@@ -302,9 +306,9 @@ public class MultiThreadedServer {
                 return;
             }       
             // check if the username is already registered
+            Database db = new Database();
             try
             {
-                Database db = new Database();
                 db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
                 if(db.playerExist(username) == 0)
                 {
@@ -314,7 +318,9 @@ public class MultiThreadedServer {
             }
             catch(SQLException ex)
             {
+                db.disconnect();
                 System.out.println(ex.getMessage());
+                return;
             }
             sendMessage(Protocole.CMD_OK);            
             // wait for the MDP command         
@@ -332,8 +338,10 @@ public class MultiThreadedServer {
             // store the new player in the database
             try
             {
-                Database db = new Database();
-		db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                if(!db.connected())
+                {
+                    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                }                
                 if(db.playerExist(username) == 0)
                 {
                     db.insertPlayer(username, mdp);
@@ -346,6 +354,10 @@ public class MultiThreadedServer {
             catch(SQLException ex)
             {
                 System.out.println(ex.getMessage());
+            }
+            finally
+            {
+                db.disconnect();
             }
         }
     }
