@@ -15,26 +15,42 @@ public class Database {
     public void connecter(String url, String utilisateur, String mdp) throws SQLException{
             connexion = DriverManager.getConnection(url,utilisateur,mdp);
     }
+    public void disconnect()
+    {
+        if(connexion != null)
+        {
+            try
+            {
+                connexion.close();
+            }
+            catch(SQLException e)
+            {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    public boolean connected()
+    {
+        return connexion != null;
+    }
 
     public void insertPlayer(String nom) throws SQLException{
             PreparedStatement preparedStatement = connexion.prepareStatement("insert into Joueur(Username) values (?)");
             preparedStatement.setString(1, nom);
             preparedStatement.executeUpdate();
-
     }
+    
     public void insertPlayer(String nom, String mdp) throws SQLException{                
             PreparedStatement preparedStatement = connexion.prepareStatement("insert into Joueur(Username, MDP) values (?, ?)");
             preparedStatement.setString(1, nom);
             preparedStatement.setString(2, mdp);
             preparedStatement.executeUpdate();
-
     }
 
     public void modifyPlayer(String nom) throws SQLException{
             PreparedStatement preparedStatement = connexion.prepareStatement("update Username from Joueur where Username = ? ");
             preparedStatement.setString(1, nom);
             preparedStatement.executeUpdate();
-
     }
 
     public String score(String joueur) throws SQLException{

@@ -318,10 +318,10 @@ public class MultiThreadedServer
             }
             sendMessage(Protocole.CMD_OK);
             // connection to the database
+            Database db = new Database();
             try
             {
-                Database db = new Database();
-                db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+		db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
                 // verify that the user with this pwd is correct
                 id = db.verify(username, mdp);
             }
@@ -329,7 +329,11 @@ public class MultiThreadedServer
             {
                 System.out.println(ex.getMessage());
             }
-            return id;
+            finally
+            {
+                db.disconnect(); 
+            }
+            return id;    
         }
 
         private void register() throws IOException
@@ -355,9 +359,9 @@ public class MultiThreadedServer
                 return;
             }
             // check if the username is already registered
+            Database db = new Database();
             try
             {
-                Database db = new Database();
                 db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
                 if (db.playerExist(username) == 0)
                 {
@@ -367,7 +371,9 @@ public class MultiThreadedServer
             }
             catch (SQLException ex)
             {
+                db.disconnect();
                 System.out.println(ex.getMessage());
+                return;
             }
             sendMessage(Protocole.CMD_OK);
             // wait for the MDP command         
@@ -387,9 +393,17 @@ public class MultiThreadedServer
             // store the new player in the database
             try
             {
+<<<<<<< HEAD
                 Database db = new Database();
                 db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
                 if (db.playerExist(username) == 0)
+=======
+                if(!db.connected())
+                {
+                    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                }                
+                if(db.playerExist(username) == 0)
+>>>>>>> 93e2c79b1b3ae7359e516e0014a67ef22d4f7b07
                 {
                     db.insertPlayer(username, mdp);
                 }
@@ -401,6 +415,10 @@ public class MultiThreadedServer
             catch (SQLException ex)
             {
                 System.out.println(ex.getMessage());
+            }
+            finally
+            {
+                db.disconnect();
             }
         }
     }
