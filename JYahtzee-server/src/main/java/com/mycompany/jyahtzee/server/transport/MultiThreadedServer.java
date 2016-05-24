@@ -18,7 +18,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.security.NoSuchAlgorithmException;
 
-public class MultiThreadedServer {
+public class MultiThreadedServer
+{
 
     private static final Logger LOG = Logger.getLogger(MultiThreadedServer.class.getName());
 
@@ -30,7 +31,8 @@ public class MultiThreadedServer {
      *
      * @param port
      */
-    public MultiThreadedServer(int port) {
+    public MultiThreadedServer(int port)
+    {
         this.port = port;
         connected = false;
     }
@@ -39,7 +41,8 @@ public class MultiThreadedServer {
      * Cette méthode est appelé après construction de l'objet, servant à
      * recevoir les clients.
      */
-    public void serveClients() {
+    public void serveClients()
+    {
         new Thread(new ReceptionistWorker()).start();
     }
 
@@ -47,25 +50,34 @@ public class MultiThreadedServer {
      * Cette classe est chargé de réceptionner les clients qui arrivent sur le
      * serveur.
      */
-    private class ReceptionistWorker implements Runnable {
+    private class ReceptionistWorker implements Runnable
+    {
 
         @Override
-        public void run() {
+        public void run()
+        {
             ServerSocket serverSocket;
 
-            try {
+            try
+            {
                 serverSocket = new ServerSocket(port);
-            } catch (IOException ex) {
+            }
+            catch (IOException ex)
+            {
                 Logger.getLogger(MultiThreadedServer.class.getName()).log(Level.SEVERE, null, ex);
                 return;
             }
 
-            while (true) {
+            while (true)
+            {
                 LOG.log(Level.INFO, "Waiting (blocking) for a new client on port {0}", port);
-                try {
+                try
+                {
                     Socket clientSocket = serverSocket.accept();
                     new Thread(new ServantWorker(clientSocket)).start();
-                } catch (IOException ex) {
+                }
+                catch (IOException ex)
+                {
                     Logger.getLogger(MultiThreadedServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -77,19 +89,24 @@ public class MultiThreadedServer {
      * Cette classe est chargée de servir les clients après qu'ils aient été
      * reçu.
      */
-    private class ServantWorker implements Runnable {
+    private class ServantWorker implements Runnable
+    {
 
         Socket clientSocket;
         BufferedReader reader = null;
         PrintWriter writer = null;
         int idPlayer = 0;
 
-        public ServantWorker(Socket clientSocket) {
-            try {
+        public ServantWorker(Socket clientSocket)
+        {
+            try
+            {
                 this.clientSocket = clientSocket;
                 reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 writer = new PrintWriter(clientSocket.getOutputStream());
-            } catch (IOException ex) {
+            }
+            catch (IOException ex)
+            {
                 Logger.getLogger(MultiThreadedServer.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -97,16 +114,18 @@ public class MultiThreadedServer {
         }
 
         @Override
-        public void run() {
+        public void run()
+        {
             String line;
             boolean shouldRun = true;
             int idPartie = 0;
             boolean ok;
             GameManager gameManager = new GameManager();
 
-            try 
+            try
             {
-                while ((shouldRun == true) && (line = reader.readLine()) != null) {
+                while ((shouldRun == true) && (line = reader.readLine()) != null)
+                {
 
                     switch (line)
                     {
@@ -116,7 +135,7 @@ public class MultiThreadedServer {
                         case (Protocole.CMD_AUTH):
                             int authOk;
                             authOk = authenticate();
-                            if(authOk != 0)
+                            if (authOk != 0)
                             {
                                 idPlayer = authOk;
                             }
@@ -126,75 +145,77 @@ public class MultiThreadedServer {
                             break;
                         case (Protocole.CMD_CREATION):
                             ok = JYahtzeeServer.gameManager.createGame(idPlayer);
-                            if (ok) 
+                            if (ok)
                             {
                                 sendMessage(Protocole.CMD_OK);
-                            } 
+                            }
                             else
                             {
                                 sendMessage(Protocole.CMD_KO);
                             }
-                            break;                        
+                            break;
                         case (Protocole.CMD_JOIN):
                             int id;
                             sendMessage(Protocole.CMD_ACK);
                             id = Integer.parseInt(reader.readLine());
-                            if (id == 0) {
+                            if (id == 0)
+                            {
                                 sendMessage(Protocole.CMD_KO);
                                 break;
                             }
                             ok = JYahtzeeServer.gameManager.joinGame(id, idPlayer);
-                            if (ok) {
+                            if (ok)
+                            {
                                 idPartie = id;
                                 sendMessage(Protocole.CMD_OK);
-                            } else {
+                            }
+                            else
+                            {
                                 sendMessage(Protocole.CMD_KO);
                             }
                             break;
                         /*case (Protocole.CMD_OBSERVE):
-                            int idGame;
-                            sendMessage(Protocole.CMD_ACK);
-                            idGame = Integer.parseInt(reader.readLine());
-                            if(id == 0)
-                            {
-                                    sendMessage(Protocole.CMD_KO);
-                                    break;      
-                            }
-                            ok = gameManager.observeGame(idGame);
-                            if (ok) {
-                                sendMessage(Protocole.CMD_OK);
-                            } else {
-                                sendMessage(Protocole.CMD_KO);
-                            }
-                            break;
+                         int idGame;
+                         sendMessage(Protocole.CMD_ACK);
+                         idGame = Integer.parseInt(reader.readLine());
+                         if(id == 0)
+                         {
+                         sendMessage(Protocole.CMD_KO);
+                         break;      
+                         }
+                         ok = gameManager.observeGame(idGame);
+                         if (ok) {
+                         sendMessage(Protocole.CMD_OK);
+                         } else {
+                         sendMessage(Protocole.CMD_KO);
+                         }
+                         break;
                          */
-                            
+
                         case (Protocole.CMD_ROLL_THE_DICES):
                             // Fonction pour lancer les dés                            
-                            writer.write(Protocole.CMD_ACK);
-                            writer.write("\r\n");
-                            writer.flush();
+                            sendMessage(Protocole.CMD_ACK);
                             JYahtzeeServer.gameManager.rollInGame(idPartie);
                             break;
                         /*case (Protocole.CMD_DECISION):
-                            String idScore;
-                            sendMessage(Protocole.CMD_ACK);
-                            idScore = reader.readLine();
-                            if (idScore == null) {
-                                sendMessage(Protocole.CMD_KO);
-                                break;
-                            }
-                            //ok = fonction_enregistrer_score(idScore);
-                            if(ok)
-                            {
-                                    sendMessage(Protocole.CMD_OK);
-                            }
-                            else
-                            {
-                                    sendMessage(Protocole.CMD_KO);
-                            }                             
-                            break;
-                        */
+                         String idScore;
+                         sendMessage(Protocole.CMD_ACK);
+                         idScore = reader.readLine();
+                         if (idScore == null) {
+                         sendMessage(Protocole.CMD_KO);
+                         break;
+                         }
+                         //ok = fonction_enregistrer_score(idScore);
+                         if(ok)
+                         {
+                         sendMessage(Protocole.CMD_OK);
+                         }
+                         else
+                         {
+                         sendMessage(Protocole.CMD_KO);
+                         }                             
+                         break;
+                         */
                         case (Protocole.CMD_BYE):
                             sendMessage(Protocole.CMD_BYE);
                             shouldRun = false;
@@ -206,10 +227,15 @@ public class MultiThreadedServer {
                 }
 
                 disconnect();
-            } catch (IOException ex) {
-                try {
+            }
+            catch (IOException ex)
+            {
+                try
+                {
                     cleanup();
-                } catch (IOException ex1) {
+                }
+                catch (IOException ex1)
+                {
                     Logger.getLogger(MultiThreadedServer.class.getName()).log(Level.SEVERE, null, ex1);
                 }
             }
@@ -219,17 +245,22 @@ public class MultiThreadedServer {
          * Méthode permettant de fermer tout les flux ouverts. Elle est
          * généralement appelée en cas de fermeture de la connexion.
          */
-        private void cleanup() throws IOException {
-            if (reader != null) {
+        private void cleanup() throws IOException
+        {
+            if (reader != null)
+            {
                 reader.close();
             }
-            if (writer != null) {
+            if (writer != null)
+            {
                 writer.close();
             }
-            if (clientSocket != null) {
+            if (clientSocket != null)
+            {
                 clientSocket.close();
             }
         }
+
         private void sendMessage(String msg)
         {
             writer.write(msg);
@@ -241,7 +272,8 @@ public class MultiThreadedServer {
          * Cette méthode est appelé lorsque qu'un client ce déconnecte du
          * serveur.
          */
-        private void disconnect() throws IOException {
+        private void disconnect() throws IOException
+        {
             connected = false;
             cleanup();
         }
@@ -249,7 +281,8 @@ public class MultiThreadedServer {
         /**
          * return player id, 0 if none found
          */
-        private int authenticate() throws IOException {
+        private int authenticate() throws IOException
+        {
             String mdp;
             String username;
             String line;
@@ -257,25 +290,29 @@ public class MultiThreadedServer {
 
             sendMessage(Protocole.CMD_ACK);
             // wait for the username command
-            while (!(line = reader.readLine()).equals(Protocole.CMD_USERNAME)) {
+            while (!(line = reader.readLine()).equals(Protocole.CMD_USERNAME))
+            {
                 sendMessage(Protocole.CMD_KO);
             }
             sendMessage(Protocole.CMD_ACK);
             // receive the username
             username = reader.readLine();
-            if (username == null) {
+            if (username == null)
+            {
                 sendMessage(Protocole.CMD_KO);
                 return 0;
             }
             sendMessage(Protocole.CMD_OK);
             // wait for MDP command
-            while (!(line = reader.readLine()).equals(Protocole.CMD_MDP)) {
+            while (!(line = reader.readLine()).equals(Protocole.CMD_MDP))
+            {
                 sendMessage(Protocole.CMD_KO);
             }
             sendMessage(Protocole.CMD_ACK);
             // receive the hashed pwd
             mdp = reader.readLine();
-            if (mdp == null) {
+            if (mdp == null)
+            {
                 sendMessage(Protocole.CMD_KO);
                 return 0;
             }
@@ -284,18 +321,19 @@ public class MultiThreadedServer {
             try
             {
                 Database db = new Database();
-		db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
                 // verify that the user with this pwd is correct
                 id = db.verify(username, mdp);
             }
-            catch(SQLException ex)
+            catch (SQLException ex)
             {
                 System.out.println(ex.getMessage());
             }
-            return id;    
+            return id;
         }
 
-        private void register() throws IOException {
+        private void register() throws IOException
+        {
             String mdp;
             String username;
             String line;
@@ -303,41 +341,45 @@ public class MultiThreadedServer {
             sendMessage(Protocole.CMD_ACK);
             line = reader.readLine();
             // wait the username command
-            if (!line.equals(Protocole.CMD_USERNAME)) {
+            if (!line.equals(Protocole.CMD_USERNAME))
+            {
                 sendMessage(Protocole.CMD_KO);
                 return;
             }
             sendMessage(Protocole.CMD_ACK);
             // receive the username
             username = reader.readLine();
-            if (username == null) {
+            if (username == null)
+            {
                 sendMessage(Protocole.CMD_KO);
                 return;
-            }       
+            }
             // check if the username is already registered
             try
             {
                 Database db = new Database();
                 db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
-                if(db.playerExist(username) == 0)
+                if (db.playerExist(username) == 0)
                 {
                     sendMessage(Protocole.CMD_KO);
                     return;
                 }
             }
-            catch(SQLException ex)
+            catch (SQLException ex)
             {
                 System.out.println(ex.getMessage());
             }
-            sendMessage(Protocole.CMD_OK);            
+            sendMessage(Protocole.CMD_OK);
             // wait for the MDP command         
-            while ((line = reader.readLine()).equals(Protocole.CMD_MDP)) {
+            while ((line = reader.readLine()).equals(Protocole.CMD_MDP))
+            {
                 sendMessage(Protocole.CMD_KO);
             }
             sendMessage(Protocole.CMD_ACK);
             // receive the pwd
             mdp = reader.readLine();
-            if (mdp == null) {
+            if (mdp == null)
+            {
                 sendMessage(Protocole.CMD_KO);
                 return;
             }
@@ -346,8 +388,8 @@ public class MultiThreadedServer {
             try
             {
                 Database db = new Database();
-		db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
-                if(db.playerExist(username) == 0)
+                db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                if (db.playerExist(username) == 0)
                 {
                     db.insertPlayer(username, mdp);
                 }
@@ -356,7 +398,7 @@ public class MultiThreadedServer {
                     sendMessage(Protocole.CMD_KO);
                 }
             }
-            catch(SQLException ex)
+            catch (SQLException ex)
             {
                 System.out.println(ex.getMessage());
             }

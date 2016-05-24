@@ -34,5 +34,10 @@ public class GameManager
         Game game = games.get(idGame);
         return game.addPlayer(idObserver);
     }
+    
+    public void rollInGame(int idGame)
+    {
+        Game game = games.get(idGame);
+    }
 
 }
