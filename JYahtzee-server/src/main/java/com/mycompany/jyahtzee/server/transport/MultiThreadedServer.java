@@ -1,6 +1,7 @@
 package com.mycompany.jyahtzee.server.transport;
 
 import com.mycompany.jyahtzee.manager.GameManager;
+import com.mycompany.jyahtzee.server.JYahtzeeServer;
 import com.mycompany.jyahtzee.server.hash.Hash;
 import com.mycompany.jyahtzee.server.database.Database;
 import java.io.BufferedReader;
@@ -99,6 +100,7 @@ public class MultiThreadedServer {
         public void run() {
             String line;
             boolean shouldRun = true;
+            int idPartie = 0;
             boolean ok;
             GameManager gameManager = new GameManager();
 
@@ -121,36 +123,43 @@ public class MultiThreadedServer {
                         case (Protocole.CMD_INSCRIPTION):
                             register();
                             break;
-                       /* case (Protocole.CMD_CREATION):
-                            ok = gameManager.createGame();
+                        case (Protocole.CMD_CREATION):
+                            ok = JYahtzeeServer.gameManager.createGame(idPlayer);
                             if (ok) {
-                                writer.println(Protocole.CMD_OK);
+                                writer.write(Protocole.CMD_OK);
+                                writer.write("\r\n");
                             } else {
-                                writer.println(Protocole.CMD_KO);
+                                writer.write(Protocole.CMD_KO);
+                                writer.write("\r\n");
                             }
                             writer.flush();
                             break;
                         
                         case (Protocole.CMD_JOIN):
-                            /*int id;
-                            writer.println(Protocole.CMD_ACK);
+                            int id;
+                            writer.write(Protocole.CMD_ACK);
+                            writer.write("\r\n");
                             writer.flush();
                             id = Integer.parseInt(reader.readLine());
                             if (id == 0) {
-                                writer.println(Protocole.CMD_KO);
+                                writer.write(Protocole.CMD_KO);
+                                writer.write("\r\n");
                                 writer.flush();
                                 break;
                             }
-                            ok = gameManager.joinGame(id, player);
+                            ok = JYahtzeeServer.gameManager.joinGame(id, idPlayer);
                             if (ok) {
-                                writer.println(Protocole.CMD_OK);
+                                idPartie = id;
+                                writer.write(Protocole.CMD_OK);
+                                writer.write("\r\n");
                             } else {
-                                writer.println(Protocole.CMD_KO);
-                            }*/
-                        /*
+                                writer.write(Protocole.CMD_KO);
+                                writer.write("\r\n");
+                            }
+                        
                             writer.flush();
                             break;
-                        case (Protocole.CMD_OBSERVE):
+                        /*case (Protocole.CMD_OBSERVE):
                             int idGame;
                             writer.println(Protocole.CMD_ACK);
                             writer.flush();
@@ -172,10 +181,16 @@ public class MultiThreadedServer {
                             }
                             writer.flush();
                             break;
+                         */
+                            
                         case (Protocole.CMD_ROLL_THE_DICES):
-                            // Fonction pour lancer les dés
+                            // Fonction pour lancer les dés                            
+                            writer.write(Protocole.CMD_ACK);
+                            writer.write("\r\n");
+                            writer.flush();
+                            JYahtzeeServer.gameManager.rollInGame(idPartie);
                             break;
-                        case (Protocole.CMD_DECISION):
+                        /*case (Protocole.CMD_DECISION):
                             String idScore;
                             writer.println(Protocole.CMD_ACK);
                             writer.flush();

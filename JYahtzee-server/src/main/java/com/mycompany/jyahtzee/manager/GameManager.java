@@ -23,17 +23,16 @@ public class GameManager
         return false;
     }
 
-    public boolean joinGame(int id) {
-        Game game = games.get(id);
-        //game.addPlayer(player);
-
-        return false;
+    public boolean joinGame(int idGame, int idPlayer) {
+        Game game = games.get(idGame);
+        return game.addPlayer(idPlayer);
     }
     
     //id game
-    public boolean observeGame(int id)
+    public boolean observeGame(int idGame, int idObserver)
     {
-        return false;
+        Game game = games.get(idGame);
+        return game.addPlayer(idObserver);
     }
 
 }

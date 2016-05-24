@@ -145,6 +145,18 @@ public class Database {
         }
     }
 
+    public void addPlayerGame(int idGame,ArrayList<Integer> players) throws SQLException
+    {
+        for(int idPlayer : players)
+        {
+            PreparedStatement preparedStatement = connexion.prepareStatement("insert into Partie_Joueur(ID_joueur,ID_partie) values (?,?)");
+            preparedStatement.setInt(1, idPlayer);
+            preparedStatement.setInt(2, idGame);
+            preparedStatement.executeUpdate();
+            
+        }
+        
+    }
     public static void main(String... args) throws SQLException{
         Database db = new Database();
         db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");

@@ -18,6 +18,7 @@ public class Game extends Observable
     private int playerXTurn;
     private Status status;
     private Die[] dice;
+    
     private enum Status{OPEN,PLAY,CLOSE};
     private HashMap<Integer,ScoreManager> scoreManage;
     private ArrayList<Integer> players;
@@ -27,15 +28,13 @@ public class Game extends Observable
     {
         status = Status.OPEN;
         idGame = JYahtzeeServer.db.newGame(status.name());
-        players = new HashMap<>();
-        observers = new HashMap<>();
+        players = new ArrayList<>();
+        observers = new ArrayList<>();
         scoreManage  = new HashMap<>();
-        listPlayers = new ArrayList<>();
-        players.put(player.getID(),player);
+        players.add(idPlayer);
         
         dice = new Die[5];
         playerXTurn = 0;
-        listPlayers.add(player.getID());
         
         for(int i = 0 ; i < 5 ; i++)
         {
@@ -45,30 +44,28 @@ public class Game extends Observable
     }
     
     
-    public boolean addPlayer(Player player)
+    public boolean addPlayer(int idPlayer)
     {
         if(status == Status.OPEN)
         {
             ScoreManager scorePlayer = new ScoreManager();
-            players.put(player.getID(),player);
-            scoreManage.put(player.getID(),scorePlayer);
-            listPlayers.add(player.getID());
+            players.add(idPlayer);
+            scoreManage.put(idPlayer,scorePlayer);
+            return true;
         }
         return false;
         
     }
     
-    public HashMap<Integer,Player> getPlayers()
+    public ArrayList<Integer> getPlayers()
     {
         return players;
     }
-    public boolean removePlayer(Player player)
+    public boolean removePlayer(int idPlayer)
     {
-        players.remove(player.getID());
-        scoreManage.remove(player.getID());
-        listPlayers.remove(player.getID());
-        
-        return false;
+        players.remove(idPlayer);
+        scoreManage.remove(idPlayer);
+        return true;
     }
     
     public int getIDGame()
@@ -78,6 +75,9 @@ public class Game extends Observable
     
     public void startGame()
     {
+        status = Status.PLAY;
+        JYahtzeeServer.db.addPlayerGame(idGame,players);
+        
         int i;
         for(i = 0 ; i < 5 ; i++)
         {
