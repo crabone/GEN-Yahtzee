@@ -8,6 +8,7 @@ import com.mycompany.jyahtzee.client.hash.Hash;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 /**
  *
@@ -172,6 +173,32 @@ public class Communication {
     public void quit() throws IOException
     {
         client.sendMessage(Protocole.CMD_BYE);
+    }
+    public boolean getGames(ArrayList<ArrayList<String>> list) throws IOException
+    {
+        String serverMsg;
+        client.sendMessage(Protocole.CMD_GETGAMES);
+        serverMsg = client.receiveMessage();
+        if(!serverMsg.equals(Protocole.CMD_ACK))
+        {
+            return false;
+        }
+        // wait for the GETGAMES command that means the end of the transmission
+        while(!serverMsg.equals(Protocole.CMD_GETGAMES))
+        {
+            ArrayList<String> tmp = new ArrayList<>();
+            // add to the tmp list all the data received until the END command
+            if(!serverMsg.equals(Protocole.CMD_ACK)) {
+                while (!(serverMsg = client.receiveMessage()).equals(Protocole.CMD_END)) {
+                    tmp.add(serverMsg);
+                }
+                // add the game to the final list
+                list.add(tmp);
+                client.sendMessage(Protocole.CMD_ACK);
+            }
+            serverMsg = client.receiveMessage();
+        }
+        return true;
     }
     
 }

@@ -48,7 +48,7 @@ public class Database {
     }
 
     public void modifyPlayer(String nom) throws SQLException{
-            PreparedStatement preparedStatement = connexion.prepareStatement("update Username from Joueur where Username = ? ");
+            PreparedStatement preparedStatement = connexion.prepareStatement("update Username from Joueur where Username = (?)");
             preparedStatement.setString(1, nom);
             preparedStatement.executeUpdate();
     }
@@ -65,7 +65,7 @@ public class Database {
             preparedStatement.setString(1, oldPassword);
             ResultSet result = preparedStatement.executeQuery();
             if (result.next()){
-                    preparedStatement = connexion.prepareStatement("update MDP from Joueur where MDP = ?"); 
+                    preparedStatement = connexion.prepareStatement("update MDP from Joueur where MDP = (?)");
                     preparedStatement.setString(1, newPassword);
                     preparedStatement.execute();
             }
@@ -94,6 +94,29 @@ public class Database {
                     listPlayers.add(result.getString("Username"));
             }
             return listPlayers;
+    }
+
+    public ArrayList<ArrayList<String>> getGames() throws SQLException
+
+    {
+        Statement state = connexion.createStatement();
+        Statement stateTemp = connexion.createStatement();
+        ResultSet result = state.executeQuery("SELECT * FROM Partie");
+        ResultSet resutlTemp;
+        ArrayList<ArrayList<String>> listGame = new ArrayList<>();
+        while(result.next())
+        {
+            ArrayList<String> listGameTemp = new ArrayList<>();
+            listGameTemp.add(Integer.toString(result.getInt("ID")));
+            listGameTemp.add(result.getString("Etat"));
+            resutlTemp = stateTemp.executeQuery("select Joueur.Username from Partie inner join Partie_Joueur on Partie.ID=Partie_Joueur.ID_partie inner join Joueur on Partie_Joueur.ID_joueur=Joueur.ID where Partie.ID=" + result.getInt("ID"));
+            while(resutlTemp.next())
+            {
+                listGameTemp.add(resutlTemp.getString("Username"));
+            }
+            listGame.add(listGameTemp);
+        }
+        return listGame;
     }
 
     public Player getPlayer(int id) throws SQLException

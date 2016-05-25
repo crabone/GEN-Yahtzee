@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Connection;
@@ -217,6 +218,9 @@ public class MultiThreadedServer
                          }                             
                          break;
                          */
+                        case (Protocole.CMD_GETGAMES):
+                            sendGames();
+                            break;
                         case (Protocole.CMD_BYE):
                             sendMessage(Protocole.CMD_BYE);
                             shouldRun = false;
@@ -322,7 +326,7 @@ public class MultiThreadedServer
             Database db = new Database();
             try
             {
-		    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
+		    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
                 // verify that the user with this pwd is correct
                 id = db.verify(username, mdp);
             }
@@ -364,7 +368,7 @@ public class MultiThreadedServer
             Database db = new Database();
             try
             {
-                db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
+                db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
                 if (db.playerExist(username) != 0)
                 {
                     sendMessage(Protocole.CMD_KO);
@@ -397,7 +401,7 @@ public class MultiThreadedServer
             {
                 if(!db.connected())
                 {
-                    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
+                    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
                 }
                 db.insertPlayer(username, mdp);
             }
@@ -410,6 +414,56 @@ public class MultiThreadedServer
             {
                 db.disconnect();
             }
+        }
+        public void sendGames() throws IOException
+        {
+            Database db = new Database();
+            ArrayList<ArrayList<String>> games = null;
+            String client;
+            sendMessage(Protocole.CMD_ACK);
+            // Get games from the database
+            try
+            {
+                if(!db.connected())
+                {
+                    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                }
+                games = db.getGames();
+            }
+            catch (SQLException e)
+            {
+                sendMessage(Protocole.CMD_KO);
+                System.out.println(e.getMessage());
+                return;
+            }
+            finally
+            {
+                db.disconnect();
+            }
+            if(games.size() == 0)
+            {
+                sendMessage(Protocole.CMD_GETGAMES);
+                return;
+            }
+            for(ArrayList<String> e : games)
+            {
+                sendMessage(Protocole.CMD_START);
+                // for each element of a game
+                for(String s : e)
+                {
+                    sendMessage(s);
+                }
+                // after sending all data of a game
+                sendMessage(Protocole.CMD_END);
+                client = reader.readLine();
+                // wait the ACK command
+                if (!client.equals(Protocole.CMD_ACK))
+                {
+                    sendMessage(Protocole.CMD_KO);
+                    return;
+                }
+            }
+            sendMessage(Protocole.CMD_GETGAMES);
         }
     }
 }
