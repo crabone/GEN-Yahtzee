@@ -15,6 +15,5 @@ public class JYahtzeeServer
         gameManager = new GameManager();
         MultiThreadedServer server = new MultiThreadedServer(4321);
         server.serveClients();
-        
     }
 }

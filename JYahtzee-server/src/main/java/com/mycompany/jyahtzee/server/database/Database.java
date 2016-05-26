@@ -47,31 +47,11 @@ public class Database {
             preparedStatement.executeUpdate();
     }
 
-    public void modifyPlayer(String nom) throws SQLException{
-            PreparedStatement preparedStatement = connexion.prepareStatement("update Username from Joueur where Username = (?)");
-            preparedStatement.setString(1, nom);
-            preparedStatement.executeUpdate();
-    }
-
     public String score(String joueur) throws SQLException{
             PreparedStatement preparedStatement = connexion.prepareStatement("select ScoreTotal from joueur where Username = ?");
             preparedStatement.setString(1, joueur);
             preparedStatement.execute();
             return preparedStatement.toString();
-    }
-
-    public void modifyPwd(String oldPassword, String newPassword)throws SQLException{		
-            PreparedStatement preparedStatement = connexion.prepareStatement("select * from joueur where MDP = ?");
-            preparedStatement.setString(1, oldPassword);
-            ResultSet result = preparedStatement.executeQuery();
-            if (result.next()){
-                    preparedStatement = connexion.prepareStatement("update MDP from Joueur where MDP = (?)");
-                    preparedStatement.setString(1, newPassword);
-                    preparedStatement.execute();
-            }
-            else{
-                    System.out.println("Mot de passe intouvable dans la base de donnés");
-            }
     }
 
     public int scoreMax() throws SQLException{
@@ -97,7 +77,6 @@ public class Database {
     }
 
     public ArrayList<ArrayList<String>> getGames() throws SQLException
-
     {
         Statement state = connexion.createStatement();
         Statement stateTemp = connexion.createStatement();
@@ -140,9 +119,8 @@ public class Database {
         ResultSet getID = state.executeQuery("select ID from Partie where Etat = '" + stateStart + "'");
         getID.last();
         return getID.getInt("ID");
+   }
 
-
-    }
     public static void changeState(String state)
     {
 
@@ -172,6 +150,7 @@ public class Database {
 
         return 0;
     }
+
     public int verify(String userName, String mdp) throws SQLException
     {
         Statement state = connexion.createStatement();
@@ -192,10 +171,9 @@ public class Database {
             preparedStatement.setInt(1, idPlayer);
             preparedStatement.setInt(2, idGame);
             preparedStatement.executeUpdate();
-            
         }
-        
     }
+    
     public static void main(String... args) throws SQLException{
         Database db = new Database();
         db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
