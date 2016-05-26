@@ -314,7 +314,7 @@ public class MultiThreadedServer
             // connection to the database
             try
             {
-		    JYahtzeeServer.db.connecter("jdbc:mysql://localhost:3306/Yahtzee", DB_USERNAME, DB_PWD);
+		        JYahtzeeServer.db.connecter("jdbc:mysql://localhost:3306/Yahtzee", DB_USERNAME, DB_PWD);
                 // verify that the user with this pwd is correct
                 id = JYahtzeeServer.db.verify(username, mdp);
             }

@@ -73,6 +73,7 @@ public class Client {
      * @throws java.io.IOException
      */
     public void disconnect() throws IOException {
+        //sendMessage(Protocole.CMD_BYE);
         connected = false;
         cleanup();
     }
