@@ -326,7 +326,7 @@ public class MultiThreadedServer
             Database db = new Database();
             try
             {
-		    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+		    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
                 // verify that the user with this pwd is correct
                 id = db.verify(username, mdp);
             }
@@ -368,7 +368,7 @@ public class MultiThreadedServer
             Database db = new Database();
             try
             {
-                db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
                 if (db.playerExist(username) != 0)
                 {
                     sendMessage(Protocole.CMD_KO);
@@ -401,7 +401,7 @@ public class MultiThreadedServer
             {
                 if(!db.connected())
                 {
-                    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
                 }
                 db.insertPlayer(username, mdp);
             }
@@ -426,7 +426,7 @@ public class MultiThreadedServer
             {
                 if(!db.connected())
                 {
-                    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+                    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
                 }
                 games = db.getGames();
             }
