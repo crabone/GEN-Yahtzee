@@ -12,8 +12,13 @@ import com.mycompany.jyahtzee.manager.Player;
 public class Database {
     private Connection connexion = null;
     private Statement state;
+    
+    public void connect()throws SQLException
+    {
+        connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
+    }
     public void connecter(String url, String utilisateur, String mdp) throws SQLException{
-            connexion = DriverManager.getConnection(url,utilisateur,mdp);
+            connexion = DriverManager.getConnection(url,utilisateur,"root");
     }
     public void disconnect()
     {
@@ -120,8 +125,12 @@ public class Database {
 
 
     }
-    public static void changeState(String state)
+    public void changeState(int idGame, String state)throws SQLException
     {
+        PreparedStatement preparedStatement = connexion.prepareStatement("update Partie set Etat = ? where ID = ?"); 
+        preparedStatement.setString(1, state);
+        preparedStatement.setInt(2, idGame);
+        preparedStatement.executeUpdate();
 
     }
 
@@ -161,44 +170,28 @@ public class Database {
         }
     }
 
-    public void addPlayerGame(int idGame,ArrayList<Integer> players) throws SQLException
+    public void addPlayerGame(int idGame,int idPlayer) throws SQLException
     {
-        for(int idPlayer : players)
-        {
             PreparedStatement preparedStatement = connexion.prepareStatement("insert into Partie_Joueur(ID_joueur,ID_partie) values (?,?)");
             preparedStatement.setInt(1, idPlayer);
             preparedStatement.setInt(2, idGame);
-            preparedStatement.executeUpdate();
-            
-        }
+            preparedStatement.executeUpdate();            
         
     }
     public static void main(String... args) throws SQLException{
         Database db = new Database();
         db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
-       /* try
+       try
         {
-            Connection connexion;
-            connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/Yahtzee", "root", "");
+           db.changeState(4, "encours");
+           db.addPlayerGame(3,1 );
 
         }
         catch(SQLException ex)
         {
             System.out.println(ex.getMessage());
-        }*/
-        int id = 0;
-        String test;
-
-        //db.insererJoueur("rosanne", "1234");
-        id = db.verify("rosanne", "1234");
-
-        //test = db.score("kevin");
-        System.out.println("id=" + id);
-        /*db.insererJoueur("ibrahim");
-        for (int i = 0; i < db.players().size(); i++){
-                System.out.println(db.players().get(i));
         }
-        System.out.println(db.scoreMax());
-        */
+       
+        
     }
 }

@@ -41,7 +41,7 @@ public class NewAccountWindowController {
 
         client.connect();
         Communication com = new Communication(client);
-        boolean ok = com.inscription(login.getText(), password.getText());
+        boolean ok = com.inscription(login.getText(), password.getText());        
 
         if (ok){
             ((Stage)mainPane.getScene().getWindow()).close();
