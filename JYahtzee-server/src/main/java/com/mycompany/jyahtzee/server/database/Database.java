@@ -52,31 +52,11 @@ public class Database {
             preparedStatement.executeUpdate();
     }
 
-    public void modifyPlayer(String nom) throws SQLException{
-            PreparedStatement preparedStatement = connexion.prepareStatement("update Username from Joueur where Username = ? ");
-            preparedStatement.setString(1, nom);
-            preparedStatement.executeUpdate();
-    }
-
     public String score(String joueur) throws SQLException{
             PreparedStatement preparedStatement = connexion.prepareStatement("select ScoreTotal from joueur where Username = ?");
             preparedStatement.setString(1, joueur);
             preparedStatement.execute();
             return preparedStatement.toString();
-    }
-
-    public void modifyPwd(String oldPassword, String newPassword)throws SQLException{		
-            PreparedStatement preparedStatement = connexion.prepareStatement("select * from joueur where MDP = ?");
-            preparedStatement.setString(1, oldPassword);
-            ResultSet result = preparedStatement.executeQuery();
-            if (result.next()){
-                    preparedStatement = connexion.prepareStatement("update MDP from Joueur where MDP = ?"); 
-                    preparedStatement.setString(1, newPassword);
-                    preparedStatement.execute();
-            }
-            else{
-                    System.out.println("Mot de passe intouvable dans la base de donnés");
-            }
     }
 
     public int scoreMax() throws SQLException{
@@ -101,6 +81,28 @@ public class Database {
             return listPlayers;
     }
 
+    public ArrayList<ArrayList<String>> getGames() throws SQLException
+    {
+        Statement state = connexion.createStatement();
+        Statement stateTemp = connexion.createStatement();
+        ResultSet result = state.executeQuery("SELECT * FROM Partie");
+        ResultSet resutlTemp;
+        ArrayList<ArrayList<String>> listGame = new ArrayList<>();
+        while(result.next())
+        {
+            ArrayList<String> listGameTemp = new ArrayList<>();
+            listGameTemp.add(Integer.toString(result.getInt("ID")));
+            listGameTemp.add(result.getString("Etat"));
+            resutlTemp = stateTemp.executeQuery("select Joueur.Username from Partie inner join Partie_Joueur on Partie.ID=Partie_Joueur.ID_partie inner join Joueur on Partie_Joueur.ID_joueur=Joueur.ID where Partie.ID=" + result.getInt("ID"));
+            while(resutlTemp.next())
+            {
+                listGameTemp.add(resutlTemp.getString("Username"));
+            }
+            listGame.add(listGameTemp);
+        }
+        return listGame;
+    }
+
     public Player getPlayer(int id) throws SQLException
     {
         Statement state = connexion.createStatement();
@@ -122,9 +124,9 @@ public class Database {
         ResultSet getID = state.executeQuery("select ID from Partie where Etat = '" + stateStart + "'");
         getID.last();
         return getID.getInt("ID");
-
-
     }
+
+
     public void changeState(int idGame, String state)throws SQLException
     {
         PreparedStatement preparedStatement = connexion.prepareStatement("update Partie set Etat = ? where ID = ?"); 
@@ -158,6 +160,7 @@ public class Database {
 
         return 0;
     }
+
     public int verify(String userName, String mdp) throws SQLException
     {
         Statement state = connexion.createStatement();
@@ -175,9 +178,9 @@ public class Database {
             PreparedStatement preparedStatement = connexion.prepareStatement("insert into Partie_Joueur(ID_joueur,ID_partie) values (?,?)");
             preparedStatement.setInt(1, idPlayer);
             preparedStatement.setInt(2, idGame);
-            preparedStatement.executeUpdate();            
-        
+            preparedStatement.executeUpdate();      
     }
+    
     public static void main(String... args) throws SQLException{
         Database db = new Database();
         db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");

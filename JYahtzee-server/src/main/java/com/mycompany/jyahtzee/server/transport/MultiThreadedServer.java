@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Connection;
@@ -20,8 +21,15 @@ import java.security.NoSuchAlgorithmException;
 import java.lang.Integer;
 import java.util.HashMap;
 
+
+
+import static com.mycompany.jyahtzee.server.JYahtzeeServer.db;
+
 public class MultiThreadedServer
 {
+    // for the database connexion
+    public static final String DB_PWD = "";
+    public static final String DB_USERNAME = "root";
 
     private static final Logger LOG = Logger.getLogger(MultiThreadedServer.class.getName());
 
@@ -182,24 +190,6 @@ public class MultiThreadedServer
                                 sendMessage(Protocole.CMD_KO);
                             }
                             break;
-                        /*case (Protocole.CMD_OBSERVE):
-                         int idGame;
-                         sendMessage(Protocole.CMD_ACK);
-                         idGame = Integer.parseInt(reader.readLine());
-                         if(id == 0)
-                         {
-                         sendMessage(Protocole.CMD_KO);
-                         break;      
-                         }
-                         ok = gameManager.observeGame(idGame);
-                         if (ok) {
-                         sendMessage(Protocole.CMD_OK);
-                         } else {
-                         sendMessage(Protocole.CMD_KO);
-                         }
-                         break;
-                         */
-
                         case (Protocole.CMD_ROLL_THE_DICES):
                             // Fonction pour lancer les dés                            
                             sendMessage(Protocole.CMD_ACK);
@@ -224,6 +214,9 @@ public class MultiThreadedServer
                          }                             
                          break;
                          */
+                        case (Protocole.CMD_GETGAMES):
+                            sendGames();
+                            break;
                         case (Protocole.CMD_BYE):
                             sendMessage(Protocole.CMD_BYE);
                             shouldRun = false;
@@ -326,12 +319,11 @@ public class MultiThreadedServer
             }
             sendMessage(Protocole.CMD_OK);
             // connection to the database
-            Database db = new Database();
             try
             {
-		    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
+		        JYahtzeeServer.db.connecter("jdbc:mysql://localhost:3306/Yahtzee", DB_USERNAME, DB_PWD);
                 // verify that the user with this pwd is correct
-                id = db.verify(username, mdp);
+                id = JYahtzeeServer.db.verify(username, mdp);
             }
             catch (SQLException ex)
             {
@@ -339,7 +331,7 @@ public class MultiThreadedServer
             }
             finally
             {
-                db.disconnect(); 
+                JYahtzeeServer.db.disconnect();
             }
             sendMessage(Integer.toString(id));
             return id;
@@ -368,11 +360,10 @@ public class MultiThreadedServer
                 return;
             }
             // check if the username is already registered
-            Database db = new Database();
             try
             {
-                db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
-                if (db.playerExist(username) != 0)
+                JYahtzeeServer.db.connecter("jdbc:mysql://localhost:3306/Yahtzee", DB_USERNAME, DB_PWD);
+                if (JYahtzeeServer.db.playerExist(username) != 0)
                 {
                     sendMessage(Protocole.CMD_KO);
                     return;
@@ -380,7 +371,6 @@ public class MultiThreadedServer
             }
             catch (SQLException ex)
             {
-                db.disconnect();
                 System.out.println(ex.getMessage());
                 return;
             }
@@ -402,11 +392,11 @@ public class MultiThreadedServer
             // store the new player in the database
             try
             {
-                if(!db.connected())
+                if(!JYahtzeeServer.db.connected())
                 {
-                    db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
+                    JYahtzeeServer.db.connecter("jdbc:mysql://localhost:3306/Yahtzee", DB_USERNAME, DB_PWD);
                 }
-                db.insertPlayer(username, mdp);
+                JYahtzeeServer.db.insertPlayer(username, mdp);
             }
             catch (SQLException ex)
             {
@@ -415,8 +405,57 @@ public class MultiThreadedServer
             }
             finally
             {
-                db.disconnect();
+                JYahtzeeServer.db.disconnect();
             }
+        }
+        public void sendGames() throws IOException
+        {
+            ArrayList<ArrayList<String>> games = null;
+            String client;
+            sendMessage(Protocole.CMD_ACK);
+            // Get games from the database
+            try
+            {
+                if(!JYahtzeeServer.db.connected())
+                {
+                    JYahtzeeServer.db.connecter("jdbc:mysql://localhost:3306/Yahtzee", DB_USERNAME, DB_PWD);
+                }
+                games = db.getGames();
+            }
+            catch (SQLException e)
+            {
+                sendMessage(Protocole.CMD_KO);
+                System.out.println(e.getMessage());
+                return;
+            }
+            finally
+            {
+                JYahtzeeServer.db.disconnect();
+            }
+            if(games.size() == 0)
+            {
+                sendMessage(Protocole.CMD_GETGAMES);
+                return;
+            }
+            for(ArrayList<String> e : games)
+            {
+                sendMessage(Protocole.CMD_START);
+                // for each element of a game
+                for(String s : e)
+                {
+                    sendMessage(s);
+                }
+                // after sending all data of a game
+                sendMessage(Protocole.CMD_END);
+                client = reader.readLine();
+                // wait the ACK command
+                if (!client.equals(Protocole.CMD_ACK))
+                {
+                    sendMessage(Protocole.CMD_KO);
+                    return;
+                }
+            }
+            sendMessage(Protocole.CMD_GETGAMES);
         }
     }
 }
