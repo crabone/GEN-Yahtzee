@@ -4,6 +4,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
@@ -21,6 +23,28 @@ public class GameWindowController {
     private TableColumn<Score, String> yourCol;
     @FXML
     private TableColumn<Score, String> hisCol;
+
+    @FXML
+    private Label de1;
+    @FXML
+    private Label de2;
+    @FXML
+    private Label de3;
+    @FXML
+    private Label de4;
+    @FXML
+    private Label de5;
+
+    @FXML
+    private CheckBox cb1;
+    @FXML
+    private CheckBox cb2;
+    @FXML
+    private CheckBox cb3;
+    @FXML
+    private CheckBox cb4;
+    @FXML
+    private CheckBox cb5;
 
     @FXML
     public void initialize(){
@@ -53,5 +77,20 @@ public class GameWindowController {
         // ligne pour modifier score
         // scoresTable.getItems().get(0).getNameProperty().setValue("Yell");
 
+    }
+
+    // Ceci est liée au bouton "Lancer les dés" de la fenetre de jeu
+    // Ici tu met les méthodes qui faut pour le lancer de dés.
+    @FXML
+    private void rollDice() {
+        // Pour cela tu as la valeur actuelle des dés qui sont défini par des label
+        // de1, de2, de3, de4, de5
+        // Ainsi que les checkbox correspondante (si la checkbox est cochée, les dés ne seront pas lancés.
+        // cb1, cb2, cb3, cb4, cb5
+
+        //bool cb1.isSelected();
+
+        // mettre la valeur 3 à ton score dans la ligne 0.
+        // scoresTable.getItems().get(0).getYourScoreProperty().setValue("3");
     }
 }

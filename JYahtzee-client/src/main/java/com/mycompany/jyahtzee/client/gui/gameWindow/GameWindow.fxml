@@ -45,7 +45,7 @@
             <CheckBox fx:id="cb5" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <Button layoutX="58.0" layoutY="259.0" mnemonicParsing="false" text="Lancer les dés" />
+      <Button layoutX="58.0" layoutY="259.0" mnemonicParsing="false" onAction="#rollDice" text="Lancer les dés" />
       <TextArea editable="false" layoutX="14.0" layoutY="14.0" prefHeight="61.0" prefWidth="122.0" text="Cochez uniquement&#10;les dés que vous &#10;voulez garder." />
    </children>
 </AnchorPane>
