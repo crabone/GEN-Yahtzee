@@ -173,7 +173,7 @@ public class Database {
             preparedStatement.executeUpdate();
         }
     }
-    
+
     public static void main(String... args) throws SQLException{
         Database db = new Database();
         db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
