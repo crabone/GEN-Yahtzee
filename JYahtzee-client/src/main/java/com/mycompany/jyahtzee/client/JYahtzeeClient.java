@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class JYahtzeeClient extends Application {
 
-    private Stage mainStage;
-    private Pane mainPane;
+    private static Stage mainStage;
+    private static Pane mainPane;
 
     public static void main(String[] args) throws IOException {
         launch(args);
@@ -24,10 +24,18 @@ public class JYahtzeeClient extends Application {
 
         FXMLLoader loader = new FXMLLoader();
 
-        loader.setLocation(JYahtzeeClient.class.getResource("gui/mainWindow/MainWindow.fxml"));
+        loader.setLocation(JYahtzeeClient.class.getResource("gui/loginWindow/LoginWindow.fxml"));
 
         mainPane = loader.load();
 
+        setMainStage(mainPane, "Login");
+        mainStage.setResizable(false);
+    }
+
+    public static void setMainStage(Pane pane, String name){
+        mainStage.hide();
+        mainPane = pane;
+        mainStage.setTitle(name);
         mainStage.setScene(new Scene(mainPane));
         mainStage.show();
     }

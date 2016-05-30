@@ -10,10 +10,11 @@ public class JYahtzeeServer
 {
     public static Database db;
     public static GameManager gameManager;
+    public static MultiThreadedServer server;
     public static void main(String[] args) throws IOException {
         db = new Database();
         gameManager = new GameManager();
-        MultiThreadedServer server = new MultiThreadedServer(4321);
+        server = new MultiThreadedServer(4321);
         server.serveClients();
     }
 }

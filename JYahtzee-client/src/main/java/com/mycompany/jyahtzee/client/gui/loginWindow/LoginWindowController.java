@@ -1,5 +1,6 @@
 package com.mycompany.jyahtzee.client.gui.loginWindow;
 
+import com.mycompany.jyahtzee.client.JYahtzeeClient;
 import com.mycompany.jyahtzee.client.gui.newAccountWindow.NewAccountWindowController;
 import com.mycompany.jyahtzee.client.transport.Client;
 import com.mycompany.jyahtzee.client.transport.Communication;
@@ -14,11 +15,16 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 
 /**
  * Created by Mado on 11.05.2016.
  */
 public class LoginWindowController {
+
+    private JYahtzeeClient jYahtzeeClient;
+
     @FXML
     private Pane mainPane;
     @FXML
@@ -63,11 +69,11 @@ public class LoginWindowController {
         boolean ok = com.authentification(login.getText(), password.getText());
 
         if (ok){
-            ((Stage)mainPane.getScene().getWindow()).close();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setContentText("Votre avez été loggé avec succes");
             alert.showAndWait();
+            skipLogin();
         }
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -83,6 +89,21 @@ public class LoginWindowController {
     private void closeApp(){
         Platform.exit();
         ((Stage)mainPane.getScene().getWindow()).close();
+    }
+
+    @FXML
+    private void skipLogin(){
+        FXMLLoader loader = new FXMLLoader(JYahtzeeClient.class.getResource("gui/mainWindow/MainWindow.fxml"));
+
+        try {
+            JYahtzeeClient.setMainStage(loader.load(), "Yahtzee");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setjYahtzeeClient(JYahtzeeClient jYahtzeeClient){
+        this.jYahtzeeClient = jYahtzeeClient;
     }
 
 

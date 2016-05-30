@@ -19,6 +19,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.security.NoSuchAlgorithmException;
 import java.lang.Integer;
+import java.util.HashMap;
 
 
 
@@ -34,6 +35,8 @@ public class MultiThreadedServer
 
     final int port;
     boolean connected;
+    HashMap<Integer,ServantWorker> playerSocket;
+    
 
     /**
      * Construit un serveur multithreadé, en spécifiant le port d'écoute.
@@ -128,14 +131,13 @@ public class MultiThreadedServer
             String line;
             boolean shouldRun = true;
             int idPartie = 0;
+            int idTemp=0;
             boolean ok;
-            GameManager gameManager = new GameManager();
 
             try
             {
                 while ((shouldRun == true) && (line = reader.readLine()) != null)
                 {
-
                     switch (line)
                     {
                         case (Protocole.CMD_HI):
@@ -147,15 +149,20 @@ public class MultiThreadedServer
                             if (authOk != 0)
                             {
                                 idPlayer = authOk;
+                                //playerSocket.put(idPlayer, this);
+                                
                             }
                             break;
                         case (Protocole.CMD_INSCRIPTION):
                             register();
                             break;
                         case (Protocole.CMD_CREATION):
-                            ok = JYahtzeeServer.gameManager.createGame(idPlayer);
-                            if (ok)
+                            idTemp = 0;
+                            idTemp = JYahtzeeServer.gameManager.createGame(idPlayer);
+                            ok = JYahtzeeServer.gameManager.joinGame(idTemp, idPlayer);
+                            if (idTemp != 0 && ok)
                             {
+                                idPartie = idTemp;
                                 sendMessage(Protocole.CMD_OK);
                             }
                             else
@@ -164,18 +171,18 @@ public class MultiThreadedServer
                             }
                             break;
                         case (Protocole.CMD_JOIN):
-                            int id;
+                            idTemp = 0;
                             sendMessage(Protocole.CMD_ACK);
-                            id = Integer.parseInt(reader.readLine());
-                            if (id == 0)
+                            idTemp = Integer.parseInt(reader.readLine());
+                            if (idTemp == 0)
                             {
                                 sendMessage(Protocole.CMD_KO);
                                 break;
                             }
-                            ok = JYahtzeeServer.gameManager.joinGame(id, idPlayer);
+                            ok = JYahtzeeServer.gameManager.joinGame(idTemp, idPlayer);
                             if (ok)
                             {
-                                idPartie = id;
+                                idPartie = idTemp;
                                 sendMessage(Protocole.CMD_OK);
                             }
                             else

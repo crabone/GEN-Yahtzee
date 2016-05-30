@@ -19,20 +19,6 @@ public class MainWindowController {
     @FXML
     private void initialize() throws Exception
     {
-        Stage stage = new Stage();
-
-        FXMLLoader loader = new FXMLLoader(JYahtzeeClient.class.getResource("gui/loginWindow/LoginWindow.fxml"));
-
-        Pane pane = loader.load();
-
-//        stage.setOnCloseRequest(event -> {
-//            Platform.exit();
-//        });
-        stage.setTitle("Yahtzee-Login");
-        stage.setScene(new Scene(pane));
-        stage.setResizable(false);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
 
     }
 
@@ -41,5 +27,16 @@ public class MainWindowController {
     @FXML
     private void createNewGame() throws Exception {
 
+    }
+
+    @FXML
+    private void testGameWindow(){ //TODO elever a la fin du projet
+        FXMLLoader loader = new FXMLLoader(JYahtzeeClient.class.getResource("gui/gameWindow/GameWindow.fxml"));
+
+        try {
+            JYahtzeeClient.setMainStage(loader.load(), "Yahtzee");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
