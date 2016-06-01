@@ -17,8 +17,8 @@ import javafx.stage.Stage;
  */
 public class NewAccountWindowController {
 
-   @FXML
-   private Pane mainPane;
+    @FXML
+    private Pane mainPane;
     @FXML
     private TextField login;
     @FXML
@@ -57,7 +57,5 @@ public class NewAccountWindowController {
             alert.showAndWait();
         }
         client.disconnect();
-
     }
-
 }

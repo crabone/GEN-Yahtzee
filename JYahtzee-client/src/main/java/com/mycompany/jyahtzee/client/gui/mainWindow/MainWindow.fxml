@@ -15,7 +15,7 @@
         <tabs>
           <Tab closable="false" text="Accueil">
                <content>
-                  <SplitPane dividerPositions="0.3616636528028933" prefHeight="160.0" prefWidth="200.0">
+                  <SplitPane dividerPositions="0.3562386980108499" prefHeight="160.0" prefWidth="200.0">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
@@ -26,13 +26,15 @@
                            <children>
                               <Label layoutX="35.0" layoutY="35.0" text="Liste des parties : " underline="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
                               <Button layoutX="234.0" layoutY="335.0" mnemonicParsing="false" onAction="#createNewGame" text="Créer une partie" />
-                              <TableView layoutX="37.0" layoutY="52.0" prefHeight="200.0" prefWidth="200.0">
+                              <TableView fx:id="tabPartie" layoutX="37.0" layoutY="49.0" prefHeight="264.0" prefWidth="279.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
+                                  <TableColumn fx:id="numPartie" prefWidth="110.0" text="Numéro de partie" />
+                                  <TableColumn fx:id="etat" prefWidth="66.0" text="Etat" />
+                                    <TableColumn fx:id="joueur1" editable="false" prefWidth="102.0" text="Joueur1" />
                                 </columns>
                               </TableView>
                               <Button layoutX="117.0" layoutY="336.0" mnemonicParsing="false" onAction="#testGameWindow" text="GameWindow" />
+                              <Button layoutX="243.0" layoutY="16.0" mnemonicParsing="false" text="Rafraichir" />
                            </children>
                         </AnchorPane>
                     </items>

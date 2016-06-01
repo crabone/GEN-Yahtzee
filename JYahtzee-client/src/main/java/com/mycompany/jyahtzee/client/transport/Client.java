@@ -19,6 +19,19 @@ public class Client {
     private BufferedReader reader;
     private PrintWriter writer;
 
+    private static Client instance;
+
+    public static Client getInstance(){
+        if(instance==null){
+            instance = new Client();
+        }
+        return instance;
+    }
+
+    private Client() {
+        throw new RuntimeException("Client pas initialisé");
+    }
+
     /**
      * Construit un nouveau client en spécifiant l'hôte et le port du serveur.
      *
@@ -28,6 +41,7 @@ public class Client {
     public Client(String serverHost, int serverPort) {
         this.serverHost = serverHost;
         this.serverPort = serverPort;
+        instance = this;
     }
 
     /**

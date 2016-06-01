@@ -149,6 +149,7 @@ public class Communication {
         }
         return true;
     }
+
     public boolean observe(String id) throws IOException
     {
         String serverMsg;
@@ -166,14 +167,17 @@ public class Communication {
         }
         return true;
     }
+
     public boolean play() throws IOException
     {
         return true;
     }
+
     public void quit() throws IOException
     {
         client.sendMessage(Protocole.CMD_BYE);
     }
+
     public boolean getGames(ArrayList<ArrayList<String>> list) throws IOException
     {
         String serverMsg;

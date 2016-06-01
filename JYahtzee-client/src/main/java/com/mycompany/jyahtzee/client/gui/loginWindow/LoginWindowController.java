@@ -73,7 +73,14 @@ public class LoginWindowController {
             alert.setHeaderText(null);
             alert.setContentText("Votre avez été loggé avec succes");
             alert.showAndWait();
-            skipLogin();
+            FXMLLoader loader = new FXMLLoader(JYahtzeeClient.class.getResource("gui/mainWindow/MainWindow.fxml"));
+
+
+            try {
+                JYahtzeeClient.setMainStage(loader.load(), "Yahtzee");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
