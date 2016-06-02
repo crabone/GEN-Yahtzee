@@ -42,7 +42,6 @@ public class MainWindowController {
         Client client = Client.getInstance();
         Communication com = new Communication(client);
 
-
         ObservableList<Partie> parties = FXCollections.observableArrayList();
 
         ArrayList<ArrayList<String>> listGameCreated = new ArrayList<ArrayList<String>>();
