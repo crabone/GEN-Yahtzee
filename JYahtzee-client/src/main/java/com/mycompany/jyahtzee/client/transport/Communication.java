@@ -177,6 +177,38 @@ public class Communication {
     {
         client.sendMessage(Protocole.CMD_BYE);
     }
+    
+    public int rollDice(int id) throws IOException
+    {
+        String serverMsg;
+        int diceValue;
+        client.sendMessage(Protocole.CMD_ROLL);
+        serverMsg = client.receiveMessage();
+        
+        // Si le serveur ne répond pas, alors on retourne la valeure 0;
+        // L'utilisateur de la fonction comprendra de cet état, une valeure invalide.
+        if (!serverMsg.equals(Protocole.CMD_ACK))
+        {
+            return 0;
+        }
+        else 
+        {
+            client.sendMessage(Integer.toString(id));
+            serverMsg = client.receiveMessage();
+            
+            if (serverMsg.equals(Protocole.CMD_KO)) 
+            {
+                return 0;
+            }
+            else
+            {
+                serverMsg = client.receiveMessage();
+                diceValue = Integer.parseInt(serverMsg);
+                
+                return diceValue;
+            }
+        }
+    }
 
     public boolean getGames(ArrayList<ArrayList<String>> list) throws IOException
     {

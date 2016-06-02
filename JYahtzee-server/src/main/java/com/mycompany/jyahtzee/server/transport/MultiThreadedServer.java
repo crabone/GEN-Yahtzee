@@ -194,6 +194,7 @@ public class MultiThreadedServer
                             // Fonction pour lancer les dés                            
                             sendMessage(Protocole.CMD_ACK);
                             JYahtzeeServer.gameManager.rollInGame(idPartie);
+                            
                             break;
                         /*case (Protocole.CMD_DECISION):
                          String idScore;
@@ -216,6 +217,22 @@ public class MultiThreadedServer
                          */
                         case (Protocole.CMD_GETGAMES):
                             sendGames();
+                            break;
+                        case (Protocole.CMD_ROLL):
+                            sendMessage(Protocole.CMD_ACK);
+                            int diceId;
+                            diceId = Integer.parseInt(reader.readLine());
+                            
+                            if (diceId < 0 || diceId > 5)
+                            {
+                                sendMessage(Protocole.CMD_KO);
+                            }
+                            else 
+                            {
+                                sendMessage(Protocole.CMD_OK);
+                            }
+                            
+                            // Appeler la fonction de roll et envoyer la valeur.
                             break;
                         case (Protocole.CMD_BYE):
                             sendMessage(Protocole.CMD_BYE);

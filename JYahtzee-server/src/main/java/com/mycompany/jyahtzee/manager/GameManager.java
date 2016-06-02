@@ -30,8 +30,7 @@ public class GameManager
         catch(SQLException e)
         {
             System.out.println("Erreur création d'une partie " + e.getMessage());
-            return 0;
-            
+            return 0;            
         }
     }
 
