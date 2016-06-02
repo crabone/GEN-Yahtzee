@@ -18,7 +18,7 @@ public class Database {
         connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
     }
     public void connecter(String url, String utilisateur, String mdp) throws SQLException{
-            connexion = DriverManager.getConnection(url,utilisateur,"root");
+            connexion = DriverManager.getConnection(url,utilisateur,mdp);
     }
     public void disconnect()
     {
@@ -27,6 +27,7 @@ public class Database {
             try
             {
                 connexion.close();
+                connexion = null;
             }
             catch(SQLException e)
             {

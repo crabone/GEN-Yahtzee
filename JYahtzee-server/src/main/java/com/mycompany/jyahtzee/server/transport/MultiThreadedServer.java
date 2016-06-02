@@ -28,7 +28,7 @@ import static com.mycompany.jyahtzee.server.JYahtzeeServer.db;
 public class MultiThreadedServer
 {
     // for the database connexion
-    public static final String DB_PWD = "";
+    public static final String DB_PWD = "root";
     public static final String DB_USERNAME = "root";
 
     private static final Logger LOG = Logger.getLogger(MultiThreadedServer.class.getName());

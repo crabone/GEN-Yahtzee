@@ -42,7 +42,7 @@ public class MainWindowController {
         Client client = Client.getInstance();
         Communication com = new Communication(client);
 
-/*
+
         ObservableList<Partie> parties = FXCollections.observableArrayList();
 
         ArrayList<ArrayList<String>> listGameCreated = new ArrayList<ArrayList<String>>();
@@ -62,8 +62,8 @@ public class MainWindowController {
 
             tabPartie.setItems(parties);
         }
-*/
 
+/*
         ObservableList<Partie> parties = FXCollections.observableArrayList();
         for(int i = 0; i < 3; i++) {
             String numeroPartie = "34";
@@ -78,7 +78,7 @@ public class MainWindowController {
         joueur1.setCellValueFactory(param -> param.getValue().getJoueur1PartieProperty());
 
         tabPartie.setItems(parties);
-
+*/
     }
 
 
