@@ -18,6 +18,7 @@ public class Protocole {
 	public static final String CMD_OBSERVE = "observe";
 	public static final String CMD_BYE = "bye";
 	public static final String CMD_ROLL_THE_DICES = "rollDices";
+        public static final String CMD_ROLL = "rollDice";
 	public static final String CMD_DECISION = "decision";
 	public static final String CMD_GETGAMES = "getGames";
     public static final String CMD_END = "end";
