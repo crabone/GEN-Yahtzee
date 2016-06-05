@@ -27,10 +27,6 @@ import static com.mycompany.jyahtzee.server.JYahtzeeServer.db;
 
 public class MultiThreadedServer
 {
-    // for the database connexion
-    public static final String DB_PWD = "root";
-    public static final String DB_USERNAME = "root";
-
     private static final Logger LOG = Logger.getLogger(MultiThreadedServer.class.getName());
 
     final int port;
@@ -338,7 +334,7 @@ public class MultiThreadedServer
             // connection to the database
             try
             {
-		        JYahtzeeServer.db.connecter("jdbc:mysql://localhost:3306/Yahtzee", DB_USERNAME, DB_PWD);
+		        JYahtzeeServer.db.connect();
                 // verify that the user with this pwd is correct
                 id = JYahtzeeServer.db.verify(username, mdp);
             }
@@ -379,7 +375,7 @@ public class MultiThreadedServer
             // check if the username is already registered
             try
             {
-                JYahtzeeServer.db.connecter("jdbc:mysql://localhost:3306/Yahtzee", DB_USERNAME, DB_PWD);
+                JYahtzeeServer.db.connect();
                 if (JYahtzeeServer.db.playerExist(username) != 0)
                 {
                     sendMessage(Protocole.CMD_KO);
@@ -411,7 +407,7 @@ public class MultiThreadedServer
             {
                 if(!JYahtzeeServer.db.connected())
                 {
-                    JYahtzeeServer.db.connecter("jdbc:mysql://localhost:3306/Yahtzee", DB_USERNAME, DB_PWD);
+                    JYahtzeeServer.db.connect();
                 }
                 JYahtzeeServer.db.insertPlayer(username, mdp);
             }
@@ -435,7 +431,7 @@ public class MultiThreadedServer
             {
                 if(!JYahtzeeServer.db.connected())
                 {
-                    JYahtzeeServer.db.connecter("jdbc:mysql://localhost:3306/Yahtzee", DB_USERNAME, DB_PWD);
+                    JYahtzeeServer.db.connect();
                 }
                 games = db.getGames();
             }

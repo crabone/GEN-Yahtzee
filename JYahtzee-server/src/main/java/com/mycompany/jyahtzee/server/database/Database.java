@@ -12,13 +12,18 @@ import com.mycompany.jyahtzee.manager.Player;
 public class Database {
     private Connection connexion = null;
     private Statement state;
+
+    // for the database connexion
+    public static final String DB_PWD = "";
+    public static final String DB_USERNAME = "root";
+    public static final String DB_URL = "jdbc:mysql://localhost:3306/Yahtzee";
     
     public void connect()throws SQLException
     {
-        connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
+        connecter(DB_URL, DB_USERNAME, DB_PWD);
     }
-    public void connecter(String url, String utilisateur, String mdp) throws SQLException{
-            connexion = DriverManager.getConnection(url,utilisateur,mdp);
+    public void connecter(String url, String user, String mdp) throws SQLException{
+            connexion = DriverManager.getConnection(url, user, mdp);
     }
     public void disconnect()
     {
@@ -180,22 +185,5 @@ public class Database {
             preparedStatement.setInt(1, idPlayer);
             preparedStatement.setInt(2, idGame);
             preparedStatement.executeUpdate();      
-    }
-
-    public static void main(String... args) throws SQLException{
-        Database db = new Database();
-        db.connecter("jdbc:mysql://localhost:3306/Yahtzee", "root", "root");
-       try
-        {
-           db.changeState(4, "encours");
-           db.addPlayerGame(3,1 );
-
-        }
-        catch(SQLException ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-       
-        
     }
 }
