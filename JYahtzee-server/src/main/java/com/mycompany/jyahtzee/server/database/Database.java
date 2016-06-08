@@ -14,7 +14,7 @@ public class Database {
     private Statement state;
 
     // for the database connexion
-    public static final String DB_PWD = "";
+    public static final String DB_PWD = "root";
     public static final String DB_USERNAME = "root";
     public static final String DB_URL = "jdbc:mysql://localhost:3306/Yahtzee";
     

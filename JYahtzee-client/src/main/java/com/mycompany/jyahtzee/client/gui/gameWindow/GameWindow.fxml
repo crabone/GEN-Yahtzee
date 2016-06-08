@@ -33,19 +33,19 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="de1" text="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label fx:id="de2" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label fx:id="de3" text="0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label fx:id="de4" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label fx:id="de5" text="0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <CheckBox fx:id="cb1" alignment="CENTER" mnemonicParsing="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <CheckBox fx:id="cb2" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <CheckBox fx:id="cb3" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <CheckBox fx:id="cb4" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <CheckBox fx:id="cb5" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label fx:id="de0" text="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label fx:id="de1" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label fx:id="de2" text="0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label fx:id="de3" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label fx:id="de4" text="0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <CheckBox fx:id="cb0" alignment="CENTER" mnemonicParsing="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <CheckBox fx:id="cb1" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <CheckBox fx:id="cb2" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <CheckBox fx:id="cb3" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <CheckBox fx:id="cb4" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <Button layoutX="58.0" layoutY="259.0" mnemonicParsing="false" onAction="#rollDice" text="Lancer les dés" />
+      <Button layoutX="58.0" layoutY="259.0" mnemonicParsing="false" onAction="#rollDiceButton" text="Lancer les dés" />
       <TextArea editable="false" layoutX="14.0" layoutY="14.0" prefHeight="61.0" prefWidth="122.0" text="Cochez uniquement&#10;les dés que vous &#10;voulez garder." />
    </children>
 </AnchorPane>

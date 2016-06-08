@@ -1,5 +1,7 @@
 package com.mycompany.jyahtzee.client.gui.gameWindow;
 
+import com.mycompany.jyahtzee.client.transport.Client;
+import com.mycompany.jyahtzee.client.transport.Communication;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
+
+import java.io.IOException;
 
 /**
  * Created by Mado on 29.05.2016.
@@ -25,6 +29,8 @@ public class GameWindowController {
     private TableColumn<Score, String> hisCol;
 
     @FXML
+    private Label de0;
+    @FXML
     private Label de1;
     @FXML
     private Label de2;
@@ -32,9 +38,9 @@ public class GameWindowController {
     private Label de3;
     @FXML
     private Label de4;
-    @FXML
-    private Label de5;
 
+    @FXML
+    private CheckBox cb0;
     @FXML
     private CheckBox cb1;
     @FXML
@@ -43,8 +49,6 @@ public class GameWindowController {
     private CheckBox cb3;
     @FXML
     private CheckBox cb4;
-    @FXML
-    private CheckBox cb5;
 
     @FXML
     public void initialize(){
@@ -82,11 +86,21 @@ public class GameWindowController {
     // Ceci est liée au bouton "Lancer les dés" de la fenetre de jeu
     // Ici tu met les méthodes qui faut pour le lancer de dés.
     @FXML
-    private void rollDice() {
+    private void rollDiceButton() {
+        Client client = Client.getInstance();
+        Communication com = new Communication(client);
         // Pour cela tu as la valeur actuelle des dés qui sont défini par des label
-        // de1, de2, de3, de4, de5
+        // de0, de1, de2, de3, de4
         // Ainsi que les checkbox correspondante (si la checkbox est cochée, les dés ne seront pas lancés.
-        // cb1, cb2, cb3, cb4, cb5
+        // cb0, cb1, cb2, cb3, cb4
+
+        if(!cb0.isSelected()) {
+            try {
+                de0.setText(Integer.toString(com.rollDice(0)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         //bool cb1.isSelected();
 
