@@ -6,6 +6,7 @@ import com.mycompany.jyahtzee.client.transport.Client;
 import com.mycompany.jyahtzee.client.transport.Communication;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -62,22 +64,43 @@ public class MainWindowController {
             tabPartie.setItems(parties);
         }
 
-/*
-        ObservableList<Partie> parties = FXCollections.observableArrayList();
-        for(int i = 0; i < 3; i++) {
-            String numeroPartie = "34";
-            String etatPartie = "en attente";
-            String joueur1Partie = "John";
 
-            parties.add(new Partie(numeroPartie, etatPartie, joueur1Partie));
-        }
+        tabPartie.setRowFactory(param -> {
+            TableRow<Partie> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2){
+                    //Ici insérer code pour rejoindre partie. Ligne sélectionnée : row.getIndex();
+                    int idRow = row.getIndex();
+                    Partie maPartie = tabPartie.getItems().get(idRow);
+                    StringProperty idPartie = maPartie.getNumPartieProperty();
+                    String id = idPartie.get();
 
-        numPartie.setCellValueFactory(param -> param.getValue().getNumPartieProperty());
-        etat.setCellValueFactory(param -> param.getValue().getEtatPartieProperty());
-        joueur1.setCellValueFactory(param -> param.getValue().getJoueur1PartieProperty());
+                    boolean joinOk = false;
+                    try {
+                        joinOk = com.join(id);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
-        tabPartie.setItems(parties);
-*/
+                    if(joinOk) {
+                        FXMLLoader loader = new FXMLLoader(JYahtzeeClient.class.getResource("gui/gameWindow/GameWindow.fxml"));
+
+                        try {
+                            JYahtzeeClient.setMainStage(loader.load(), "Yahtzee");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Il y a eu une erreur pour rejoindre la partie");
+                        alert.showAndWait();
+                    }
+                }
+            });
+            return row;
+        });
     }
 
 

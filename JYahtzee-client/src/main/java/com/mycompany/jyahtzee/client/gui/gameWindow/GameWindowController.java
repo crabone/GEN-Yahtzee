@@ -6,10 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -77,6 +74,20 @@ public class GameWindowController {
         hisCol.setCellValueFactory(param -> param.getValue().getHisScoreProperty());
 
         scoresTable.setItems(scores);
+
+        boolean clickedEnable = true;
+
+        scoresTable.setRowFactory(param -> {
+            TableRow<Score> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && clickedEnable){
+                    //Ici insérer code pour score. ligne sélectionnée : row.getIndex();
+                    // désactiver le clique sur les scores : clickedEnable = false;
+
+                }
+            });
+            return row;
+        });
 
         // ligne pour modifier score
         // scoresTable.getItems().get(0).getNameProperty().setValue("Yell");
