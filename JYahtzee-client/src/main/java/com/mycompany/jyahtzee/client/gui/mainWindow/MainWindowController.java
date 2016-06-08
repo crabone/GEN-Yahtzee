@@ -127,15 +127,4 @@ public class MainWindowController {
             alert.showAndWait();
         }
     }
-
-    @FXML
-    private void testGameWindow(){ //TODO elever a la fin du projet
-        FXMLLoader loader = new FXMLLoader(JYahtzeeClient.class.getResource("gui/gameWindow/GameWindow.fxml"));
-
-        try {
-            JYahtzeeClient.setMainStage(loader.load(), "Yahtzee");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

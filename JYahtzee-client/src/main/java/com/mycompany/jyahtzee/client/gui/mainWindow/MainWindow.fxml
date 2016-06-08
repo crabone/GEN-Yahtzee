@@ -33,7 +33,6 @@
                                     <TableColumn fx:id="joueur1" editable="false" prefWidth="102.0" text="Joueur1" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="117.0" layoutY="336.0" mnemonicParsing="false" onAction="#testGameWindow" text="GameWindow" />
                               <Button layoutX="243.0" layoutY="16.0" mnemonicParsing="false" onAction="#initialize" text="Rafraichir" />
                            </children>
                         </AnchorPane>

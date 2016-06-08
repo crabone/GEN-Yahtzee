@@ -98,17 +98,6 @@ public class LoginWindowController {
         ((Stage)mainPane.getScene().getWindow()).close();
     }
 
-    @FXML
-    private void skipLogin(){
-        FXMLLoader loader = new FXMLLoader(JYahtzeeClient.class.getResource("gui/mainWindow/MainWindow.fxml"));
-
-        try {
-            JYahtzeeClient.setMainStage(loader.load(), "Yahtzee");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void setjYahtzeeClient(JYahtzeeClient jYahtzeeClient){
         this.jYahtzeeClient = jYahtzeeClient;
     }
