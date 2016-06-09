@@ -220,7 +220,7 @@ public class MultiThreadedServer
                             int diceId;
                             diceId = Integer.parseInt(reader.readLine());
                             
-                            if (diceId < 0 || diceId > 5)
+                            if (diceId < 0 || diceId > 4)
                             {
                                 sendMessage(Protocole.CMD_KO);
                             }
