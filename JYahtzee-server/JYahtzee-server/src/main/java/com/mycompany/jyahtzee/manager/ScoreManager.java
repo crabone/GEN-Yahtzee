@@ -42,11 +42,12 @@ public class ScoreManager
         return score;
     }
     
-    public boolean choicePlay(int[] dice, int zone)
-    {        
+    public int choicePlay(Die[] dice, int zone)
+    {     
+        int valeurScore;
         if(score[zone] != -1)
         {
-            return false;
+            return -1;
         }
         switch(zone)
         {
@@ -56,21 +57,31 @@ public class ScoreManager
             case 4:
             case 5:
             case 6:
+                  
+                valeurScore = oneNumber(dice, zone);                
+                score[zone] = valeurScore;    
                 
-                oneNumber(dice);
             case 7:
             case 8:  
-                return false;
+                return -1;
                             
                 
             
         }
-        return false;
+        return -1;
     }
     
-    public boolean oneNumber(int[] dice)
+    public int oneNumber(Die[] dice, int zone)
     {
-        return false;
+        int score = 0;
+        for(int i = 0; i< dice.length ; i++)
+        {
+            if(dice[i].getValue() == zone)
+            {
+                score += zone;
+            }
+        }
+        return score;
     }
     
 }

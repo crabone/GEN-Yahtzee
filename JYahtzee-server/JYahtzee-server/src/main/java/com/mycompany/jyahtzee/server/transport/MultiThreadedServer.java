@@ -54,6 +54,33 @@ public class MultiThreadedServer
     {
         new Thread(new ReceptionistWorker()).start();
     }
+    
+    public void sendUpdateVue(int idPlayer,int score, int choice)
+    {
+        ServantWorker servant = playerSocket.get(idPlayer);
+        try
+        {
+            servant.sendUpdateVue(score, choice);
+        }
+        catch(IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
+                
+    }
+    
+    public void sendTurnPlayer(int idPlayer)
+    {
+        ServantWorker servant = playerSocket.get(idPlayer);
+        try
+        {
+            servant.sendTurnPlayer();
+        }
+        catch(IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
 
     /**
      * Cette classe est chargé de réceptionner les clients qui arrivent sur le
@@ -147,7 +174,6 @@ public class MultiThreadedServer
                             {
                                 idPlayer = authOk;
                                 //playerSocket.put(idPlayer, this);
-                                
                             }
                             break;
                         case (Protocole.CMD_INSCRIPTION):
@@ -193,25 +219,27 @@ public class MultiThreadedServer
                             JYahtzeeServer.gameManager.rollInGame(idPartie);
                             
                             break;
-                        /*case (Protocole.CMD_DECISION):
-                         String idScore;
-                         sendMessage(Protocole.CMD_ACK);
-                         idScore = reader.readLine();
-                         if (idScore == null) {
-                         sendMessage(Protocole.CMD_KO);
-                         break;
-                         }
-                         //ok = fonction_enregistrer_score(idScore);
-                         if(ok)
-                         {
-                         sendMessage(Protocole.CMD_OK);
-                         }
-                         else
-                         {
-                         sendMessage(Protocole.CMD_KO);
-                         }                             
-                         break;
-                         */
+                        case (Protocole.CMD_DECISION):
+                            String idCase;
+                            int decisionCase;
+                            sendMessage(Protocole.CMD_ACK);
+                            idCase = reader.readLine();
+                            if (idCase == null) 
+                            {
+                               sendMessage(Protocole.CMD_KO);
+                               break;
+                            }
+                            decisionCase = Integer.parseInt(idCase);
+                            ok = JYahtzeeServer.gameManager.decisionPlayer(idPartie,idPlayer,decisionCase);
+                            if(ok)
+                            {
+                               sendMessage(Protocole.CMD_OK);
+                            }
+                            else
+                            {
+                               sendMessage(Protocole.CMD_KO);
+                            }                             
+                            break;
                         case (Protocole.CMD_GETGAMES):
                             sendGames();
                             break;
@@ -471,6 +499,45 @@ public class MultiThreadedServer
                 }
             }
             sendMessage(Protocole.CMD_GETGAMES);
+        }
+        
+        public void sendUpdateVue(int score, int choice) throws IOException
+        {
+            String line;
+
+            sendMessage(Protocole.CMD_UPDATEVUE);
+            
+            if(!(reader.readLine()).equals(Protocole.CMD_ACK))
+            {
+                return;
+            }
+            
+            sendMessage(Integer.toString(idPlayer));
+            if(!(reader.readLine()).equals(Protocole.CMD_ACK))
+            {
+                return;
+            }
+            sendMessage(Integer.toString(score));
+            if(!(reader.readLine()).equals(Protocole.CMD_ACK))
+            {
+                return;
+            }
+            
+            sendMessage(Integer.toString(choice));
+            if(!(reader.readLine()).equals(Protocole.CMD_ACK))
+            {
+                return;
+            }     
+                        
+        }
+        
+        public void sendTurnPlayer()throws IOException
+        {
+            sendMessage(Protocole.CMD_PLAYERTURN);
+            if(!(reader.readLine()).equals(Protocole.CMD_OK))
+            {
+                System.out.println("Probleme envoi du tour");
+            }
         }
     }
 }

@@ -32,6 +32,8 @@ public class JYahtzeeClient extends Application {
         mainStage.setResizable(false);
     }
 
+
+
     public static void setMainStage(Pane pane, String name){
         mainStage.hide();
         mainPane = pane;

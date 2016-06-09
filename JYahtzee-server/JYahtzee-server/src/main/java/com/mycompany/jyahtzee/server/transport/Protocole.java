@@ -21,6 +21,8 @@ public class Protocole {
         public static final String CMD_ROLL = "rollDice";
 	public static final String CMD_DECISION = "decision";
 	public static final String CMD_GETGAMES = "getGames";
+        public static final String CMD_UPDATEVUE = "update";
+        public static final String CMD_PLAYERTURN = "playerTurn";
     public static final String CMD_END = "end";
     public static final String CMD_START = "start";
 }

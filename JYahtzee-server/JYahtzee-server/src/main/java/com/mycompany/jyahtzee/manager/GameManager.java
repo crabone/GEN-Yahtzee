@@ -60,6 +60,13 @@ public class GameManager
         
     }
     
+    public boolean decisionPlayer(int idGame,int idPlayer,int idCase)
+    {
+        Game game = games.get(idGame);
+        return game.playCase(idPlayer, idCase);        
+        
+    }
+    
     //id game
     public boolean observeGame(int idGame, int idObserver)
     {
