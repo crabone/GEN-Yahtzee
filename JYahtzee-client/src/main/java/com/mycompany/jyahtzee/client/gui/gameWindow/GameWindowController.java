@@ -113,6 +113,38 @@ public class GameWindowController {
             }
         }
 
+        if(!cb1.isSelected()) {
+            try {
+                de1.setText(Integer.toString(com.rollDice(1)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(!cb2.isSelected()) {
+            try {
+                de2.setText(Integer.toString(com.rollDice(2)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(!cb3.isSelected()) {
+            try {
+                de3.setText(Integer.toString(com.rollDice(3)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(!cb4.isSelected()) {
+            try {
+                de4.setText(Integer.toString(com.rollDice(4)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         //bool cb1.isSelected();
 
         // mettre la valeur 3 à ton score dans la ligne 0.
