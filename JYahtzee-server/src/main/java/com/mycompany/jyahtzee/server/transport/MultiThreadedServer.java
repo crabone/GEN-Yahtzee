@@ -1,6 +1,7 @@
 package com.mycompany.jyahtzee.server.transport;
 
 import com.mycompany.jyahtzee.manager.GameManager;
+import com.mycompany.jyahtzee.manager.Game;
 import com.mycompany.jyahtzee.server.JYahtzeeServer;
 import com.mycompany.jyahtzee.server.hash.Hash;
 import com.mycompany.jyahtzee.server.database.Database;
@@ -226,13 +227,8 @@ public class MultiThreadedServer
                             else 
                             {
                                 sendMessage(Protocole.CMD_OK);
-                                JYahtzeeServer.gameManager.rollInGame(idPartie);
-                                /*
-                                BUG, il faut choper une instance de game pour pouvoir lancer un dés
-                                J'ai ajouter les fonctions dans Game, il faut que je vois avec Kevin
-                                pour choper cette instance.
-                                sendMesage(Integer.toString(Game.rolle(diceId)));
-                                */
+                                Game game = JYahtzeeServer.gameManager.getGame(idPartie);
+                                sendMessage(Integer.toString(game.rolle(diceId)));
                             }
                             
                             break;

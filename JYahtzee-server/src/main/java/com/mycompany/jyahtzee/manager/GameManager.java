@@ -34,6 +34,10 @@ public class GameManager
         }
     }
 
+    public Game getGame(int idGame) {
+        return games.get(idGame);
+    }
+    
     public boolean joinGame(int idGame, int idPlayer) {
         try
         {
