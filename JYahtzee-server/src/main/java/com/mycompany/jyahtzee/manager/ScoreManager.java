@@ -43,20 +43,12 @@ public class ScoreManager
     {
         return score;
     }
-    
+
     public int choicePlay(Die[] dice, int zone)
-<<<<<<< HEAD:JYahtzee-server/JYahtzee-server/src/main/java/com/mycompany/jyahtzee/manager/ScoreManager.java
-    {     
-        int valeurScore;
-        if(score[zone] != -1)
-        {
-            return -1;
-=======
     {        
         if(score[zone] != -1)
         {
             return 0;
->>>>>>> origin/master:JYahtzee-server/src/main/java/com/mycompany/jyahtzee/manager/ScoreManager.java
         }
         switch(zone)
         {
@@ -66,49 +58,24 @@ public class ScoreManager
             case 4:
             case 5:
             case 6:
-                  
-                valeurScore = oneNumber(dice, zone);                
-                score[zone] = valeurScore;    
-                
-<<<<<<< HEAD:JYahtzee-server/JYahtzee-server/src/main/java/com/mycompany/jyahtzee/manager/ScoreManager.java
-            case 7:
-            case 8:  
-                return -1;
-=======
+
                 score[zone] = oneNumber(dice, zone);
             case 7:
             case 8:  
                 ;
->>>>>>> origin/master:JYahtzee-server/src/main/java/com/mycompany/jyahtzee/manager/ScoreManager.java
-                            
-                
-            
         }
-<<<<<<< HEAD:JYahtzee-server/JYahtzee-server/src/main/java/com/mycompany/jyahtzee/manager/ScoreManager.java
-        return -1;
-=======
         return score[zone];
->>>>>>> origin/master:JYahtzee-server/src/main/java/com/mycompany/jyahtzee/manager/ScoreManager.java
     }
     
     public int oneNumber(Die[] dice, int zone)
     {
         int score = 0;
-<<<<<<< HEAD:JYahtzee-server/JYahtzee-server/src/main/java/com/mycompany/jyahtzee/manager/ScoreManager.java
-        for(int i = 0; i< dice.length ; i++)
-        {
-            if(dice[i].getValue() == zone)
-            {
-=======
         for (int i = 0; i < dice.length; ++i){
-            if (dice[i].getValue() == zone){
->>>>>>> origin/master:JYahtzee-server/src/main/java/com/mycompany/jyahtzee/manager/ScoreManager.java
-                score += zone;
-            }
+             if (dice[i].getValue() == zone){
+                 score += zone;
+             }
         }
         return score;
-<<<<<<< HEAD:JYahtzee-server/JYahtzee-server/src/main/java/com/mycompany/jyahtzee/manager/ScoreManager.java
-=======
     }
     
     public int brelan(Die[] dice){
@@ -151,7 +118,6 @@ public class ScoreManager
             
         }
         return score;
->>>>>>> origin/master:JYahtzee-server/src/main/java/com/mycompany/jyahtzee/manager/ScoreManager.java
     }
     
     public int fullHouse(Die[] dice){
@@ -165,6 +131,19 @@ public class ScoreManager
         return 0;
     }
     
+    public int yahtzee(Die[] dice){
+        for( int valueDice = 1; valueDice < 7; valueDice++ ){
+          int cpte = 0;
+          for( int j = 0; j < dice.length; j++ ){
+            if( dice[j].getValue() == valueDice )
+              cpte++;
+            if( cpte > 4 )
+              return 50;
+          }
+        }
+        return 0;
+    }
+
     public int largeStraight(Die[] dice){
         int[] die = sortDiceArray(dice);
         boolean isLargeStraight = true;
@@ -178,19 +157,6 @@ public class ScoreManager
         }
         if (isLargeStraight)
             return 40;
-        return 0;
-    }
-    
-    public int yahtzee(Die[] dice){
-        for( int valueDice = 1; valueDice < 7; valueDice++ ){
-          int cpte = 0;
-          for( int j = 0; j < dice.length; j++ ){
-            if( dice[j].getValue() == valueDice )
-              cpte++;
-            if( cpte > 4 )
-              return 50;
-          }
-        }
         return 0;
     }
     
@@ -219,7 +185,6 @@ public class ScoreManager
         for( int i = 0; i < dice.length; i++ ){
           score += dice[i].getValue();
         }
-
         return score;
     }
     
@@ -231,7 +196,4 @@ public class ScoreManager
         Arrays.sort(die);
         return die;
     }
-    
-   
-    
 }

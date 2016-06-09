@@ -100,39 +100,15 @@ public class Game extends Observable
         }
     }
     
-    
     public int rolle(int dieToReRoll)
     {
         dice[dieToReRoll].roll();
         return dice[dieToReRoll].getValue();
     }
     
-    public boolean playCase(int idPlayer, int choice)
+    public boolean playChoice(Player player, int[] dice, int choice)
     {
-        int score;
-        score = playChoice(idPlayer, dice, choice);
-        if(score != -1)
-        {
-            for(int i = 0 ; i < players.size(); i++)
-            {
-                JYahtzeeServer.server.sendUpdateVue(idPlayer, score, choice);
-            }
-            
-            playerXTurn = (playerXTurn + 1) % players.size();
-            JYahtzeeServer.server.sendTurnPlayer(players.get(playerXTurn));
-            
-            
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        int index;
+        return false;
     }
-    public int playChoice(int idPlayer, Die[] dice, int choice)
-    {
-        ScoreManager score = scoreManage.get(idPlayer);
-        return score.choicePlay(dice, choice);
-    }
-    
 }
