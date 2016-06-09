@@ -35,14 +35,13 @@ public class Game extends Observable
         observers = new ArrayList<>();
         scoreManage  = new HashMap<>();
         
-        //dice = new Die[5];
+        dice = new Die[5];
         playerXTurn = 0;
         
-        /*for(int i = 0 ; i < 5 ; i++)
+        for(int i = 0 ; i < 5 ; i++)
         {
             dice[i] = new Die();
         }
-        */
     }
     
     
