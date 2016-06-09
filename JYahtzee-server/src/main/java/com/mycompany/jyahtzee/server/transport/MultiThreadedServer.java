@@ -226,9 +226,15 @@ public class MultiThreadedServer
                             else 
                             {
                                 sendMessage(Protocole.CMD_OK);
+                                JYahtzeeServer.gameManager.rollInGame(idPartie);
+                                /*
+                                BUG, il faut choper une instance de game pour pouvoir lancer un dés
+                                J'ai ajouter les fonctions dans Game, il faut que je vois avec Kevin
+                                pour choper cette instance.
+                                sendMesage(Integer.toString(Game.rolle(diceId)));
+                                */
                             }
                             
-                            // Appeler la fonction de roll et envoyer la valeur.
                             break;
                         case (Protocole.CMD_BYE):
                             sendMessage(Protocole.CMD_BYE);

@@ -101,6 +101,12 @@ public class Game extends Observable
         }
     }
     
+    public int rolle(int dieToReRoll)
+    {
+        dice[dieToReRoll].roll();
+        return dice[dieToReRoll].getValue();
+    }
+    
     public boolean playChoice(Player player, int[] dice, int choice)
     {
         int index;
