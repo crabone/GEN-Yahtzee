@@ -13,9 +13,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
 /**
- * Created by Mado on 11.05.2016.
+ * Projet : Jyahtzee
+ * @author Rosanne Combremont, Madolyne Dupraz, Kevin Ponce, Fabien Franchini, Ibrahim Ounon
+ * Date : 15.06.16
+ * Version : 3.5
+ * Description : Cette classe gère la fenêtre d'inscription et les actions possible sur cette fenêtre
  */
 public class NewAccountWindowController {
 
@@ -55,13 +58,13 @@ public class NewAccountWindowController {
             ((Stage)mainPane.getScene().getWindow()).close();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
-            alert.setContentText("Votre compte a ete creer avec succes");
+            alert.setContentText("Votre compte a été créé avec succès");
             alert.showAndWait();
         }
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
-            alert.setContentText("Il y a eu une erreur lors de la creation de votre compte");
+            alert.setContentText("Il y a eu une erreur lors de la création de votre compte");
             alert.showAndWait();
         }
     }

@@ -2,8 +2,6 @@ package com.mycompany.jyahtzee.client.gui.loginWindow;
 
 import com.mycompany.jyahtzee.client.JYahtzeeClient;
 import com.mycompany.jyahtzee.client.gui.newAccountWindow.NewAccountWindowController;
-import com.mycompany.jyahtzee.client.transport.Client;
-import com.mycompany.jyahtzee.client.transport.Communication;
 import com.mycompany.jyahtzee.client.transport.Protocole;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -20,7 +18,11 @@ import java.io.IOException;
 
 
 /**
- * Created by Mado on 11.05.2016.
+ * Projet : Jyahtzee
+ * @author Rosanne Combremont, Madolyne Dupraz, Kevin Ponce, Fabien Franchini, Ibrahim Ounon
+ * Date : 15.06.16
+ * Version : 3.5
+ * Description : Cette classe gère la fenêtre de login et les actions possible sur cette fenêtre
  */
 public class LoginWindowController {
 
@@ -78,7 +80,7 @@ public class LoginWindowController {
         if (ok){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
-            alert.setContentText("Votre avez été loggé avec succes");
+            alert.setContentText("Votre avez été loggué avec succès");
             alert.showAndWait();
             FXMLLoader loader = new FXMLLoader(JYahtzeeClient.class.getResource("gui/mainWindow/MainWindow.fxml"));
 

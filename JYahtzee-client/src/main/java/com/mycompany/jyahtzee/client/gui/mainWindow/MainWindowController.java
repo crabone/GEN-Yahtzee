@@ -1,31 +1,25 @@
 package com.mycompany.jyahtzee.client.gui.mainWindow;
 
 import com.mycompany.jyahtzee.client.JYahtzeeClient;
-import com.mycompany.jyahtzee.client.gui.gameWindow.Score;
-import com.mycompany.jyahtzee.client.transport.Client;
-import com.mycompany.jyahtzee.client.transport.Communication;
 import com.mycompany.jyahtzee.client.transport.Protocole;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by Mado on 11.05.2016.
+ * Projet : Jyahtzee
+ * @author Rosanne Combremont, Madolyne Dupraz, Kevin Ponce, Fabien Franchini, Ibrahim Ounon
+ * Date : 15.06.16
+ * Version : 3.5
+ * Description : Cette classe gère la fenêtre d'accueil et les actions possible sur cette fenêtre
  */
 public class MainWindowController {
 
@@ -153,7 +147,7 @@ public class MainWindowController {
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
-            alert.setContentText("Il y a eu une erreur lors de la creation de la partie");
+            alert.setContentText("Il y a eu une erreur lors de la création de la partie");
             alert.showAndWait();
         }
     }

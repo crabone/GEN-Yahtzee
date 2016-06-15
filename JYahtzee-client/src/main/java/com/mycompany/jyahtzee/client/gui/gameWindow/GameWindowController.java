@@ -1,21 +1,20 @@
 package com.mycompany.jyahtzee.client.gui.gameWindow;
 
 import com.mycompany.jyahtzee.client.JYahtzeeClient;
-import com.mycompany.jyahtzee.client.transport.Client;
-import com.mycompany.jyahtzee.client.transport.Communication;
 import com.mycompany.jyahtzee.client.transport.Protocole;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.util.Callback;
 
-import java.io.IOException;
 
 /**
- * Created by Mado on 29.05.2016.
- */
+        * Projet : Jyahtzee
+        * @author Rosanne Combremont, Madolyne Dupraz, Kevin Ponce, Fabien Franchini, Ibrahim Ounon
+        * Date : 15.06.16
+        * Version : 3.5
+        * Description : Cette classe gère les différentes actions faites sur la fenêtre de jeu
+*/
 public class GameWindowController {
 
     @FXML
