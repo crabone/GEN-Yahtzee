@@ -1,3 +1,11 @@
+/**
+ * Projet : Jyahtzee
+ * @author Rosanne Combremont, Madolyne Dupraz, Kevin Ponce, Fabien Franchini, Ibrahim Ounon
+ * Date : 15.06.16
+ * Version : 3.5
+ * Description : Cette class gère les parties qui ont été créés par les joueurs
+ */
+
 package com.mycompany.jyahtzee.server.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import com.mycompany.jyahtzee.manager.Player;
 
 
 public class Database {
@@ -109,18 +116,6 @@ public class Database {
         return listGame;
     }
 
-    public Player getPlayer(int id) throws SQLException
-    {
-        Statement state = connexion.createStatement();
-        ResultSet resultat = state.executeQuery("select ID,Username,ScoreTotal from Joueur where ID = '" +id + "'");
-        if(resultat.next())
-        {
-            Player player = new Player(resultat.getInt("ID"),resultat.getString("Username"),resultat.getInt("ScoreTotal"));
-            return player;
-        }
-        return null;
-
-    }
     public int newGame(String stateStart) throws SQLException
     {
         PreparedStatement preparedStatement = connexion.prepareStatement("insert into Partie(Etat) values (?)");

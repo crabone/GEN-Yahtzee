@@ -1,14 +1,17 @@
+/**
+ * Projet : Jyahtzee
+ * @author Rosanne Combremont, Madolyne Dupraz, Kevin Ponce, Fabien Franchini, Ibrahim Ounon
+ * Date : 15.06.16
+ * Version : 3.5
+ * Description : Cette class gère les parties qui ont été créés par les joueurs
+ */
+
 package com.mycompany.jyahtzee.manager;
 
 import com.mycompany.jyahtzee.server.JYahtzeeServer;
 import java.util.HashMap;
-import com.mycompany.jyahtzee.server.transport.MultiThreadedServer;
 import java.sql.SQLException;
 
-/**
- *
- * @author Kevin
- */
 public class GameManager 
 {
     HashMap<Integer,Game> games;
@@ -18,9 +21,11 @@ public class GameManager
         games = new HashMap<>();
     }      
     
+    //Création d'un nouveau jeu
     public int createGame(int idPlayer) {
         try
         {
+            //Création de la partie dans la base de données
             JYahtzeeServer.db.connect();
             Game newGame = new Game();         
             games.put(newGame.getIDGame(), newGame);
@@ -34,10 +39,12 @@ public class GameManager
         }
     }
 
+    //Récupère le game selon id
     public Game getGame(int idGame) {
         return games.get(idGame);
     }
     
+    //Rejoindre un jeu selon son id
     public boolean joinGame(int idGame, int idPlayer) {
         try
         {
@@ -48,6 +55,7 @@ public class GameManager
                 return false;
             }
             JYahtzeeServer.db.connect();
+            //Ajoute le joueur dans la db
             ret = game.addPlayer(idPlayer);
             JYahtzeeServer.db.disconnect();
             return ret;
@@ -60,7 +68,15 @@ public class GameManager
         
     }
     
-    //id game
+    //Reçois la case jouer par le joueur
+    public boolean decisionPlayer(int idGame,int idPlayer,int idCase)
+    {
+        Game game = games.get(idGame);
+        return game.playCase(idPlayer, idCase);        
+        
+    }
+    
+    //Ajout un observeur au jeu
     public boolean observeGame(int idGame, int idObserver)
     {
         try
@@ -75,6 +91,7 @@ public class GameManager
         }
     }
     
+    //Lance un dés
     public void rollInGame(int idGame)
     {
         Game game = games.get(idGame);
