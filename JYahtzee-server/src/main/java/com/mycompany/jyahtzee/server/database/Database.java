@@ -1,3 +1,11 @@
+/**
+ * Projet : Jyahtzee
+ * @author Rosanne Combremont, Madolyne Dupraz, Kevin Ponce, Fabien Franchini, Ibrahim Ounon
+ * Date : 15.06.16
+ * Version : 3.5
+ * Description : Cette class gère les parties qui ont été créés par les joueurs
+ */
+
 package com.mycompany.jyahtzee.server.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import com.mycompany.jyahtzee.manager.Player;
 
 /**
  * Projet : Jyahtzee
@@ -128,6 +135,10 @@ public class Database {
             return listPlayers;
     }
 
+    /** methode renvoyant la liste de toutes les parties
+     * @return la liste de toutes les parties
+     * @throws SQLException 
+     */
     public ArrayList<ArrayList<String>> getGames() throws SQLException
     {
         Statement state = connexion.createStatement();
@@ -153,25 +164,6 @@ public class Database {
         }
         return listGame;
     }
-
-    /** méthode permettant de récupérer un joueur de la base de données a partir de son id
-     * @param id l'id du joueur
-     * @return le joueur correspond a l'id
-     * @throws SQLException 
-     */
-    public Player getPlayer(int id) throws SQLException
-    {
-        Statement state = connexion.createStatement();
-        // requete pour selectionner le joueur a partir de son id
-        ResultSet resultat = state.executeQuery("select ID,Username,ScoreTotal from Joueur where ID = '" +id + "'");
-        if(resultat.next())
-        {
-            Player player = new Player(resultat.getInt("ID"),resultat.getString("Username"),resultat.getInt("ScoreTotal"));
-            return player;
-        }
-        return null;
-
-    }
     
     /**
      * Cette methode crée un nouveau jeu
@@ -179,6 +171,7 @@ public class Database {
      * @return l'id de la partie
      * @throws SQLException 
      */
+
     public int newGame(String stateStart) throws SQLException
     {
         // On insère d'abord une partie dans la base de données

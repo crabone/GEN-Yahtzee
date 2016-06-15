@@ -1,7 +1,9 @@
 package com.mycompany.jyahtzee.client.gui.gameWindow;
 
+import com.mycompany.jyahtzee.client.JYahtzeeClient;
 import com.mycompany.jyahtzee.client.transport.Client;
 import com.mycompany.jyahtzee.client.transport.Communication;
+import com.mycompany.jyahtzee.client.transport.Protocole;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -97,52 +99,80 @@ public class GameWindowController {
     // Ceci est liée au bouton "Lancer les dés" de la fenetre de jeu
     // Ici tu met les méthodes qui faut pour le lancer de dés.
     @FXML
-    private void rollDiceButton() {
-        Client client = Client.getInstance();
-        Communication com = new Communication(client);
+    private void rollDiceButton() throws Exception{
         // Pour cela tu as la valeur actuelle des dés qui sont défini par des label
         // de0, de1, de2, de3, de4
         // Ainsi que les checkbox correspondante (si la checkbox est cochée, les dés ne seront pas lancés.
         // cb0, cb1, cb2, cb3, cb4
 
         if(!cb0.isSelected()) {
-            try {
-                de0.setText(Integer.toString(com.rollDice(0)));
-            } catch (IOException e) {
-                e.printStackTrace();
+            JYahtzeeClient.com.setId("0");
+            JYahtzeeClient.com.setAbout(Protocole.CMD_ROLL);
+            synchronized (JYahtzeeClient.com) {
+                JYahtzeeClient.com.notify();
             }
+            synchronized (JYahtzeeClient.com) {
+                JYahtzeeClient.com.wait();
+            }
+            int value = JYahtzeeClient.com.getResultInt();
+            JYahtzeeClient.com.clearVar();
+            de0.setText(Integer.toString(value));
         }
 
         if(!cb1.isSelected()) {
-            try {
-                de1.setText(Integer.toString(com.rollDice(1)));
-            } catch (IOException e) {
-                e.printStackTrace();
+            JYahtzeeClient.com.setId("1");
+            JYahtzeeClient.com.setAbout(Protocole.CMD_ROLL);
+            synchronized (JYahtzeeClient.com) {
+                JYahtzeeClient.com.notify();
             }
+            synchronized (JYahtzeeClient.com) {
+                JYahtzeeClient.com.wait();
+            }
+            int value = JYahtzeeClient.com.getResultInt();
+            JYahtzeeClient.com.clearVar();
+            de1.setText(Integer.toString(value));
         }
 
         if(!cb2.isSelected()) {
-            try {
-                de2.setText(Integer.toString(com.rollDice(2)));
-            } catch (IOException e) {
-                e.printStackTrace();
+            JYahtzeeClient.com.setId("2");
+            JYahtzeeClient.com.setAbout(Protocole.CMD_ROLL);
+            synchronized (JYahtzeeClient.com) {
+                JYahtzeeClient.com.notify();
             }
+            synchronized (JYahtzeeClient.com) {
+                JYahtzeeClient.com.wait();
+            }
+            int value = JYahtzeeClient.com.getResultInt();
+            JYahtzeeClient.com.clearVar();
+            de2.setText(Integer.toString(value));
         }
 
         if(!cb3.isSelected()) {
-            try {
-                de3.setText(Integer.toString(com.rollDice(3)));
-            } catch (IOException e) {
-                e.printStackTrace();
+            JYahtzeeClient.com.setId("3");
+            JYahtzeeClient.com.setAbout(Protocole.CMD_ROLL);
+            synchronized (JYahtzeeClient.com) {
+                JYahtzeeClient.com.notify();
             }
+            synchronized (JYahtzeeClient.com) {
+                JYahtzeeClient.com.wait();
+            }
+            int value = JYahtzeeClient.com.getResultInt();
+            JYahtzeeClient.com.clearVar();
+            de3.setText(Integer.toString(value));
         }
 
         if(!cb4.isSelected()) {
-            try {
-                de4.setText(Integer.toString(com.rollDice(4)));
-            } catch (IOException e) {
-                e.printStackTrace();
+            JYahtzeeClient.com.setId("4");
+            JYahtzeeClient.com.setAbout(Protocole.CMD_ROLL);
+            synchronized (JYahtzeeClient.com) {
+                JYahtzeeClient.com.notify();
             }
+            synchronized (JYahtzeeClient.com) {
+                JYahtzeeClient.com.wait();
+            }
+            int value = JYahtzeeClient.com.getResultInt();
+            JYahtzeeClient.com.clearVar();
+            de4.setText(Integer.toString(value));
         }
 
         //bool cb1.isSelected();

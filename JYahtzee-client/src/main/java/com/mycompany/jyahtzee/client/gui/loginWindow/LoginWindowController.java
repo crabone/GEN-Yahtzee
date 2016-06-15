@@ -4,6 +4,7 @@ import com.mycompany.jyahtzee.client.JYahtzeeClient;
 import com.mycompany.jyahtzee.client.gui.newAccountWindow.NewAccountWindowController;
 import com.mycompany.jyahtzee.client.transport.Client;
 import com.mycompany.jyahtzee.client.transport.Communication;
+import com.mycompany.jyahtzee.client.transport.Protocole;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,11 +64,17 @@ public class LoginWindowController {
     @FXML
     private void authentificationClient () throws Exception {
 
-        Client client = new Client("localhost", 4321);
-        client.connect();
-        Communication com = new Communication(client);
-        boolean ok = com.authentification(login.getText(), password.getText());
-
+        JYahtzeeClient.com.setArgUserName(login.getText());
+        JYahtzeeClient.com.setArgPWD(password.getText());
+        JYahtzeeClient.com.setAbout(Protocole.CMD_AUTH);
+        synchronized (JYahtzeeClient.com) {
+            JYahtzeeClient.com.notify();
+        }
+        synchronized (JYahtzeeClient.com) {
+            JYahtzeeClient.com.wait();
+        }
+        boolean ok = JYahtzeeClient.com.getResultBool();
+        JYahtzeeClient.com.clearVar();
         if (ok){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
@@ -94,6 +101,7 @@ public class LoginWindowController {
     // le fenetre se ferme rien besoin de faire ici...
     @FXML
     private void closeApp(){
+        JYahtzeeClient.threadCom.quit();
         Platform.exit();
         ((Stage)mainPane.getScene().getWindow()).close();
     }

@@ -4,6 +4,7 @@ import com.mycompany.jyahtzee.client.JYahtzeeClient;
 import com.mycompany.jyahtzee.client.gui.gameWindow.Score;
 import com.mycompany.jyahtzee.client.transport.Client;
 import com.mycompany.jyahtzee.client.transport.Communication;
+import com.mycompany.jyahtzee.client.transport.Protocole;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -41,13 +42,23 @@ public class MainWindowController {
     private void initialize() throws Exception
     {
         // Afficher liste de partie a rejoindre
-        Client client = Client.getInstance();
-        Communication com = new Communication(client);
-
         ObservableList<Partie> parties = FXCollections.observableArrayList();
 
         ArrayList<ArrayList<String>> listGameCreated = new ArrayList<ArrayList<String>>();
-        boolean ok = com.getGames(listGameCreated);
+
+
+        JYahtzeeClient.com.setAbout(Protocole.CMD_GETGAMES);
+
+        synchronized (JYahtzeeClient.com) {
+            JYahtzeeClient.com.notify();
+        }
+        synchronized (JYahtzeeClient.com) {
+            JYahtzeeClient.com.wait();
+        }
+        boolean ok = JYahtzeeClient.com.getResultBool();
+        JYahtzeeClient.com.clearVar();
+
+        listGameCreated = JYahtzeeClient.com.getGames();
         if(ok) {
             for(int i = 0; i < listGameCreated.size(); i++) {
                 ObservableList<String> tmp = FXCollections.observableArrayList();
@@ -76,11 +87,22 @@ public class MainWindowController {
                     String id = idPartie.get();
 
                     boolean joinOk = false;
-                    try {
-                        joinOk = com.join(id);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+                    JYahtzeeClient.com.setId(id);
+                    JYahtzeeClient.com.setAbout(Protocole.CMD_JOIN);
+                    synchronized (JYahtzeeClient.com) {
+                        JYahtzeeClient.com.notify();
                     }
+                    synchronized (JYahtzeeClient.com) {
+                        try {
+                            JYahtzeeClient.com.wait();
+                        }
+                        catch(InterruptedException e){
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                    joinOk = JYahtzeeClient.com.getResultBool();
+                    JYahtzeeClient.com.clearVar();
 
                     if(joinOk) {
                         FXMLLoader loader = new FXMLLoader(JYahtzeeClient.class.getResource("gui/gameWindow/GameWindow.fxml"));
@@ -108,9 +130,17 @@ public class MainWindowController {
     // sous l'onglet "Accueil"
     @FXML
     private void createNewGame() throws Exception {
-        Client client = Client.getInstance();
-        Communication com = new Communication(client);
-        boolean ok = com.create();
+
+
+        JYahtzeeClient.com.setAbout(Protocole.CMD_CREATION);
+        synchronized (JYahtzeeClient.com) {
+            JYahtzeeClient.com.notify();
+        }
+        synchronized (JYahtzeeClient.com) {
+            JYahtzeeClient.com.wait();
+        }
+        boolean ok = JYahtzeeClient.com.getResultBool();
+        JYahtzeeClient.com.clearVar();
         if(ok) {
             FXMLLoader loader = new FXMLLoader(JYahtzeeClient.class.getResource("gui/gameWindow/GameWindow.fxml"));
 

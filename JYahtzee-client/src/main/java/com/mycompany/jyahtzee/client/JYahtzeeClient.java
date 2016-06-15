@@ -1,5 +1,7 @@
 package com.mycompany.jyahtzee.client;
 
+import com.mycompany.jyahtzee.client.transport.CommRequired;
+import com.mycompany.jyahtzee.client.transport.Communication;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,7 +15,12 @@ public class JYahtzeeClient extends Application {
     private static Stage mainStage;
     private static Pane mainPane;
 
+    public static Communication threadCom;
+    public static CommRequired com;
+
     public static void main(String[] args) throws IOException {
+        com = new CommRequired();
+        threadCom = new Communication();
         launch(args);
     }
 
