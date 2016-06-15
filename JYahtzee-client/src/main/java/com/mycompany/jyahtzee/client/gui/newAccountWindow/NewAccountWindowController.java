@@ -1,9 +1,11 @@
 package com.mycompany.jyahtzee.client.gui.newAccountWindow;
 
+import com.mycompany.jyahtzee.client.JYahtzeeClient;
 import com.mycompany.jyahtzee.client.transport.Client;
 import java.io.IOException;
 
 import com.mycompany.jyahtzee.client.transport.Communication;
+import com.mycompany.jyahtzee.client.transport.Protocole;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
@@ -37,11 +39,17 @@ public class NewAccountWindowController {
     // Ici tu met les méthodes qui faut pour que le client puisse se créer un compte!
     @FXML
     private void registerClient() throws Exception {
-        Client client = new Client("localhost", 4321);
-
-        client.connect();
-        Communication com = new Communication(client);
-        boolean ok = com.inscription(login.getText(), password.getText());        
+        JYahtzeeClient.com.setArgUserName(login.getText());
+        JYahtzeeClient.com.setArgPWD(password.getText());
+        JYahtzeeClient.com.setAbout(Protocole.CMD_INSCRIPTION);
+        synchronized (JYahtzeeClient.com) {
+            JYahtzeeClient.com.notify();
+        }
+        synchronized (JYahtzeeClient.com) {
+            JYahtzeeClient.com.wait();
+        }
+        boolean ok = JYahtzeeClient.com.getResultBool();
+        JYahtzeeClient.com.clearVar();
 
         if (ok){
             ((Stage)mainPane.getScene().getWindow()).close();
@@ -56,6 +64,5 @@ public class NewAccountWindowController {
             alert.setContentText("Il y a eu une erreur lors de la creation de votre compte");
             alert.showAndWait();
         }
-        client.disconnect();
     }
 }

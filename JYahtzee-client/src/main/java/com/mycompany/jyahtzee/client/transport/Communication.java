@@ -4,24 +4,118 @@
  * and open the template in the editor.
  */
 package com.mycompany.jyahtzee.client.transport;
+import com.mycompany.jyahtzee.client.JYahtzeeClient;
 import com.mycompany.jyahtzee.client.hash.Hash;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+//import static com.mycompany.jyahtzee.client.JYahtzeeClient.client;
+
 /**
  *
  * @author rosanne
  */
-public class Communication {
+public class Communication implements Runnable{
     private Client client;
-    
-    public Communication(Client client)
+    private Thread activity;
+    private boolean exitRequested = false;
+
+    public Communication()
     {
-        this.client = client;
+        activity = new Thread(this);
+        activity.start();
+        client = new Client("localhost", 4321);
+        try {
+            client.connect();
+        }
+        catch(IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
-    
+
+    @Override
+    public void run() {
+        String reason = "";
+        boolean result;
+        int resultInt;
+        while(!exitRequested)
+        {
+            try {
+                synchronized (JYahtzeeClient.com) {
+                    JYahtzeeClient.com.wait();
+                }
+                if(exitRequested){
+                    break;
+                }
+                reason = JYahtzeeClient.com.getAbout();
+
+                switch (reason){
+                    // authentification
+                    case Protocole.CMD_AUTH:
+                        result = authentification(JYahtzeeClient.com.getArgUserName(), JYahtzeeClient.com.getArgPWD());
+                        JYahtzeeClient.com.setResultBool(result);
+                        synchronized (JYahtzeeClient.com) {
+                            JYahtzeeClient.com.notify();
+                        }
+                        break;
+                    // registration
+                    case Protocole.CMD_INSCRIPTION:
+                        result = inscription(JYahtzeeClient.com.getArgUserName(), JYahtzeeClient.com.getArgPWD());
+                        JYahtzeeClient.com.setResultBool(result);
+                        synchronized (JYahtzeeClient.com) {
+                            JYahtzeeClient.com.notify();
+                        }
+                        break;
+                    // create game
+                    case Protocole.CMD_CREATION:
+                        result = create();
+                        JYahtzeeClient.com.setResultBool(result);
+                        synchronized (JYahtzeeClient.com) {
+                            JYahtzeeClient.com.notify();
+                        }
+                        break;
+                    // join game
+                    case Protocole.CMD_JOIN:
+                        result = join(JYahtzeeClient.com.getId());
+                        JYahtzeeClient.com.setResultBool(result);
+                        synchronized (JYahtzeeClient.com) {
+                            JYahtzeeClient.com.notify();
+                        }
+                        break;
+                    // play
+                    //case Protocole.:
+
+                    // roll dice
+                    case Protocole.CMD_ROLL:
+                        resultInt = rollDice(Integer.parseInt(JYahtzeeClient.com.getId()));
+                        JYahtzeeClient.com.setResultInt(resultInt);
+                        synchronized (JYahtzeeClient.com) {
+                            JYahtzeeClient.com.notify();
+                        }
+                        break;
+                    // get games
+                    case Protocole.CMD_GETGAMES:
+                        result = getGames(JYahtzeeClient.com.newListGame());
+                        JYahtzeeClient.com.setResultBool(result);
+                        synchronized (JYahtzeeClient.com) {
+                            JYahtzeeClient.com.notify();
+                        }
+                        break;
+                    // quit
+                    case Protocole.CMD_BYE:
+                        quit();
+                        break;
+                }
+            }
+            catch (InterruptedException | IOException e){
+                System.out.println(e.getMessage());
+            }
+
+        }
+    }
     public boolean authentification(String username, String mdp) throws IOException
     {
         String hashedMdp;
@@ -173,9 +267,15 @@ public class Communication {
         return true;
     }
 
-    public void quit() throws IOException
+    public void quit()
     {
-        client.sendMessage(Protocole.CMD_BYE);
+        try {
+            client.sendMessage(Protocole.CMD_BYE);
+            this.activity.interrupt();
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+        }
     }
     
     public int rollDice(int id) throws IOException
